@@ -23,5 +23,4 @@ export default defineNuxtConfig({
           "@urql/vue"
         ], 
       },
-    buildDir: 'client/dist'
 })
