@@ -1,1 +1,17 @@
-# app-node-vue
+[build]
+  command = "npm install && npm run build"
+  publish = "client/.output"
+
+[build.environment]
+  NUXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+  [plugins.inputs]
+    publish = "server"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
