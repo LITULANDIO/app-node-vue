@@ -4,6 +4,6 @@
     Access-Control-Allow-Origin = "*"
 
 [build]
-  command = "npm run build"
+  command = "cd client && npm run build"
   publish = "client/dist"
 
