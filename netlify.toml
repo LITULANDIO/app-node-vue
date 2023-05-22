@@ -2,10 +2,8 @@
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
-    
+
 [build]
   command = "npm run build"
   publish = "client/dist"
 
-[[plugins]]
-  package = "@netlify/plugin-functions-core"
