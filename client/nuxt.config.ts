@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     modules: ['@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
     ssr: false,
     build: {
-        dir: 'dist',
         transpile: [
           "@urql/vue"
         ], 
