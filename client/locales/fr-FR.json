@@ -1,0 +1,96 @@
+{
+    "login" : {
+      "login" : "Login",
+      "user" : "Utilisateur",
+      "password" : "Mot de passe",
+      "signIn" : "S'inscrire",
+      "hasRegister" : "¿Vous n'êtes pas inscrit?"
+    },
+    "register" : {
+      "register" : "Registre",
+      "user" : "Utilisateur",
+      "password" : "Mot de passe",
+      "selectImage" : "Sélectionner une image de profil",
+      "email" : "Email",
+      "confirmPass" : "Confirmation du mot de passe",
+      "signUp" : "S'inscrire",
+      "registered" : "Je suis déjà inscrit"
+    },
+    "dashboard" : {
+      "buttonCreate" : "Créer un groupe",
+      "buttonJoin" : "Rejoindre un groupe"
+    },
+    "navMenu" : {
+      "welcome" : "Bonjour",
+      "logo" : "Votre ami invisible"
+    },
+    "modals" : {
+      "create" : {
+        "header" : "Créer un groupe",
+        "field1" : "Nom du groupe",
+        "field2" : "Date",
+        "field3" : "Budget",
+        "button" : "Enregistrer"
+      },
+      "join" : {
+        "header" : "Rejoindre the group",
+        "field1" : "User",
+        "field2" : "Code",
+        "button" : "Rejoindre"
+      },
+      "addGuest" : {
+        "header" : "Add ami invisble",
+        "field1" : "Nom ami invisible",
+        "field2" : "Email du destinataire",
+        "field3" : "Email de l'expéditeur",
+        "button" : "Enregistrer"
+      },
+      "warning1" : {
+        "text" : "Vous ne pouvez pas vous sélectionner, réessayez."
+      },
+      "warning2" : {
+        "text" : "Vous avez déjà sélectionné votre ami invisible."
+      },
+      "success" : {
+        "text" : "Félicitations, vous avez choisi votre ami invisible."
+      },
+      "wishes" : {
+        "header": "Ajoutez vos souhaits",
+        "wish1" : "Souhait 1",
+        "wish2" : "Souhait 2",
+        "wish3" : "Souhait 3",
+        "wish4" : "Souhait 4",
+        "wish5" : "Souhait 5",
+        "button" : "Enregistrer"
+      }
+    },
+    "buttons" : {
+      "addGuest" : "Ajouter un invité",
+      "myFriend" : "Mon ami"
+    },
+    "pages" : {
+      "myFriend" : {
+        "field1" : "AMI INVISIBLE",
+        "field2" : "AMI INVISIBLE SOUHAITE",
+        "field3" : "MES SOUHAITS",
+        "headerModal" : "Souhait for",
+        "message" : "Votre ami invisible n'a pas encore publié ses souhaits"
+      },
+      "profile": {
+        "header": "Mon profil",
+        "password": "Modifier le mot de passe",
+        "edit": "Editer l'image",
+        "save": "Sauver"
+      },
+      "groups": {
+        "header": "Groupes"
+      }
+    },
+    "language": "Langue",
+    "form": {
+        "validations": {
+            "case1": "",
+            "case2": ""
+        }
+    }
+  }

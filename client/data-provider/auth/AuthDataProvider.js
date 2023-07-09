@@ -37,6 +37,17 @@ export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
                 throw new Error('Error baseApiUrl are necessary')
             }
             break; 
+        case "UPDATE_PASSWORD":
+            if (baseApiUrl) {
+                options = {
+                    method: "POST",
+                    url: `${baseApiUrl}/auth/updatePassword`,
+                    data: params
+                }
+            } else {
+                throw new Error('Error baseApiUrl are necessary')
+            }
+            break; 
     }
 
     if (!!options) {

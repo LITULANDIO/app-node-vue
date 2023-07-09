@@ -2,6 +2,7 @@
     <Title>Dashboard {{ user.name }}</Title>
     <NuxtLayout/>
     <section class="flex justify-center items-center flex-col">
+      <h1 class="capitalize text-center text-white text-2xl">{{ $t('pages.groups.header') }}</h1>
       <Groups 
         :groups="groups"
         :isLoading="isLoading"
@@ -25,8 +26,8 @@
       />
     </section>
     <section class="flex justify-center items-center bottom-0 fixed w-full mb-3">
-      <Button label="CREAR GRUP" @onClicked="onCreateGroup"/>
-      <Button label="UNIRSE A UN GRUP" @onClicked="onShowModalCodeGroup" class="ml-3"/>
+      <Button :label="$t('dashboard.buttonCreate')" @onClicked="onCreateGroup"/>
+      <Button :label="$t('dashboard.buttonJoin')" @onClicked="onShowModalCodeGroup" class="ml-3"/>
     </section>
 </template>
 

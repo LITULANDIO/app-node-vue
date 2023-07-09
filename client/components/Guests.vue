@@ -3,7 +3,13 @@
         <div v-if="isLoading">
             <div class="fixed h-0.5 w-full z-50 bg-white">IS LOADING</div>
         </div>
-        <div v-else class="w-full flex justify-center items-center flex-wrap mt-5">
+     
+        <div v-else class="w-full">
+          <div class="flex justify-center items-center">
+            <BackButton />
+            <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
+          </div>
+          <div class="w-full flex justify-center items-center flex-wrap mt-5">
             <template v-for="guest in unselectedFriends" :key="guest.id">
                 <div id="guest" class="cursor-pointer"
                     @mouseover="onVisibleDrop(guest.id)" 
@@ -41,21 +47,22 @@
             <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
                <div class="text-center">
                    <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-                   <p class="mb-3">No et pots seleccionar a tu mateix torna-ho a intentar</p>
+                   <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
                </div>
             </Modal>
             <Modal :show="showModalWarning2" @onClose="onCloseModalWarn2" padding>
                <div class="text-center">
                    <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-                   <p class="mb-3">Ja has seleccionat el teu amic invisible</p>
+                   <p class="mb-3">{{ $t('modals.warning2.text') }}</p>
                </div>
             </Modal>
             <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
                 <div class="text-center">
                     <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
-                    <p class="mb-3">Enhorabona has seleccionat al teu amic invisible</p>
+                    <p class="mb-3">{{ $t('modals.success.text') }}</p>
                 </div>
             </Modal>
+        </div>
         </div>
     </Transition>
   </template>
@@ -120,7 +127,7 @@ import { storeToRefs } from 'pinia'
         if(guest.id === storeAuth.user.id) {
             showModalWarning1.value = true
             return
-        } else if (groupOfGuest.friend.id >= 1) {
+        } else if (groupOfGuest?.friend?.id >= 1) {
             showModalWarning2.value = true
         } else {
             const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
@@ -192,5 +199,8 @@ import { storeToRefs } from 'pinia'
 .slide-fade-enter-from,
 .slide-fade-leave-to {
   opacity: 0;
+}
+.text-center {
+  text-shadow: 2px 2px 4px rgba(4, 192, 168, 0.7651654412);
 }
  </style>

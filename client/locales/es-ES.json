@@ -1,0 +1,90 @@
+{
+  "login": {
+    "login": "inicio de sesión",
+    "usuario": "Usuario",
+    "contraseña": "Contraseña",
+    "iniciar sesión": "Iniciar sesión",
+    "hasRegistrado": "¿No se ha registrado?"
+  },
+  "register": {
+    "registrar": "Registrarse",
+    "usuario": "Usuario",
+    "contraseña": "Contraseña",
+    "selectImage": "Selecciona una imagen de perfil",
+    "email": "Correo electrónico",
+    "confirmPass": "Confirmar contraseña",
+    "signUp": "Regístrate",
+    "registered": "Ya estoy registrado"
+  },
+  "dashboard": {
+    "buttonCreate": "Crear Grupo",
+    "buttonJoin": "Unirse a un grupo"
+  },
+  "navMenu": {
+    "welcome": "Hola",
+    "logo": "Tu amigo invisible"
+  },
+  "modals": {
+    "create": {
+      "header": "Crear grupo",
+      "field1": "Nombre grupo",
+      "field2": "Fecha",
+      "field3": "Presupuesto",
+      "button": "Guardar"
+    },
+    "join": {
+      "header": "Únete al grupo",
+      "field1": "Usuario",
+      "field2": "Código",
+      "button": "Unirse"
+    },
+    "addGuest": {
+      "header": "Añadir amigo invisible",
+      "field1": "Amigo invisible",
+      "field2": "Email del destinatario",
+      "field3": "Email del remitente",
+      "button": "Guardar"
+    },
+    "warning1": {
+      "text": "No puedes seleccionarte, inténtalo de nuevo."
+    },
+    "warning2": {
+      "text": "Ya has seleccionado a tu amigo invisible."
+    },
+    "success": {
+      "text": "Enhorabuena ya has seleccionado a tu amigo invisible."
+    },
+    "wishes": {
+      "header": "Añade tus deseos",
+      "wish1": "Deseo 1",
+      "wish2": "Deseo 2",
+      "wish3": "Deseo 3",
+      "wish4": "Deseo 4",
+      "wish5": "Deseo 5",
+      "button": "Guardar"
+    }
+  },
+  "buttons": {
+    "addGuest": "Añadir invitado",
+    "myFriend": "Mi Amigo"
+  },
+  "pages": {
+    "myFriend": {
+      "field1": "AMIGO INVISIBLE",
+      "field2": "AMIGO INVISIBLE DESEA",
+      "field3": "MIS DESEOS",
+      "headerModal": "Deseos para",
+      "message": "Tu amigo invisible aún no ha publicado sus deseos."
+    },
+    "profile": {
+      "header": "Mi perfil",
+      "password": "Cambiar contraseña",
+      "edit": "Editar imagen",
+      "save": "Guardar"
+    },
+    "groups": {
+      "header": "Grupos"
+    }
+  },
+  "language": "Idioma"
+}

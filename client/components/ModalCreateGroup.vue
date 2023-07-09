@@ -1,5 +1,5 @@
 <template>
-      <Modal header="Crear un grupo" :show="isOpen" @onClose="onClose">
+      <Modal :header="$t('modals.create.header')" :show="isOpen" @onClose="onClose">
             <VForm
               :validation-schema="schema"
               :initial-values="dataGroup"
@@ -10,7 +10,7 @@
                 type="text"
                 name="name"
                 label="Name"
-                placeholder="Name group"
+                :placeholder="$t('modals.create.field1')"
                 icon="fa-people-line"
                 v-model="dataGroup.name"
                 :value="dataGroup.name"
@@ -19,7 +19,7 @@
                 type="date"
                 name="date"
                 label="Date"
-                placeholder="Date"
+                :placeholder="$t('modals.create.field2')"
                 icon="fa-calendar-days"
                 v-model="dataGroup.date"
                 :value="dataGroup.date"
@@ -29,12 +29,12 @@
                 type="text"
                 name="budget"
                 label="Budget"
-                placeholder="Budget"
+                :placeholder="$t('modals.create.field3')"
                 icon="fa-sack-dollar"
                 v-model="dataGroup.budget"
                 :value="dataGroup.budget"
               />
-              <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">Guardar</button></div>
+              <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.create.button') }}</button></div>
             </VForm>
         </Modal>
 </template>

@@ -1,31 +1,35 @@
 <template>
     <NuxtLayout/>
+    <div class="pt-4">
+        <BackButton />
+    </div>
     <section id="options" class="flex justify-center items-center flex-col">
-        <Button label="AMIC INVISIBLE" @click="onViewFriend"/>
+        <Button :label="$t('pages.myFriend.field1')" @click="onViewFriend"/>
         <Transition name="slide-fade">
             <section class="view-friend" v-if="isViewFriend">
                 <Modal :show="isViewFriend" @onClose="onCloseViewFriend" padding>
-                    <div>
+                    <h1 class="capitalize text-center mb-5">{{ friend.friend.name }}</h1>
+                    <div class="container-photo mb-3">
                         <img :src="friend.friend.photo" :alt="friend.friend.name" />
                     </div>
                 </Modal>
             </section>
         </Transition>
-        <Button label="DESITJOS AMIC INVSIBLE" @click="onViewWishesFriend"/>
+        <Button :label="$t('pages.myFriend.field2')" @click="onViewWishesFriend"/>
         <Transition name="slide-fade">
             <section class="view-friend" v-if="isViewWishesFriend">
-                <Modal :header="`Desitjos de ${friend.friend.name}`" :show="isViewWishesFriend" @onClose="onCloseViewWishesFriend" padding>
+                <Modal :header="`${$t('pages.myFriend.headerModal')} ${friend.friend.name}`" :show="isViewWishesFriend" @onClose="onCloseViewWishesFriend" padding>
                     <ul v-if="!isFriendWishesEmpty" class="mt-3">
                         <li v-for="wish in friendWishes">
                             <font-awesome-icon v-if="wish" icon="fas fa-gift" /> 
                             <span class="ml-2">{{ wish }}</span>
                         </li>
                     </ul>
-                    <div class="flex justify-center" v-else>El teu amic invisible encara no ha posat els seus desitjos 🤷</div>
+                    <div class="flex justify-center" v-else>{{ $t('pages.myFriend.message') }} 🤷</div>
                 </Modal>
             </section>
         </Transition>
-        <Button label="ELS MEUS DESITJOS" @click="onViewFormWishes"/>
+        <Button :label="$t('pages.myFriend.field3')" @click="onViewFormWishes"/>
         <Transition name="slide-fade">
             <section class="view-friend" v-if="isViewWishesMe">
                 <FormWishes 
@@ -37,7 +41,6 @@
             </section>
         </Transition>
     </section>
-
 </template>
 
 <script setup>
@@ -95,12 +98,25 @@ const onCloseViewWishesFriend = () => isViewWishesFriend.value = false
 #options{
     padding-top: 3rem;
     .button{
-        min-width: 60%;
+        min-width: 70%;
         margin-bottom: 2rem;
         text-align: center;
     }
     .view-friend{
        
+    }
+    .container-photo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(4, 192, 168, 0.7651654412);
+            width: 10rem;
+            height: 10rem;
+            object-fit: cover;
+        }
     }
 }
 .slide-fade-enter-active {

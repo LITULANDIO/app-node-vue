@@ -31,13 +31,13 @@ const onClicked = (group) => emit("onClicked", group)
 
 <style lang="scss" scoped>
 #groups{
-    max-height: 38rem;
+    max-height: calc(100vh - 275px);
     overflow: scroll;
     margin-top: 2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     .box-group{
-        min-width: 15rem;
+        min-width: 18rem;
         margin-bottom: 0.5rem;
         margin-top: 1.1rem;
         text-align: center;

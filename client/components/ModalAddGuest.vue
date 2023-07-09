@@ -1,5 +1,5 @@
 <template>
-    <Modal header="Afegir amic invisible" :show="isOpen" @onClose="onClose">
+    <Modal :header="$t('modals.addGuest.header')" :show="isOpen" @onClose="onClose">
         <VForm
             :validation-schema="schema"
             :initial-values="guest"
@@ -11,7 +11,7 @@
                 type="text"
                 name="name"
                 label="Name"
-                placeholder="Name Friend"
+                :placeholder="$t('modals.addGuest.field1')"
                 icon="fa-user"
                 v-model="guest.name"
                 :value="guest.name"
@@ -28,7 +28,7 @@
                 type="text"
                 name="send"
                 label="Email"
-                placeholder="Receptor Email"
+                :placeholder="$t('modals.addGuest.field2')"
                 icon="fa-envelope"
                 v-model="guest.send"
                 :value="guest.send"
@@ -37,12 +37,12 @@
                 type="text"
                 name="to"
                 label="Email"
-                placeholder="Emisor email"
+                :placeholder="$t('modals.addGuest.field3')"
                 icon="fa-envelope"
                 v-model="guest.to"
                 :value="guest.to"
             />
-            <div><button :class="{ 'cursor-pointer button': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">Guardar</button></div>
+            <div><button :class="{ 'cursor-pointer button': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.addGuest.button') }}</button></div>
         </VForm>
     </Modal>
 </template>

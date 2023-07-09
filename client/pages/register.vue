@@ -8,15 +8,15 @@
             :initial-values="dataUser"
             v-slot="{ meta: formMeta, errors: formErrors }"
             @submit.prevent="onSubmit">
-            <h2 class="display mt-2 mb-8">Registre</h2>
-            <div class="flex justify-end img-preview">
+            <h2 class="display mt-2 mb-8">{{ $t('register.register') }}</h2>
+            <div class="flex justify-end img-preview mb-2">
               <img v-show="localImage" :src="localImage" /> 
             </div>
             <TextField
                 type="text"
                 name="user"
                 label="User"
-                placeholder="Usuari"
+                :placeholder="$t('register.user')"
                 icon="fas fa-user"
                 check
                 v-model="dataUser.user"
@@ -30,13 +30,13 @@
                 v-show="false"
                 accept="image/png, image/jpeg"
                 id="file_input">
-                <div class="file-custom" @click="onSelectImage">Selecciona una imatge de perfil</div>
+                <div class="file-custom" @click="onSelectImage">{{ $t('register.selectImage') }}</div>
             </div>
             <TextField
               type="email"
               name="email"
               label="Email"
-              placeholder="Email"
+              :placeholder="$t('register.email')"
               icon="fas fa-envelope"
               check
               v-model="dataUser.email"
@@ -46,7 +46,7 @@
               type="password"
               name="password"
               label="Password"
-              placeholder="Password"
+              :placeholder="$t('register.password')"
               icon="fas fa-lock"
               check
               v-model="dataUser.password"
@@ -56,7 +56,7 @@
               type="password"
               name="confirmed"
               label="Confirm Password"
-              placeholder="Confirm Password"
+              :placeholder="$t('register.confirmPass')"
               icon="fas fa-lock"
               check
               v-model="dataUser.confirmed"
@@ -70,9 +70,9 @@
                 type="submit"
                 @click="onSubmit"
                 >
-                Registret
+                {{ $t('register.signUp') }}
                 </button>
-                <nuxt-link to="/"><span class="text-xs">Ja estic registrat</span></nuxt-link>
+                <nuxt-link to="/"><span class="text-xs">{{ $t('register.registered') }}</span></nuxt-link>
             </div>
           </VForm>
         </div>
@@ -95,10 +95,10 @@
   const runtimeConfig = useRuntimeConfig();
 
   configure({
-    validateOnBlur: true, // controls if `blur` events should trigger validation with `handleChange` handler
-    validateOnChange: true, // controls if `change` events should trigger validation with `handleChange` handler
-    validateOnInput: false, // controls if `input` events should trigger validation with `handleChange` handler
-    validateOnModelUpdate: true, // controls if `update:modelValue` events should trigger validation with `handleChange` handler
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnInput: false,
+    validateOnModelUpdate: true,
   });
   const schema = object({
     email: string()
@@ -114,7 +114,7 @@
     password: string().required().min(8).label("Your Password"),
     confirmed: string()
       .required()
-      .oneOf([yupRef("password")], "La contrassenya no coincideix") //Cross-Field Validation
+      .oneOf([yupRef("password")], "La contrassenya no coincideix")
       .label("La confirmació de la contras"),
   });
 // #end
@@ -155,10 +155,11 @@ const onSelectImage = () =>{
   
   <style lang="scss" scoped>
    .wrapper {
-    min-width: 100%;
-    min-height: 100%;
-    background-size: cover;
-    background-position: center;
+    height: calc(100vh - 199px);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
     .card{
         background-color: #3F3E3E;
         color: white;
@@ -182,16 +183,15 @@ const onSelectImage = () =>{
     .img-preview{
       
       img{
-        min-width: 80px;
-        height: 80px;
-        object-fit: cover;
         border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid rgba(4, 192, 168, 0.7651654412);
+        width: 80px;
+        height: 80px;
         position: absolute;
         top: 1rem;
         right: 2rem;
-        margin: 0 auto;
-        border: 2px solid rgba(4,192,168,0.7651654411764706);
-
+        object-fit: cover;
       }
     }
     .file-custom{

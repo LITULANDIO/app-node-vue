@@ -12,7 +12,7 @@ import { storeToRefs } from 'pinia'
 import { useStoreGroup } from '../stores/groups';
 const storeGroup = useStoreGroup()
 const { group } = storeToRefs(storeGroup)
-const { user } = storeToRefs(useStoreAuth())
+const { user, groups } = storeToRefs(useStoreAuth())
 const { clearAuthData } = useAuth()
 
 const onLogout = () => {
@@ -25,7 +25,13 @@ const onLogout = () => {
       budget: '',
       snug: '',
     }
-}
+    user.value = {
+      id: '',
+      name: '',
+      photo: ''
+    }
+    groups.value = []
+  }
 
 definePageMeta({
   middleware: ["auth"]

@@ -1,0 +1,90 @@
+{
+    "login": {
+      "login": "Iniciar sessió",
+      "user": "Usuari",
+      "password": "Contrasenya",
+      "signIn": "Iniciar sessió",
+      "hasRegister": "¿No t'has registrat?"
+    },
+    "register": {
+      "register": "Registrar",
+      "user": "Usuari",
+      "password": "Contrasenya",
+      "selectImage": "Seleccioneu una foto de perfil",
+      "email": "Correu electrònic",
+      "confirmPass": "Confirmar la contrasenya",
+      "signUp": "Registreu-vos",
+      "registered": "Ja estic registrat"
+    },
+    "dashboard": {
+      "buttonCreate": "Crea un grup",
+      "buttonJoin": "Uneix-te a un grup"
+    },
+    "navMenu": {
+      "welcome": "Hola",
+      "logo": "El teu amic invisible"
+    },
+    "modals": {
+      "create": {
+        "header": "Crea un grup",
+        "field1": "Nom del grup",
+        "field2": "Data",
+        "field3": "Pressupost",
+        "button": "Desa"
+      },
+      "join": {
+        "header": "Uneix-te al grup",
+        "field1": "Usuari",
+        "field2": "Codi",
+        "button": "Uneix-te"
+      },
+      "addGuest": {
+        "header": "Afegeix l'amic invisible",
+        "field1": "Nom de l'amic invisible",
+        "field2": "Email del destinatari",
+        "field3": "Email del remitent",
+        "button": "Desa"
+      },
+      "warning1": {
+        "text": "No pots seleccionar-te, torna-ho a provar."
+      },
+      "warning2": {
+        "text": "Ja has seleccionat el teu amic invisible"
+      },
+      "success": {
+        "text": "Enhorabona, has seleccionat el teu amic invisible."
+      },
+      "wishes": {
+        "header": "Afegeix els teus desitjos",
+        "wish1": "Desig 1",
+        "wish2": "Desig 2",
+        "wish3": "Desig 3",
+        "wish4": "Desig 4",
+        "wish5": "Desig 5",
+        "button": "Desa"
+      }
+    },
+    "buttons": {
+      "addGuest": "Afegeix convidat",
+      "myFriend": "El meu amic"
+    },
+    "pages": {
+      "myFriend": {
+        "field1": "AMIC INVISBLE",
+        "field2": "DESITJOS DE L'AMIC INVISIBLE",
+        "field3": "ELS MEUS DESITJOS",
+        "headerModal": "Desitjos de",
+        "message": "El teu amic invisble encara no ha publicat els seus desitjos"
+      },
+      "profile": {
+        "header": "El meu perfil",
+        "password": "Cambiar contrasenya",
+        "edit": "Editar imatge",
+        "save": "Desar"
+      },
+      "groups": {
+        "header": "Grups"
+      }
+    },
+    "language": "Idioma"
+ }

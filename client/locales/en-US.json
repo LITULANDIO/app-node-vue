@@ -1,0 +1,90 @@
+{
+  "login": {
+    "login": "Login",
+    "user": "User",
+    "password": "Password",
+    "signIn": "Sign in",
+    "hasRegister": "¿You have not registered?"
+  },
+  "register": {
+    "register": "Register",
+    "user": "User",
+    "password": "Password",
+    "selectImage": "Select a profile picture",
+    "email": "Email",
+    "confirmPass": "Confirm password",
+    "signUp": "Sign Up",
+    "registered": "I'm already registered"
+  },
+  "dashboard": {
+    "buttonCreate": "Create Group",
+    "buttonJoin": "Join a Group"
+  },
+  "navMenu": {
+    "welcome": "Hello",
+    "logo": "Your invisible friend"
+  },
+  "modals": {
+    "create": {
+      "header": "Create group",
+      "field1": "Name group",
+      "field2": "Date",
+      "field3": "Budget",
+      "button": "Save"
+    },
+    "join": {
+      "header": "Join the group",
+      "field1": "User",
+      "field2": "Code",
+      "button": "Join"
+    },
+    "addGuest": {
+      "header": "Add invisble friend",
+      "field1": "Name invisible friend",
+      "field2": "Recipient's e-mail",
+      "field3": "Sender's e-mail",
+      "button": "Save"
+    },
+    "warning1": {
+      "text": "You can't select yourself, try again."
+    },
+    "warning2": {
+      "text": "You have already selected your invisble friend"
+    },
+    "success": {
+      "text": "Congratulations you have selected your invisible friend."
+    },
+    "wishes": {
+      "header": "Add your wishes",
+      "wish1": "Wish 1",
+      "wish2": "Wish 2",
+      "wish3": "Wish 3",
+      "wish4": "Wish 4",
+      "wish5": "Wish 5",
+      "button": "Save"
+    }
+  },
+  "buttons": {
+    "addGuest": "Add guest",
+    "myFriend": "My friend"
+  },
+  "pages": {
+    "myFriend": {
+      "label1": "INVISBLE FRIEND",
+      "label2": "INVISIBLE FRIEND WISHES",
+      "label3": "MY WISHES",
+      "headerModal": "Wishes for",
+      "message": "Your invisible friend has not yet posted his wishes"
+    },
+    "profile": {
+      "header": "My profile",
+      "password": "Change password",
+      "edit": "Edit image",
+      "save": "Save"
+    },
+    "groups": {
+      "header": "Groups"
+    }
+  },
+  "language": "Language"
+}

@@ -53,7 +53,21 @@ export const UsersDataProvider = ({ type, params, baseApiUrl }) => {
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
-            break;        
+            break; 
+        case "UPDATE_PHOTO":
+            console.log({options})
+
+            if (baseApiUrl) {
+                options = {
+                    method: "POST",
+                    url: `${baseApiUrl}/users/updatePhoto`,
+                    data: params
+                }
+                console.log({options})
+            } else {
+                throw new Error('Error baseApiUrl are necessary')
+            }
+            break;          
     }
 
     if (!!options) {

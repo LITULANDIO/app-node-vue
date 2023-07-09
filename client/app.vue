@@ -2,6 +2,7 @@
     <div v-if="loading" class="fixed left-0 top-0 h-0.5 w-full z-50 bg-green-500" ></div>
     <NuxtPage />
     <NuxtLoadingIndicator />
+    <ButtonConfig/>
 </template>
 
 <script setup>
@@ -26,5 +27,4 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(4
 *, ::after, ::before {
     box-sizing: inherit;
 }
-
 </style>

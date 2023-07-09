@@ -1,5 +1,5 @@
 <template>
-    <Modal header="Afegeix els teus desitjos" :show="isOpen" @onClose="onClose">
+    <Modal :header="$t('modals.wishes.header')" :show="isOpen" @onClose="onClose" style="top: 45% !important">
         <VForm
             :validation-schema="schema"
             :initial-values="dataWishes"
@@ -10,7 +10,7 @@
                 type="text"
                 name="wish1"
                 label="Wish1"
-                placeholder="Wish 1"
+                :placeholder="$t('modals.wishes.wish1')"
                 icon="fa-gift"
                 v-model="dataWishes.wish1"
                 :value="dataWishes.wish1"
@@ -19,7 +19,7 @@
                 type="text"
                 name="wish2"
                 label="Wish2"
-                placeholder="Wish 2"
+                :placeholder="$t('modals.wishes.wish2')"
                 icon="fa-gift"
                 v-model="dataWishes.wish2"
                 :value="dataWishes.wish2"
@@ -28,7 +28,7 @@
                 type="text"
                 name="wish3"
                 label="Wish3"
-                placeholder="Wish 3"
+                :placeholder="$t('modals.wishes.wish3')"
                 icon="fa-gift"
                 v-model="dataWishes.wish3"
                 :value="dataWishes.wish3"
@@ -37,7 +37,7 @@
                 type="text"
                 name="wish4"
                 label="Wish4"
-                placeholder="Wish 4"
+                :placeholder="$t('modals.wishes.wish4')"
                 icon="fa-gift"
                 v-model="dataWishes.wish4"
                 :value="dataWishes.wish4"
@@ -46,12 +46,12 @@
                 type="text"
                 name="wish5"
                 label="Wish5"
-                placeholder="Wish 5"
+                :placeholder="$t('modals.wishes.wish5')"
                 icon="fa-gift"
                 v-model="dataWishes.wish5"
                 :value="dataWishes.wish5"
                 />
-                <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">Guardar</button></div>
+                <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.wishes.button') }}</button></div>
         </VForm>
     </Modal>
 </template>

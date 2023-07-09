@@ -11,12 +11,12 @@
           v-slot="{ meta: formMeta, errors: formErrors }"
           @submit.prevent="onLogin"
         >
-          <h1 class="display mt-2 mb-5">Iniciar sessió</h1>
+          <h1 class="display mt-2 mb-5">{{ $t('login.login') }}</h1>
           <TextField
             type="text"
             name="user"
             label="User"
-            placeholder="Usuari"
+            :placeholder="$t('login.user')"
             icon="fas fa-user"
             v-model="dataUser.user"
             :value="dataUser.user"
@@ -25,7 +25,7 @@
             type="password"
             name="password"
             label="Password"
-            placeholder="Password"
+            :placeholder="$t('login.password')"
             icon="fas fa-lock"
             v-model="dataUser.password"
             :value="dataUser.password"
@@ -39,9 +39,9 @@
               type="submit"
               @click="onLogin"
             >
-              Inicia sessió
+              {{ $t('login.signIn') }}
             </button>
-            <nuxt-link to="/register"><span class="text-xs">¿No t'has registrat?</span></nuxt-link>
+            <nuxt-link to="/register"><span class="text-xs">{{ $t('login.hasRegister') }}</span></nuxt-link>
           </div>
         </VForm>
         <Modal header="Entra al grup" :show="isOpenModal" @onClose="onCloseModal">
@@ -79,28 +79,35 @@
 </template>
 <script setup>
 import { ref, reactive } from 'vue'
+import { DataProvider } from "@/data-provider/index"
 import { storeToRefs } from 'pinia'
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
-import { DataProvider } from '@/data-provider/index'
 import { useStoreAuth } from '~~/stores/auth';
-const store = useStoreAuth()
-const { user } = storeToRefs(store)
+const storeAuth = useStoreAuth()
+const { user } = storeToRefs(storeAuth)
 const errorLogin = ref('')
 const dataUser = reactive({ user: "", password: ""})
 const isOpenModal = ref(false);
 
 const onLogin = async () => {
   const result = await DataProvider({
-    providerType: 'AUTH',
-    type: 'LOGIN',
-    params: dataUser
-  })
-  if(result.data.body.error){
+        providerType: 'AUTH',
+        type: 'LOGIN',
+        params: dataUser
+      })
+  if(result?.data?.body?.error){
     errorLogin.value = result.data.body.msg
   } else {
-    user.value.id = result.data.body.id 
-    user.value.name = result.data.body.user 
+    console.log({result})
+    const fetchUser = await DataProvider({
+      providerType: 'USERS',
+      type: 'GET_USER',
+      params: result.data.body.id
+    })
+    user.value.id = result.data.body.id,
+    user.value.name = result.data.body.user
+    user.value.photo = fetchUser.body[0].photo
     navigateTo(`/dashboard/user`);
   }
 };
@@ -126,10 +133,11 @@ const schema = object({
 
 <style lang="scss" scoped>
  .wrapper {
-  min-width: 100%;
-  min-height: 100%;
-  background-size: cover;
-  background-position: center;
+  height: calc(100vh - 199px);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
   .card{
       border-radius: 1rem;
       box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
@@ -164,13 +172,21 @@ const schema = object({
   }
   .join-group{
     cursor: pointer;
-    background-color: #3F3E3E;
+    position: realtive;
+    z-index: 999;
+    bottom: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(4, 192, 168, 0.7651654412);
     color: white;
+    background: #3F3E3E;
+    box-shadow:0 0 0 0.2rem #3F3E3E;
     padding: 0.7rem;
-    box-shadow: 0px 0px 0px 1px white;
-    border-radius: 0.3rem;
+    &:hover{
+      opacity: 0.9;
+    }
     &:before{
-      text-shadow: 0px 0px 20px  yellow;
+      text-shadow: 0px 0px 20px  rgba(4, 192, 168, 0.7651654412);
       position: absolute;
       content: attr(data-text);
       animation: flicker 8s linear forwards;

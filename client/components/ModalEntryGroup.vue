@@ -1,5 +1,5 @@
 <template>
-    <Modal header="Entra al grup" :show="isOpen" @onClose="onClose">
+    <Modal :header="$t('modals.join.header')" :show="isOpen" @onClose="onClose">
         <VForm
         :validation-schema="schema"
         :initial-values="dataUser"
@@ -10,7 +10,7 @@
             type="text"
             name="user"
             label="User"
-            placeholder="Usuari"
+            :placeholder="$t('modals.join.field1')"
             icon="fas fa-user"
             v-model="dataUser.user"
             :value="dataUser.user"
@@ -19,13 +19,13 @@
             type="password"
             name="code"
             label="Code group"
-            placeholder="Code group"
+            :placeholder="$t('modals.join.field2')"
             icon="fas fa-lock"
             v-model="dataUser.password"
             :value="dataUser.password"
         />
         <div v-if="error" class="mb-3 text-red-600">{{ error }}</div>
-        <div><button @click="onSubmit" :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">Entrar</button></div>
+        <div><button @click="onSubmit" :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.join.button') }}</button></div>
         </VForm>
     </Modal> 
 </template>
