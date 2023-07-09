@@ -74,7 +74,7 @@
         </Modal>
       </div>
     </div>
-    <div class="flex items-center justify-center mt-5" @click="onOpenModal"><div class="join-group text-center" data-text="UNIRSE A UN GRUP">UNIRSE A UN GRUP</div></div>
+    <!-- <div class="flex items-center justify-center mt-5" @click="onOpenModal"><div class="join-group text-center" data-text="UNIRSE A UN GRUP">UNIRSE A UN GRUP</div></div> -->
   </div>
 </template>
 <script setup>
