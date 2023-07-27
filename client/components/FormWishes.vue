@@ -52,7 +52,7 @@
                 :value="dataWishes.wish5"
                 />
                 <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.wishes.button') }}</button></div>
-        </VForm>
+        </VForm>F8fehQ76
     </Modal>
 </template>
 

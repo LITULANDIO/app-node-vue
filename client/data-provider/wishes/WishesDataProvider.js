@@ -1,10 +1,5 @@
 import axios from 'axios'
 
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method';
-axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS, PUT, DELETE';
-axios.defaults.headers.common['Allow'] = 'GET, POST, OPTIONS, PUT, DELETE';
-
 export const WishesDataProvider = ({ type, params, baseApiUrl }) => {
     let options = null
 

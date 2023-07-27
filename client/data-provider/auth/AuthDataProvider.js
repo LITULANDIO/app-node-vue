@@ -2,11 +2,6 @@ import axios from 'axios'
 import AuthStore from '@/composables/auth'
 const { setToken } = AuthStore()
 
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method';
-axios.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS, PUT, DELETE';
-axios.defaults.headers.common['Allow'] = 'GET, POST, OPTIONS, PUT, DELETE';
-
 export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
     let options = null
     console.log({type, params, baseApiUrl})

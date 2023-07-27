@@ -108,6 +108,20 @@ const onGoGroupWithCode = async () => {
       errorEntryGroup.value = fetchUser.body.msg
       return
     }
+    const fetchGroup = await DataProvider({
+             providerType: 'GROUPS',
+             type: 'GET_GROUPS',
+         })
+    fetchGroup.body.forEach(grup => {
+      if (grup.snug === fetchUser.body.snug) {
+        unitGroup.value.id = grup.id
+        unitGroup.value.admin = grup.admin
+        unitGroup.value.name = grup.name
+        unitGroup.value.date = grup.date
+        unitGroup.value.budget = grup.budget
+        unitGroup.value.snug = grup.snug
+      }
+    })
     navigateTo(`/dashboard/user/group/${fetchUser.body?.snug}`)
 }
 //# end
