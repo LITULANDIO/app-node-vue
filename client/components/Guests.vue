@@ -9,7 +9,6 @@
             <BackButton />
             <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
           </div>
-          group {{ group }}
           <div class="w-full flex justify-center items-center flex-wrap mt-5">
             <template v-for="guest in unselectedFriends" :key="guest.id">
                 <div id="guest" class="cursor-pointer"
