@@ -2,7 +2,7 @@
         <div v-if="show" class="overflow-modal"></div>
         <Transition>
         <section  v-if="show">
-        <div class="modal w-10/12 max-w-md ">
+        <div class="modal w-10/12 max-w-md" :style="top">
             <div class="modal-header">
             <h2>{{ header }}</h2>
             <font-awesome-icon icon="fas fa-xmark" class="w-6 modal-close"  @click="onClose" />
@@ -29,6 +29,12 @@ const props = defineProps({
       padding: {
         type: Boolean,
         default: false
+      },
+      top: {
+        type: String,
+        default: {
+          top: '50%'
+        }
       }
 })
 const emit = defineEmits(['onClose'])
@@ -53,7 +59,6 @@ const onClose = () => emit("onClose")
       border-radius: 8px;
       padding: 15px;
       position: fixed;
-      top: 50%;
       z-index: 9999;
       margin-top: 0rem; //-15rem;
       right: 0;

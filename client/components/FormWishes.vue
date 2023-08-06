@@ -1,5 +1,5 @@
 <template>
-    <Modal :header="$t('modals.wishes.header')" :show="isOpen" @onClose="onClose" style="top: 45% !important">
+    <Modal :header="$t('modals.wishes.header')" :show="isOpen" @onClose="onClose" top="20%">
         <VForm
             :validation-schema="schema"
             :initial-values="dataWishes"
@@ -52,7 +52,7 @@
                 :value="dataWishes.wish5"
                 />
                 <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.wishes.button') }}</button></div>
-        </VForm>F8fehQ76
+        </VForm>
     </Modal>
 </template>
 
