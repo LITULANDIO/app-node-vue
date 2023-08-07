@@ -3,7 +3,7 @@
         <ul>
         <li v-if="users.length === 0">No existeix l'usuari</li>
         <template v-for="user in users" :key="user.id">
-          <li @click="onClicked($event, user.id)" class="flex justify-start items-center">
+          <li @click="onClicked($event, user.id)" class="flex container justify-start items-center">
             <img :src="user.photo" width="40" height="40" class="color-image"/>
             <div class="ml-3">{{ user.user }}</div>
           </li>
@@ -59,8 +59,8 @@ onUpdated(() => {
   overflow-y: scroll;
   border: 2px solid;
   border-radius: 0.5rem;
-  padding: 0.2rem;
-  width: 100%;
+  padding: 0.1rem;
+  width: 111%;
   margin-right: 2rem;
   ul{
     li{
@@ -68,8 +68,9 @@ onUpdated(() => {
       color: white;
       border: 2px solid rgba(4, 192, 168, 0.7651654412);
       margin-bottom: 5px;
-      padding: 10px;
+      padding: 6px;
       border-radius: 5px;
+      width: 95%;
       //filter: sepia();
       cursor: pointer;
       position: relative;
@@ -94,12 +95,12 @@ onUpdated(() => {
 }
 .exist-guest{
   background: #3F3E3E;
-  color: yellow;
-  border: 2px solid yellow;
+  color: white;
+  border: 2px solid #b90909;
   margin-bottom: 5px;
   padding: 10px;
   border-radius: 5px;
-  filter: sepia();
+  //filter: sepia();
   cursor: pointer;
   position: relative;
   z-index: 10;

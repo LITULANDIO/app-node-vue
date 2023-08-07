@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <img class="slogan" src="/friends.png" />
     <div class="flex justify-center">
       <div
         class="sm:w-11/12 md:w-8/12 max-w-md  pl-5 pr-5 "
@@ -151,6 +152,7 @@ const schema = object({
       position: relative;
       padding: 2rem;
       padding-right: 4rem;
+      margin-top: 10rem;
   }
   .button-disabled{
       padding: 0.5rem;
@@ -220,5 +222,11 @@ const schema = object({
       filter: blur(5px) brightness(1);
     }
   }
+ }
+ .slogan {
+  position: absolute;
+  top: -8rem;
+  left: 5rem;
+  width: 240px;
  }
 </style>

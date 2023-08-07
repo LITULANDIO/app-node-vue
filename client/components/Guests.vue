@@ -9,6 +9,20 @@
             <BackButton />
             <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
           </div>
+          <div class="info">
+            <p>
+              <font-awesome-icon icon="fa-solid fa-location-dot" class="icon text-1xl" />
+              <span class="pl-2">Tio Emilio</span>
+            </p>
+            <p>
+              <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
+              <span class="pl-2">{{ changeFormatDate(group.date) }}</span>
+            </p>
+            <p>
+              <font-awesome-icon icon="fa-solid fa-sack-dollar" class="icon text-1xl" />
+              <span class="pl-2">{{ group.budget }}€</span>
+            </p>
+          </div>
           <div class="w-full flex justify-center items-center flex-wrap mt-5">
             <template v-for="guest in unselectedFriends" :key="guest.id">
                 <div id="guest" class="cursor-pointer"
@@ -149,6 +163,13 @@ import { storeToRefs } from 'pinia'
     const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
     const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0))
     //#end
+
+    //#methods
+    const changeFormatDate = (date) => {
+      const fullDate = date.split('T')[0].split('-')
+      return `${fullDate[2]}/${fullDate[1]}/${fullDate[0]}`
+    }
+    //
   </script>
   
   <style lang="scss">
@@ -202,5 +223,22 @@ import { storeToRefs } from 'pinia'
 }
 .text-center {
   text-shadow: 2px 2px 4px rgba(4, 192, 168, 0.7651654412);
+}
+.info {
+  position: realtive;
+  z-index: 999;
+  bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  //color: rgba(4, 192, 168, 0.7651654412);
+  ///border: 2px solid rgba(4, 192, 168, 0.7651654412);
+  color: white;
+  //background: #3F3E3E;
+ // border: 2px solid yellow;
+  //box-shadow:0 0 0 0.2rem #3F3E3E;
+  //filter:sepia()
 }
  </style>

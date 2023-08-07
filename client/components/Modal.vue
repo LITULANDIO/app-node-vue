@@ -31,7 +31,7 @@ const props = defineProps({
         default: false
       },
       top: {
-        type: String,
+        type: Object,
         default: {
           top: '50%'
         }
