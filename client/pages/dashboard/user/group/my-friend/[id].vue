@@ -2,6 +2,7 @@
     <NuxtLayout/>
     <div class="pt-4">
         <BackButton />
+        <ButtonInfo />
     </div>
     <section id="options" class="flex justify-center items-center flex-col">
         <Button :label="$t('pages.myFriend.field1')" @click="onViewFriend"/>
@@ -91,7 +92,11 @@ const onCloseViewWishesFriend = () => isViewWishesFriend.value = false
 //#end
 
 //#methods
-//#
+const changeFormatDate = (date) => {
+    const fullDate = date.split('T')[0].split('-')
+    return `${fullDate[2]}/${fullDate[1]}/${fullDate[0]}`
+}
+//
 </script>
 
 <style lang="scss">
