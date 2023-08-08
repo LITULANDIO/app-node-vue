@@ -70,9 +70,9 @@
   },
   "pages": {
     "myFriend": {
-      "label1": "INVISBLE FRIEND",
-      "label2": "INVISIBLE FRIEND WISHES",
-      "label3": "MY WISHES",
+      "field1": "INVISBLE FRIEND",
+      "field2": "INVISIBLE FRIEND WISHES",
+      "field3": "MY WISHES",
       "headerModal": "Wishes for",
       "message": "Your invisible friend has not yet posted his wishes"
     },
