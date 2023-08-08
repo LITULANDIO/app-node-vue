@@ -230,6 +230,7 @@ const setDataGroupWhenEntryInviteFriend = () => {
     background: #3F3E3E;
     box-shadow:0 0 0 0.2rem #3F3E3E;
     padding: 1rem;
+    white-space: nowrap;
     &:hover{
       opacity: 0.9;
     }
@@ -270,6 +271,7 @@ const setDataGroupWhenEntryInviteFriend = () => {
   }
 .separator {
   margin: 0 2rem;
+  white-space: nowrap;
 }
 #modal{
   position: absolute;
