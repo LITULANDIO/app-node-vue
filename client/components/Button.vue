@@ -23,7 +23,7 @@ const onClicked = () => emit("onClicked")
 .button{
   cursor: pointer;
   position: realtive;
-  z-index: 999;
+  //z-index: 999;
   bottom: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;

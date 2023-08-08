@@ -103,7 +103,7 @@ const onCloseViewWishesFriend = () => isViewWishesFriend.value = false
         text-align: center;
     }
     .view-friend{
-       
+       z-index: 999;
     }
     .container-photo {
         display: flex;

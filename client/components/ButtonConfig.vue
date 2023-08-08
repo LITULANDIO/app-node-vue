@@ -31,7 +31,7 @@ const showSettings = computed(() => {
     padding: 0.5rem;
     right: 2.5rem;
     bottom: -2.5rem;
-    z-index: 999;
+    //z-index: 999;
     border: 2px solid rgba(4, 192, 168, 0.7651654412);
     box-shadow: 0 0 0 0.2rem #3F3E3E;
 }

@@ -64,6 +64,7 @@ const onClose = () => emit("onClose")
       right: 0;
       left: 0;
       margin: 0 auto;
+      z-index: 999;
       &-header {
         display: flex;
         justify-content: space-between;
