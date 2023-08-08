@@ -62,7 +62,7 @@
               v-model="dataUser.confirmed"
               :value="dataUser.confirmed"
             />
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between" style="width:111%">
                 <button
                 class="button mt-3 hover:text-slate	"
                 :class="{ 'cursor-pointer': formMeta.valid, 'cursor-not-allowed': !formMeta.valid }"

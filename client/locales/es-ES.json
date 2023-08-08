@@ -1,15 +1,15 @@
 {
   "login": {
     "login": "inicio de sesión",
-    "usuario": "Usuario",
-    "contraseña": "Contraseña",
-    "iniciar sesión": "Iniciar sesión",
-    "hasRegistrado": "¿No se ha registrado?"
+    "user": "Usuario",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "hasRegister": "¿No te has registrado?"
   },
   "register": {
     "registrar": "Registrarse",
-    "usuario": "Usuario",
-    "contraseña": "Contraseña",
+    "user": "Usuario",
+    "password": "Contraseña",
     "selectImage": "Selecciona una imagen de perfil",
     "email": "Correo electrónico",
     "confirmPass": "Confirmar contraseña",

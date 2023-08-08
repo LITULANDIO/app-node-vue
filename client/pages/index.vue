@@ -32,7 +32,7 @@
             :value="dataUser.password"
           />
           <span class="text-sm text-red-600">{{ errorLogin }}</span>
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between" style="width:111%">
             <button
               class="button mt-3 hover:text-slate	"
               :class="{ 'cursor-pointer': formMeta.valid, 'cursor-not-allowed': !formMeta.valid }"
