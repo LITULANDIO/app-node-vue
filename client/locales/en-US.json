@@ -4,7 +4,8 @@
     "user": "User",
     "password": "Password",
     "signIn": "Sign in",
-    "hasRegister": "¿You have not registered?"
+    "hasRegister": "¿You have not registered?",
+    "error": "The password or username is not correct"
   },
   "register": {
     "register": "Register",
@@ -63,6 +64,10 @@
       "wish5": "Wish 5",
       "button": "Save"
     }
+  },
+  "search": {
+    "error": "You have already added this user",
+    "notExist": "This user does not exist"
   },
   "buttons": {
     "addGuest": "Add guest",

@@ -1,7 +1,7 @@
 <template>
     <div v-if="isShow" class="searching">
         <ul>
-        <li v-if="users.length === 0">No existeix l'usuari</li>
+        <li class="error" v-if="users.length === 0">{{ $t('search.notExist') }}</li>
         <template v-for="user in users" :key="user.id">
           <li @click="onClicked($event, user.id)" class="flex container justify-start items-center">
             <img :src="user.photo" width="40" height="40" class="color-image"/>
@@ -10,7 +10,7 @@
         </template>
         </ul>
     </div>
-    <div v-if="isGuest" class="exist-guest">Ja has afegit aquest usuari</div>
+    <div v-if="isGuest" class="exist-guest">{{ $t('search.error') }}</div>
 </template>
 
 <script setup>
@@ -91,12 +91,15 @@ onUpdated(() => {
     li:last-child {
       margin-bottom: 0;
     }
+    li.error {
+        color: red;
+      }
   }
 }
 .exist-guest{
   background: #3F3E3E;
-  color: white;
-  border: 2px solid #b90909;
+  color: red;
+  border: 2px solid rgba(4, 192, 168, 0.7651654412);
   margin-bottom: 5px;
   padding: 10px;
   border-radius: 5px;

@@ -4,7 +4,8 @@
       "user": "Usuari",
       "password": "Contrasenya",
       "signIn": "Iniciar sessió",
-      "hasRegister": "¿No t'has registrat?"
+      "hasRegister": "¿No t'has registrat?",
+      "error": "La contrasenya o el nom d'usuari no són correctes"
     },
     "register": {
       "register": "Registrar",
@@ -63,6 +64,10 @@
         "wish5": "Desig 5",
         "button": "Desa"
       }
+    },
+    "search": {
+      "error": "Ja has afegit aquest usuari",
+      "notExist": "L'usuari no existeix"
     },
     "buttons": {
       "addGuest": "Afegeix convidat",

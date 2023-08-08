@@ -4,7 +4,8 @@
     "user": "Usuario",
     "password": "Contraseña",
     "signIn": "Iniciar sesión",
-    "hasRegister": "¿No te has registrado?"
+    "hasRegister": "¿No te has registrado?",
+    "error": "La contraseña o el nombre de usuario no son correctos"
   },
   "register": {
     "registrar": "Registrarse",
@@ -63,6 +64,10 @@
       "wish5": "Deseo 5",
       "button": "Guardar"
     }
+  },
+  "search": {
+    "error": "Ya has añadido a este usuario",
+    "notExist": "El usuario no existe"
   },
   "buttons": {
     "addGuest": "Añadir invitado",

@@ -31,7 +31,7 @@
             v-model="dataUser.password"
             :value="dataUser.password"
           />
-          <span class="text-sm text-red-600">{{ errorLogin }}</span>
+          <span class="text-sm text-red-600 block" style="width: 110%;">{{ errorLogin ? $t('login.error') : '' }}</span>
           <div class="flex items-center justify-between" style="width:111%">
             <button
               class="button mt-3 hover:text-slate	"
@@ -45,34 +45,6 @@
             <nuxt-link to="/register"><span class="text-xs">{{ $t('login.hasRegister') }}</span></nuxt-link>
           </div>
         </VForm>
-        <Modal header="Entra al grup" :show="isOpenModal" @onClose="onCloseModal">
-          <VForm
-            :validation-schema="schema"
-            :initial-values="dataUser"
-            v-slot="{ meta: formMeta, errors: formErrors }"
-            @submit=""
-          >
-            <TextField
-              type="text"
-              name="user"
-              label="User"
-              placeholder="Usuari"
-              icon="fas fa-user"
-              v-model="dataUser.user"
-              :value="dataUser.user"
-            />
-            <TextField
-              type="password"
-              name="code"
-              label="Code group"
-              placeholder="Code group"
-              icon="fas fa-lock"
-              v-model="dataUser.password"
-              :value="dataUser.password"
-            />
-            <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed button': !formMeta.valid }">Entrar</button></div>
-          </VForm>
-        </Modal>
       </div>
     </div>
     <!-- <div class="flex items-center justify-center mt-5" @click="onOpenModal"><div class="join-group text-center" data-text="UNIRSE A UN GRUP">UNIRSE A UN GRUP</div></div> -->
@@ -89,7 +61,6 @@ const storeAuth = useStoreAuth()
 const { user } = storeToRefs(storeAuth)
 const errorLogin = ref('')
 const dataUser = reactive({ user: "", password: ""})
-const isOpenModal = ref(false);
 
 const onLogin = async () => {
   const result = await DataProvider({
@@ -113,12 +84,6 @@ const onLogin = async () => {
   }
 };
 
-const onOpenModal = () => {
-  isOpenModal.value = true
-}
-const onCloseModal = () => { 
-  isOpenModal.value = false 
-}
 configure({
   validateOnBlur: true, // controls if `blur` events should trigger validation with `handleChange` handler
   validateOnChange: true, // controls if `change` events should trigger validation with `handleChange` handler
