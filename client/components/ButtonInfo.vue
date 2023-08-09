@@ -5,7 +5,7 @@
     <Modal header="Info" :show="showInfo" @onClose="onClose">
         <p>
             <font-awesome-icon icon="fa-solid fa-location-dot" class="icon text-1xl" />
-            <span class="pl-2">Tio Emilio</span>
+            <span class="pl-2">{{ group.location }}</span>
         </p>
         <p>
             <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
