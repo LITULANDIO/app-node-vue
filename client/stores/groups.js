@@ -10,6 +10,7 @@ export const useStoreGroup = defineStore('groups', {
       name: '',
       date: '',
       budget: '',
+      location: '',
       snug: '',
     },
      groups: [],

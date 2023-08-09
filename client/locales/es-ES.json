@@ -30,7 +30,8 @@
       "header": "Crear grupo",
       "field1": "Nombre grupo",
       "field2": "Fecha",
-      "field3": "Presupuesto",
+      "field3": "Localizacion",
+      "field4": "Presupuesto",
       "button": "Guardar"
     },
     "join": {

@@ -24,12 +24,21 @@
                 v-model="dataGroup.date"
                 :value="dataGroup.date"
               />
+              <TextField
+                type="text"
+                name="location"
+                label="Location"
+                :placeholder="$t('modals.create.field3')"
+                icon="fa-location-dot"
+                v-model="dataGroup.location"
+                :value="dataGroup.location"
+              />
 
               <TextField
                 type="text"
                 name="budget"
                 label="Budget"
-                :placeholder="$t('modals.create.field3')"
+                :placeholder="$t('modals.create.field4')"
                 icon="fa-sack-dollar"
                 v-model="dataGroup.budget"
                 :value="dataGroup.budget"
@@ -61,6 +70,7 @@ const props = defineProps({
             id: 0,
             name: '',
             date: '',
+            location: '',
             budget: '',
             admin: 0,
             guests: 0

@@ -30,7 +30,8 @@
       "header": "Create group",
       "field1": "Name group",
       "field2": "Date",
-      "field3": "Budget",
+      "field3": "Location",
+      "field4": "Budget",
       "button": "Save"
     },
     "join": {

@@ -30,7 +30,8 @@
         "header": "Crea un grup",
         "field1": "Nom del grup",
         "field2": "Data",
-        "field3": "Pressupost",
+        "field3": "Localització",
+        "field4": "Pressupost",
         "button": "Desa"
       },
       "join": {
