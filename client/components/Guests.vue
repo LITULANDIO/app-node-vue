@@ -1,9 +1,8 @@
 <template>
     <Transition name="slide-fade">
-        <div v-if="isLoading">
+        <div v-if="isLoading" class="flex justify-center items-center w-100">
             <Spinner />
         </div>
-     
         <div v-else class="w-full">
           <div class="flex justify-center items-center">
             <BackButton />
