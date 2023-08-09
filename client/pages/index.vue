@@ -195,6 +195,7 @@ const schema = object({
   position: absolute;
   display: flex;
   justify-content: center;
+  top: -4rem;
   @media (max-height: 757px) {
     top: -8rem;
   }
