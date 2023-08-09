@@ -200,10 +200,10 @@ const schema = object({
     top: -8rem;
   }
   @media (min-height: 758px) and (max-width: 900px) {
-    top: -7rem;
+    top: -1rem;
   }
   @media (max-width: 414px) {
-    top: -4rem;
+    top: -7rem;
   }
   @media (max-width: 375px) and (max-height: 875px) {
     top: -8rem;
