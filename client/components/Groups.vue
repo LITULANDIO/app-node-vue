@@ -1,6 +1,8 @@
 <template>
     <section id="groups">
-        <span v-if="isLoading" style="background-color: yellow; color: red">LOADING...</span>
+        <div v-if="isLoading">
+            <Spinner />
+        </div>
         <div v-else class="box-group" v-for="group in groups" :key="group.id">
             <div @click="onClicked(group)">{{ group.name }}</div>
         </div>

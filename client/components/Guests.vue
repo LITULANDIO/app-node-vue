@@ -1,7 +1,7 @@
 <template>
     <Transition name="slide-fade">
         <div v-if="isLoading">
-            <div class="fixed h-0.5 w-full z-50 bg-white">IS LOADING</div>
+            <Spinner />
         </div>
      
         <div v-else class="w-full">
