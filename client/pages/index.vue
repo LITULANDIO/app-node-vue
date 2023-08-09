@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
-    <img class="slogan" src="/friends.png" />
-    <div class="flex justify-center">
+    <div class="flex justify-center items-center">
+      <div class="box-slogan">
+        <img class="slogan" src="/friends.png" />
+      </div>
       <div
         class="sm:w-11/12 md:w-8/12 max-w-md  pl-5 pr-5 "
       >
@@ -188,10 +190,21 @@ const schema = object({
     }
   }
  }
- .slogan {
+ .box-slogan {
+  width: 100%;
   position: absolute;
-  top: -8rem;
-  left: 5rem;
-  width: 240px;
- }
+  top: -1rem;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 414px){
+    top: -4rem;
+  }
+  @media (max-width: 375px){
+    top: -8rem;
+  }
+  .slogan {
+    width: 240px;
+   }  
+  }
+  
 </style>
