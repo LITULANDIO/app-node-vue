@@ -64,6 +64,11 @@
         "wish4": "Desig 4",
         "wish5": "Desig 5",
         "button": "Desa"
+      },
+      "deleteGuest": {
+        "accept": "Acceptar",
+        "cancel": "Cancelar",
+        "text": "¿Segur que vols eliminar l'invitat?"
       }
     },
     "search": {

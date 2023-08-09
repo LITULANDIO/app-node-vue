@@ -64,6 +64,11 @@
         "wish4" : "Souhait 4",
         "wish5" : "Souhait 5",
         "button" : "Enregistrer"
+      },
+      "deleteGuest": {
+        "accept": "Acceptar",
+        "cancel": "Cancelar",
+        "text": "Voulez-vous vraiment supprimer l'invitation ?"
       }
     },
     "search": {

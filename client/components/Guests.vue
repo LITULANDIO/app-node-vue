@@ -14,12 +14,12 @@
                     @mouseover="onVisibleDrop(guest.id)" 
                     @mouseleave="onHideDrop" 
                     @touchstart="onVisibleDrop(guest.id)"
-                    @click="onSelectedFriend(guest)">
+                   >
                     <img src="/mysterious.png" />
                     <div class="icon-container" v-if="selectedGuestId === guest.id">
                         <template v-if="isAdmin">
-                            <div @click="deleteGuest(guest.hashGuest, params)">
-                              <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
+                            <div @click="onOpenModalDelete(guest.hashGuest, params)">
+                              <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer mr-3" />
                             </div>
                             <div @click="onSelectedFriend(guest)">
                               <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
@@ -36,7 +36,7 @@
                     @touchstart="onVisibleDrop(guest.id)">
                 <img src="/select.jpg" />
                 <div class="icon-container" v-if="selectedGuestId === guest.id">
-                        <div v-if="isAdmin" @click="deleteGuest(guest.hashGuest, params)">
+                        <div v-if="isAdmin" @click="onOpenModalDelete(guest.hashGuest, params)">
                             <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
                         </div>
                     </div>
@@ -45,24 +45,34 @@
             </template>
         </div>
         <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
-               <div class="text-center">
-                   <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-                   <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
-               </div>
-            </Modal>
-            <Modal :show="showModalWarning2" @onClose="onCloseModalWarn2" padding>
-               <div class="text-center">
-                   <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-                   <p class="mb-3">{{ $t('modals.warning2.text') }}</p>
-               </div>
-            </Modal>
-            <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
-                <div class="text-center">
-                    <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
-                    <p class="mb-3">{{ $t('modals.success.text') }}</p>
-                </div>
-            </Modal>
-        </div>
+            <div class="text-center">
+                <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+                <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
+            </div>
+        </Modal>
+        <Modal :show="showModalWarning2" @onClose="onCloseModalWarn2" padding>
+          <div class="text-center">
+              <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+              <p class="mb-3">{{ $t('modals.warning2.text') }}</p>
+          </div>
+        </Modal>
+        <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
+          <div class="text-center">
+              <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
+              <p class="mb-3">{{ $t('modals.success.text') }}</p>
+          </div>
+        </Modal>
+        <Modal :show="isDeleteGuest" @onClose="onCloseModalDelete" padding>
+          <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.deleteGuest.text') }}</p>
+            <div class="flex justify-around">
+              <Button :label="$t('modals.deleteGuest.accept')" @onClicked="deleteGuest()"/>
+              <Button :label="$t('modals.deleteGuest.cancel')" @onClicked="onCloseModalDelete"/>
+            </div>
+          </div>
+        </Modal>
+      </div>
     </Transition>
   </template>
   
@@ -104,13 +114,19 @@ import { storeToRefs } from 'pinia'
     const showModalSuccess = ref(false)
     const route = useRoute()
     const isSelect = ref(true)
+    const isDeleteGuest = ref(false)
+    const guestSelected = ref(null)
+    const guestParams = ref(null)
     //#end
     
     //# events
     const emit = defineEmits(['deleteGuest'])
     const onVisibleDrop = (id) => (selectedGuestId.value = id);
     const onHideDrop = () => (selectedGuestId.value = null);
-    const deleteGuest = (guest, id) => emit('deleteGuest', guest, id)
+    const deleteGuest = () => {
+      emit('deleteGuest', guestSelected.value, guestParams.value)
+      isDeleteGuest.value = false
+    }
     const onCloseModalWarn1 = () => showModalWarning1.value = false
     const onCloseModalWarn2 = () => showModalWarning2.value = false
     const onCloseModalSuccess = () => showModalSuccess.value = false
@@ -141,6 +157,12 @@ import { storeToRefs } from 'pinia'
             showModalSuccess.value = true
             isSelect.value = false
         }
+    }
+    const onCloseModalDelete = () => isDeleteGuest.value = false
+    const onOpenModalDelete = (guest, params) => {
+      isDeleteGuest.value = true
+      guestSelected.value = guest
+      guestParams.value = params
     }
     //#end
 

@@ -64,6 +64,11 @@
       "wish4": "Wish 4",
       "wish5": "Wish 5",
       "button": "Save"
+    },
+    "deleteGuest": {
+      "accept": "Accept",
+      "cancel": "Cancel",
+      "text": "Are you sure you will delete the guest?"
     }
   },
   "search": {
