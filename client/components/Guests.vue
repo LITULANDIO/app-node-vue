@@ -1,6 +1,6 @@
 <template>
     <Transition name="slide-fade">
-        <div v-if="isLoading" class="flex justify-center items-center w-100">
+        <div v-if="isLoading" class="spinner">
             <Spinner />
         </div>
         <div v-else class="w-full">
@@ -206,5 +206,9 @@ import { storeToRefs } from 'pinia'
 }
 .text-center {
   text-shadow: 2px 2px 4px rgba(4, 192, 168, 0.7651654412);
+}
+.spinner {
+  position: absolute;
+  left: 45%;
 }
  </style>
