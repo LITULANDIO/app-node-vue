@@ -187,6 +187,7 @@ const detectBackButton = () => {
       admin: '',
       name: group.value.name,
       date: '',
+      location: '',
       budget: '',
       snug: '',
     }
@@ -200,6 +201,7 @@ const setDataGroupWhenEntryInviteFriend = () => {
         admin: grup.admin,
         name: grup.name,
         date: grup.date,
+        location: grup.location,
         budget: grup.budget,
         snug: grup.snug
       }

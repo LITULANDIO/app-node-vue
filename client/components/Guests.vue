@@ -43,7 +43,8 @@
                 {{ guest.name }}
               </div>
             </template>
-            <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
+        </div>
+        <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
                <div class="text-center">
                    <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
                    <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
@@ -61,7 +62,6 @@
                     <p class="mb-3">{{ $t('modals.success.text') }}</p>
                 </div>
             </Modal>
-        </div>
         </div>
     </Transition>
   </template>
@@ -155,6 +155,8 @@ import { storeToRefs } from 'pinia'
     max-height: calc(100vh - 240px);
     overflow: scroll;
     margin-top: 2rem;
+    padding-top: 5px;
+    position: relative
   }
     #guest {
       position: relative;

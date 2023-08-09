@@ -25,6 +25,7 @@ import { useStoreGroup } from '~~/stores/groups';
 const storeGroups = useStoreGroup()
 const { group } = storeToRefs(storeGroups)
 
+console.log(group.value)
 const showInfo = ref(false)
 
 const onViewInfo = () => {
