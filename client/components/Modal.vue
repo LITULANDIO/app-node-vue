@@ -33,7 +33,7 @@ const props = defineProps({
       top: {
         type: Object,
         default: {
-          top: '50%'
+          top: '40%'
         }
       }
 })
