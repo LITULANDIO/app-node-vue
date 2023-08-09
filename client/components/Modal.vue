@@ -4,7 +4,7 @@
         <section  v-if="show">
         <div class="modal w-10/12 max-w-md" :style="top">
             <div class="modal-header">
-            <h2>{{ header }}</h2>
+            <h2 class="pl-3">{{ header }}</h2>
             <font-awesome-icon icon="fas fa-xmark" class="w-6 modal-close"  @click="onClose" />
             </div>
             <div :class="!padding ? 'modal-content' : 'modal-content-bis'">

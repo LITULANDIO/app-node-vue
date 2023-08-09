@@ -9,7 +9,7 @@
             <BackButton />
             <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
           </div>
-          <div class="w-full flex justify-center items-center flex-wrap mt-8">
+          <div id="guests" class="w-full flex justify-center items-center flex-wrap mt-8">
             <template v-for="guest in unselectedFriends" :key="guest.id">
                 <div id="guest" class="cursor-pointer"
                     @mouseover="onVisibleDrop(guest.id)" 
@@ -152,6 +152,11 @@ import { storeToRefs } from 'pinia'
   </script>
   
   <style lang="scss">
+  #guests{
+    max-height: calc(100vh - 240px);
+    overflow: scroll;
+    margin-top: 2rem;
+  }
     #guest {
       position: relative;
       width: 10rem;

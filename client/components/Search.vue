@@ -62,6 +62,9 @@ onUpdated(() => {
   padding: 0.1rem;
   width: 111%;
   margin-right: 2rem;
+  @media (min-width: 720px) {
+    width: 107%;
+  }
   ul{
     li{
       background: #3F3E3E;
@@ -75,6 +78,9 @@ onUpdated(() => {
       cursor: pointer;
       position: relative;
       z-index: 10;
+      @media (min-width: 412px) {
+        width: 96%;
+      }
       &:hover{
         opacity: 0.7;
         //background-color: grey;
