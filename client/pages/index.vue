@@ -200,7 +200,7 @@ const schema = object({
     top: -8rem;
   }
   @media (min-height: 758px) and (max-width: 900px) {
-    top: -1rem;
+    top: -7rem;
   }
   @media (max-width: 414px) {
     top: -4rem;
@@ -208,6 +208,7 @@ const schema = object({
   @media (max-width: 375px) and (max-height: 875px) {
     top: -8rem;
   }
+
   .slogan {
     width: 240px;
    }  
