@@ -193,13 +193,18 @@ const schema = object({
  .box-slogan {
   width: 100%;
   position: absolute;
-  top: -1rem;
   display: flex;
   justify-content: center;
-  @media (max-width: 414px){
+  @media (max-height: 757px) {
+    top: -8rem;
+  }
+  @media (min-height: 758px) and (max-width: 900px) {
+    top: -1rem;
+  }
+  @media (max-width: 414px) {
     top: -4rem;
   }
-  @media (max-width: 375px){
+  @media (max-width: 375px) and (max-height: 875px) {
     top: -8rem;
   }
   .slogan {
