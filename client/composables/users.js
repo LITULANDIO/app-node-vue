@@ -11,8 +11,19 @@ export default () => {
         return result.data.body   
     }
 
+    const getUser = async function(id) {
+        const result = await DataProvider({
+            providerType: 'USERS',
+            type: 'GET_USER',
+            params: id
+          })
+          
+        return result.body
+    }
+
     return {
-        getAllUsers
+        getAllUsers,
+        getUser
     }
 }
 

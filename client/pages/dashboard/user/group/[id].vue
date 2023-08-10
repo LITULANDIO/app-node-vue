@@ -60,7 +60,7 @@ const storeAuth = useStoreAuth()
 const { group, groups } = storeToRefs(storeGroup)
 const { data, isLoading } = storeToRefs(storeGuest)
 const { user } = storeToRefs(storeAuth)
-const { getAllUsers } = useUsers()
+const { getAllUsers, getUser } = useUsers()
 const route = useRoute()
 const router = useRouter()
 const dataFriend = reactive({
@@ -99,13 +99,19 @@ const isAdmin = computed(() => user.value.id === data.value?.group?.admin || use
 //#end
 
 //#events
-const onCreateFriend = () => isOpenModal.value = true
+const onCreateFriend = () => {
+  isOpenModal.value = true
+  dataFriend.send = user.value.email
+}
 const onCloseModal = () => isOpenModal.value = false 
 const onSelectUser = (event, idUser) => {
-  nextTick(() => {
+  nextTick(async () => {
+    const userSelected = await getUser(idUser)
     idGuest.value = idUser
     dataFriend.name = event.target.textContent
+    dataFriend.to = userSelected[0].email
     isShowDropdownUsers.value = false
+    console.log({userSelected})
   })
 }
 const onKeyUp = () => {
@@ -136,6 +142,8 @@ const onSubmitFriend = async () => {
       
     }
   })
+  dataFriend.to = ''
+  dataFriend.name = ''
 }
 const onDeleteGuest = async (guest, id) => {
   await storeGuest.deleteGuest({

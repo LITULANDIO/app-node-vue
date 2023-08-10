@@ -82,6 +82,7 @@ const onLogin = async () => {
     user.value.id = result.data.body.id,
     user.value.name = result.data.body.user
     user.value.photo = fetchUser.body[0].photo
+    user.value.email = fetchUser.body[0].email
     navigateTo(`/dashboard/user`);
   }
 };

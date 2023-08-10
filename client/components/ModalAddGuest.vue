@@ -28,7 +28,7 @@
                 type="text"
                 name="send"
                 label="Email"
-                :placeholder="$t('modals.addGuest.field2')"
+                :placeholder="$t('modals.addGuest.field3')"
                 icon="fa-envelope"
                 v-model="guest.send"
                 :value="guest.send"
@@ -37,7 +37,7 @@
                 type="text"
                 name="to"
                 label="Email"
-                :placeholder="$t('modals.addGuest.field3')"
+                :placeholder="$t('modals.addGuest.field2')"
                 icon="fa-envelope"
                 v-model="guest.to"
                 :value="guest.to"
@@ -81,14 +81,14 @@ const emit = defineEmits(['onClose', 'onSubmit', 'onKeyUp', 'onClicked'])
 const onClose = () => emit("onClose")
 const onSubmit = () => emit("onSubmit")
 const onKeyUp = () => emit("onKeyUp")
-const onClicked = ($event, user) => emit("onClicked", $event, user)
+const onClicked = ($event, id) => emit("onClicked", $event, id)
+
 //#
 
 //# const ref
 const schema = object({
   name: string().required(),
   send: string().required(),
-  to: string().required(),
 });
 //#end
 </script>

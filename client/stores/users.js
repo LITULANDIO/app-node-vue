@@ -6,7 +6,8 @@ const runtimeConfig = useRuntimeConfig();
 export const useStoreUsers = defineStore('store', {
   state: async () => {
     return {
-     users: null
+     users: null,
+     user: null
 
     }
   },
@@ -17,6 +18,13 @@ export const useStoreUsers = defineStore('store', {
             type: 'GET_USERS',
           })
         this.users = users?.data?.body   
+    },
+    getUser: async function() {
+      const user = await DataProvider({
+        providerType: 'USERS',
+        type: 'GET_USER',
+      })
+    this.user = user?.data?.body   
     },
     uploadImage: async (file) =>{
       if (!file) return

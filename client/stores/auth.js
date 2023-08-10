@@ -6,6 +6,7 @@ export const useStoreAuth = defineStore('auth', {
     return {
      user: {
         id: null,
+        email: '',
         name: '',
         photo: ''
      },
