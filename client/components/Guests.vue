@@ -81,6 +81,7 @@ import { useStoreAuth } from '~~/stores/auth';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreGroup } from '~~/stores/groups';
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue';
 
     //# props
     const props = defineProps({
@@ -117,8 +118,20 @@ import { storeToRefs } from 'pinia'
     const isDeleteGuest = ref(false)
     const guestSelected = ref(null)
     const guestParams = ref(null)
+    const shuffleGuests = ref( [...storeGuest.data.guests])
     //#end
-    
+
+    //#cycle life
+    onMounted(() => {
+      const guestsToShuffle = [...storeGuest.data.guests];
+      for (let i = guestsToShuffle.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [guestsToShuffle[i], guestsToShuffle[j]] = [guestsToShuffle[j], guestsToShuffle[i]];
+      }
+      shuffleGuests.value = guestsToShuffle;
+    })
+    //#end
+
     //# events
     const emit = defineEmits(['deleteGuest'])
     const onVisibleDrop = (id) => (selectedGuestId.value = id);
@@ -167,8 +180,12 @@ import { storeToRefs } from 'pinia'
     //#end
 
     //#computed
-    const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
-    const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0))
+    const selectedFriends = computed(() => shuffleGuests.value.filter(guest => guest.active === 1))
+    const unselectedFriends = computed(() => shuffleGuests.value.filter(guest => guest.active === 0))
+    //#end
+    console.log({unselectedFriends})
+
+    //#function
     //#end
   </script>
   
