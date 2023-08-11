@@ -73,7 +73,6 @@ const onLogin = async () => {
   if(result?.data?.body?.error){
     errorLogin.value = result.data.body.msg
   } else {
-    console.log({result})
     const fetchUser = await DataProvider({
       providerType: 'USERS',
       type: 'GET_USER',
@@ -96,7 +95,6 @@ configure({
 const schema = object({
   user: string().required(),
   password: string().required().label("Your Password"),
-
 });
 </script>
 

@@ -14,9 +14,6 @@ export const WishesDataProvider = ({ type, params, baseApiUrl }) => {
                         Accept: "application/json",
                     }
                 }
-                console.log('options =>', options)
-                console.log('params =>', params)
-
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }

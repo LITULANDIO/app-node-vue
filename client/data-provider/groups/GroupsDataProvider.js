@@ -14,9 +14,6 @@ export const GroupsDataProvider = ({ type, params, baseApiUrl }) => {
                         Accept: "application/json",
                     }
                 }
-                console.log('options =>', options)
-                console.log('params =>', params)
-
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
@@ -42,14 +39,12 @@ export const GroupsDataProvider = ({ type, params, baseApiUrl }) => {
             }
             break;
         case "GET_GROUPS":
-            console.log({options})
 
             if (baseApiUrl) {
                 options = {
                     method: "GET",
                     url: `${baseApiUrl}/user/group`
                 }
-                console.log({options})
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
@@ -63,13 +58,11 @@ export const GroupsDataProvider = ({ type, params, baseApiUrl }) => {
                     url: `${baseApiUrl}/user/group/matchCode`,
                     data: JSON.parse(JSON.stringify(params)) 
                 }
-                console.log({options})
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
             break;
         case "GET_GROUPS_USER":
-                console.log({options})
     
             if (baseApiUrl) {
                 options = {
@@ -77,7 +70,6 @@ export const GroupsDataProvider = ({ type, params, baseApiUrl }) => {
                     url: `${baseApiUrl}/user/group/guests/getGroupsGuest`,
                     data: {id: params }
                 }
-                console.log({options})
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }

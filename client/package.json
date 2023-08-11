@@ -30,5 +30,6 @@
     "uniqid": "^5.4.0",
     "vee-validate": "^4.7.3",
     "yup": "^0.32.11"
-  }
+  },
+  "name": "client"
 }

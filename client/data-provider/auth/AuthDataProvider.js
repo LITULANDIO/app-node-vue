@@ -4,7 +4,6 @@ const { setToken } = AuthStore()
 
 export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
     let options = null
-    console.log({type, params, baseApiUrl})
     switch(type) {
         case "LOGIN": 
             if (baseApiUrl) {

@@ -59,10 +59,6 @@ const props = defineProps({
   value: {
     type: String
   },
-  modelValue: {
-        type: [String, Object],
-        required: true
-    },
   check: {
     type: Boolean,
     default: false
@@ -74,7 +70,6 @@ const handleValue = (event) => {
     emit('update:modelValue', event.target.value)
 }
 const previewFile = () => {
-  console.log('holi')
   emit('changed')
 }
 

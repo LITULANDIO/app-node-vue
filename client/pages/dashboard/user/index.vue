@@ -87,14 +87,12 @@ const handleSubmit = async () => {
   isOpenModalCreate.value = false
 }
 const onGoGroup = (groupSelceted) => {
-  console.log(groupSelceted)
   unitGroup.value.id = groupSelceted.id
   unitGroup.value.admin = groupSelceted.admin
   unitGroup.value.name = groupSelceted.name
   unitGroup.value.date = groupSelceted.date
   unitGroup.value.budget = groupSelceted.budget
   unitGroup.value.snug = groupSelceted.snug
-  console.log(unitGroup.value)
   navigateTo(`/dashboard/user/group/${groupSelceted.snug}`)
 }
 const onGoGroupWithCode = async () => {
@@ -128,7 +126,6 @@ const onGoGroupWithCode = async () => {
 
 //# cycle life
 onMounted(async () => {
-  console.log('groups =>', groups.value)
   storeGroup.getGroups(user.value.id)
   await storeAuth.getGroupsOfUser(user.value.id)
 })

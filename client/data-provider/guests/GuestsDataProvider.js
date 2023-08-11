@@ -14,9 +14,6 @@ export const GuestsDataProvider = ({ type, params, baseApiUrl }) => {
                         Accept: "application/json",
                     }
                 }
-                console.log('options =>', options)
-                console.log('params =>', params)
-
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
@@ -31,16 +28,12 @@ export const GuestsDataProvider = ({ type, params, baseApiUrl }) => {
                         Accept: "application/json",
                     }
                 }
-                console.log('options =>', options)
-                console.log('params =>', params)
-
             } else {
                 throw new Error('Error baseApiUrl are necessary')
             }
             break;
         case "DELETE_GUEST":
             if (baseApiUrl) {
-                console.log(params)
                 options = {
                     method: "PUT",
                     url: `${baseApiUrl}/user/group/guests/deleteGuest`,
@@ -52,7 +45,6 @@ export const GuestsDataProvider = ({ type, params, baseApiUrl }) => {
             break;
         case "UPDATE_GUEST":
             if (baseApiUrl) {
-                console.log(params)
                 options = {
                     method: "PUT",
                     url: `${baseApiUrl}/user/group/guests/updateGuest`,

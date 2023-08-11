@@ -167,9 +167,7 @@ const onGoMyFriend = () => {
 const isFriendSelected = computed(() => {
   let isSelected = false
   storeAuth.groups.forEach(grup => {
-    console.log('grup loco', grup)
     if (grup.group.id === group.value.id) {
-      console.log('match')
       if (grup.friend.name) {
         isSelected = true
       }

@@ -7,7 +7,6 @@ export default () => {
             providerType: 'AUTH',
             type: 'GET_USERS',
           })
-          console.log('result =>', {result})
         return result.data.body   
     }
 

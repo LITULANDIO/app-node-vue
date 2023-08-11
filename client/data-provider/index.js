@@ -8,7 +8,6 @@ import { WishesDataProvider } from './wishes/WishesDataProvider'
 
 export const DataProvider = ({providerType, type, params}) => {
     let data = null;
-    console.log('getAPI', getAPI())
 
     switch(providerType) {
         case "AUTH":

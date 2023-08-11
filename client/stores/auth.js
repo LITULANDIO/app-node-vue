@@ -30,7 +30,6 @@ export const useStoreAuth = defineStore('auth', {
            type: 'GET_GROUPS_USER',
            params: id
        })
-       console.log({fetchGroups})
       this.groups = fetchGroups.body
   },
   // async getUser ({ id, name }) {
