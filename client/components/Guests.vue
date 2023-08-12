@@ -82,7 +82,9 @@ import { useStoreAuth } from '~~/stores/auth';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreGroup } from '~~/stores/groups';
 import { storeToRefs } from 'pinia'
-
+import { io } from 'socket.io-client';
+const runtimeConfig = useRuntimeConfig();
+const socket = io(runtimeConfig.public.apiKey); 
   //# props
   const props = defineProps({
     isLoading: {
@@ -150,6 +152,7 @@ import { storeToRefs } from 'pinia'
               idFriend: hash[0]['hashGuest'],
               idGuest: guest.hashGuest
           }
+          socket.emit('updateGuest', data);
           await storeGuest.updateGuest(data, props.params)
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
