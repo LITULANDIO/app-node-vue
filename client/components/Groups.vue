@@ -33,7 +33,7 @@ const onClicked = (group) => emit("onClicked", group)
 
 <style lang="scss" scoped>
 #groups{
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 330px);
     overflow: scroll;
     margin-top: 2rem;
     padding-left: 0.5rem;
