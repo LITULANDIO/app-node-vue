@@ -189,7 +189,7 @@ const addUserAdmin = async () => {
 const detectBackButton = () => {
   window.addEventListener('popstate', () => {
     group.value = {
-      id: '',
+      id: group.value.id,
       admin: '',
       name: group.value.name,
       date: '',

@@ -90,13 +90,6 @@ const onViewFormWishes = () => {
 const onCloseViewFriend = () => isViewFriend.value = false
 const onCloseViewWishesFriend = () => isViewWishesFriend.value = false
 //#end
-
-//#methods
-const changeFormatDate = (date) => {
-    const fullDate = date.split('T')[0].split('-')
-    return `${fullDate[2]}/${fullDate[1]}/${fullDate[0]}`
-}
-//
 </script>
 
 <style lang="scss">
