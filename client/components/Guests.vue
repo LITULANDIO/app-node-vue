@@ -84,7 +84,7 @@ import { useStoreGroup } from '~~/stores/groups';
 import { storeToRefs } from 'pinia'
 import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
-const socket = io('https://socket-friends.quisqui.com', { transports: ['websocket'] });
+const socket = io('https://socket-friends.quisqui.com');
 console.log({socket})
   //# props
   const props = defineProps({
