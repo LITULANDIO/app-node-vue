@@ -83,8 +83,9 @@ import { useStoreGuest } from '~~/stores/guests';
 import { useStoreGroup } from '~~/stores/groups';
 import { storeToRefs } from 'pinia'
 import { io } from 'socket.io-client';
-const runtimeConfig = useRuntimeConfig();
-const socket = io(runtimeConfig.public.apiKey); 
+import { onMounted } from 'vue';
+const socket = io('https://socket-friends.quisqui.com', { transports: ['websocket'] });
+console.log({socket})
   //# props
   const props = defineProps({
     isLoading: {
@@ -135,6 +136,13 @@ const socket = io(runtimeConfig.public.apiKey);
       return { id: group.value.id }
     }
   }
+
+  onMounted(() => {
+    console.log({io})
+    socket.on('guestUpdated', (updatedGuestData) => {
+      console.log('Guest updated:', updatedGuestData);
+    });
+  })
   
   const onSelectedFriend = async (guest) => {
       const { id } = getIdGroup()
