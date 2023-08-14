@@ -86,7 +86,7 @@ import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
 
-const socket = io('http://socket-friends.quisqui.com:4001');
+const socket = io('https://socket-friends.quisqui.com');
 console.log({socket})
   //# props
   const props = defineProps({
@@ -153,8 +153,6 @@ console.log({socket})
             params: props.params
         })
     storeGuest.data = guests.body
-    console.log('body', guests)
-    console.log('store', storeGuest.data)
     // Actualiza solo el invitado específico en el estado
 
   });
