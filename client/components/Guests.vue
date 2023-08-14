@@ -84,7 +84,9 @@ import { useStoreGroup } from '~~/stores/groups';
 import { storeToRefs } from 'pinia'
 import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
-const socket = io('https://socket-friends.quisqui.com');
+import { DataProvider } from '@/data-provider/index'
+
+const socket = io('http://socket-friends.quisqui.com:4001');
 console.log({socket})
   //# props
   const props = defineProps({
@@ -127,7 +129,10 @@ console.log({socket})
   const emit = defineEmits(['deleteGuest'])
   const onVisibleDrop = (id) => (selectedGuestId.value = id);
   const onHideDrop = () => (selectedGuestId.value = null);
-  const deleteGuest = (guest, id) => emit('deleteGuest', guest, id)
+  const deleteGuest = () => {
+    emit('deleteGuest', guestSelected.value, guestParams.value)
+    isDeleteGuest.value = false
+  }
   const onCloseModalWarn1 = () => showModalWarning1.value = false
   const onCloseModalWarn2 = () => showModalWarning2.value = false
   const onCloseModalSuccess = () => showModalSuccess.value = false
@@ -138,11 +143,23 @@ console.log({socket})
   }
 
   onMounted(() => {
-    console.log({io})
-    socket.on('guestUpdated', (updatedGuestData) => {
-      console.log('Guest updated:', updatedGuestData);
-    });
-  })
+  console.log('Socket connection status:', socket.connected);
+
+  socket.on('guestUpdated', async (updatedGuestData) => {
+    console.log('Guest updated:', updatedGuestData);
+    const guests = await DataProvider({
+            providerType: 'GUESTS',
+            type: 'GET_GUESTS',
+            params: props.params
+        })
+    storeGuest.data = guests.body
+    console.log('body', guests)
+    console.log('store', storeGuest.data)
+    // Actualiza solo el invitado específico en el estado
+
+  });
+})
+  
   
   const onSelectedFriend = async (guest) => {
       const { id } = getIdGroup()
@@ -160,8 +177,8 @@ console.log({socket})
               idFriend: hash[0]['hashGuest'],
               idGuest: guest.hashGuest
           }
-          socket.emit('updateGuest', data);
-          await storeGuest.updateGuest(data, props.params)
+          socket.emit('guestUpdated', data);
+          console.log({data})
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
           isSelect.value = false
