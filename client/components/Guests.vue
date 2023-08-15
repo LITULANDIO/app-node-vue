@@ -86,7 +86,7 @@ import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
 
-const socket = io('https://socket-friends.quisqui.com');
+const socket = io('wss://socket-friends.quisqui.com');
 console.log({socket})
   //# props
   const props = defineProps({
