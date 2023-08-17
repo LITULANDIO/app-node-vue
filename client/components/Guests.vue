@@ -151,10 +151,10 @@ console.log({socket})
   }
 
   onMounted(() => {
-    socket.on('guestUpdatedCompleted', async (updatedGuestData) => {
+    socket.on('guestUpdatedCompleted', async ({updatedGuestData, ids}) => {
       console.log('Guest updated:', updatedGuestData);
       storeGuest.isLoading = true
-      if (socket.id !== updatedGuestData.idGuest) { 
+      if (user.value.id !== ids.idUser) { 
         showModalInfoGuest.value = true
       }
       DataProvider({
@@ -180,13 +180,17 @@ console.log({socket})
           showModalWarning2.value = true
       } else {
           const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
-          const data = {
+          const updatedGuest = {
               friend: guest.id,
               active: 1,
               idFriend: hash[0]['hashGuest'],
-              idGuest: guest.hashGuest
+              idGuest: guest.hashGuest,
           }
-          socket.emit('guestUpdated', data);
+          const ids = {
+            idUser: user.value.id,
+            idGroup: group.value.id
+          }
+          socket.emit('guestUpdated', { updatedGuest, ids });
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
           isSelect.value = false
