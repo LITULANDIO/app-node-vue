@@ -151,6 +151,7 @@ console.log({socket})
   }
 
   onMounted(() => {
+    socket.emit('joinRoom', group.value.id);
     socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
       console.log('Guest updated:', updatedGuestData);
       console.log('socket room =>', socket.currentRoom)
@@ -191,7 +192,6 @@ console.log({socket})
             idUser: user.value.id,
             idGroup: group.value.id
           }
-          socket.emit('joinRoom', ids.idGroup);
           socket.emit('guestUpdated', updatedGuest, ids);
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
