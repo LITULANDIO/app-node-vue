@@ -92,17 +92,13 @@ import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
 
-const socket = io('wss://socket-friends.quisqui.com');
+const socket = io('wss://socket-friends.quisqui.com:4001');
 console.log({socket})
   //# props
   const props = defineProps({
     isLoading: {
       type: Boolean,
       default: false,
-    },
-    guests: {
-      type: [Array, Object],
-      required: true,
     },
     params: {
       type: [String, Object]
