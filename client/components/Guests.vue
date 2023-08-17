@@ -192,6 +192,7 @@ console.log({socket})
             idGroup: group.value.id
           }
           socket.emit('guestUpdated', { updatedGuest, ids });
+          socket.emit('joinRoom', ids.idGroup);
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
           isSelect.value = false
