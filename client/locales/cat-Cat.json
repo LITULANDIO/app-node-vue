@@ -56,6 +56,9 @@
       "success": {
         "text": "Enhorabona, has seleccionat el teu amic invisible."
       },
+      "info": {
+        "text": "Hi ha un usuari que acaba de seleccionar el seu amic invisible"
+      },
       "wishes": {
         "header": "Afegeix els teus desitjos",
         "wish1": "Desig 1",

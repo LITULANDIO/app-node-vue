@@ -56,6 +56,9 @@
     "success": {
       "text": "Enhorabuena ya has seleccionado a tu amigo invisible."
     },
+    "info": {
+      "text": "Hay un usuario que acaba de seleccionar a su amigo invisible"    
+    },
     "wishes": {
       "header": "Añade tus deseos",
       "wish1": "Deseo 1",

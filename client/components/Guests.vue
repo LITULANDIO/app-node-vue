@@ -73,6 +73,12 @@
           </div>
         </div>
       </Modal>
+      <Modal :show="showModalInfoGuest" @onClose="onCloseModalInfoGuest" padding>
+        <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-circle-info" class="icon text-teal-600 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.info.text') }}</p>
+        </div>
+      </Modal>
       </div>
   </Transition>
 </template>
@@ -118,6 +124,7 @@ console.log({socket})
   const showModalWarning1 = ref(false)
   const showModalWarning2 = ref(false)
   const showModalSuccess = ref(false)
+  const showModalInfoGuest = ref(false)
   const route = useRoute()
   const isSelect = ref(true)
   const isDeleteGuest = ref(false)
@@ -136,6 +143,7 @@ console.log({socket})
   const onCloseModalWarn1 = () => showModalWarning1.value = false
   const onCloseModalWarn2 = () => showModalWarning2.value = false
   const onCloseModalSuccess = () => showModalSuccess.value = false
+  const onCloseModalInfoGuest = () => showModalInfoGuest.value = false
   const getIdGroup = () => {
     if (group.value.snug === route.params.id) {
       return { id: group.value.id }
@@ -143,20 +151,23 @@ console.log({socket})
   }
 
   onMounted(() => {
-  console.log('Socket connection status:', socket.connected);
-
-  socket.on('guestUpdated', async (updatedGuestData) => {
-    console.log('Guest updated:', updatedGuestData);
-    const guests = await DataProvider({
-            providerType: 'GUESTS',
-            type: 'GET_GUESTS',
-            params: props.params
-        })
-    storeGuest.data = guests.body
-    // Actualiza solo el invitado específico en el estado
-
-  });
-})
+    socket.on('guestUpdatedCompleted', async (updatedGuestData) => {
+      console.log('Guest updated:', updatedGuestData);
+      storeGuest.isLoading = true
+      if (socket.id !== updatedGuestData.idGuest) { 
+        showModalInfoGuest.value = true
+      }
+      DataProvider({
+        providerType: 'GUESTS',
+        type: 'GET_GUESTS',
+        params: props.params
+      }).then(res => {
+        storeGuest.data = res.body
+      }).finally(() => {
+        storeGuest.isLoading = false
+      })
+    })
+  })
   
   
   const onSelectedFriend = async (guest) => {
@@ -176,7 +187,6 @@ console.log({socket})
               idGuest: guest.hashGuest
           }
           socket.emit('guestUpdated', data);
-          console.log({data})
           await storeAuth.getGroupsOfUser(user.value.id)
           showModalSuccess.value = true
           isSelect.value = false
