@@ -153,8 +153,9 @@ console.log({socket})
   onMounted(() => {
     socket.on('guestUpdatedCompleted', async ({updatedGuestData, ids}) => {
       console.log('Guest updated:', updatedGuestData);
+      console.log('socket room =>', socket.currentRoom)
       storeGuest.isLoading = true
-      if (user.value.id !== ids.idUser) { 
+      if (user.value.id !== ids.idUser && socket.currentRoom === ids.idGroup) { 
         showModalInfoGuest.value = true
       }
       DataProvider({
