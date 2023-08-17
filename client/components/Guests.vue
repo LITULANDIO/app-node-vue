@@ -92,7 +92,7 @@ import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
 
-const socket = io('wss://socket-friends.quisqui.com:4001');
+const socket = io('wss://socket-friends.quisqui.com');
 console.log({socket})
   //# props
   const props = defineProps({
