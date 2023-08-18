@@ -147,23 +147,28 @@ console.log({socket})
   }
 
   onMounted(() => {
-    socket.emit('joinRoom', group.value.id);
-    socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
-      storeGuest.isLoading = true
-      if (user.value.id !== ids.idUser && group.value.id === ids.idGroup) { 
-        showModalInfoGuest.value = true
-      }
+  socket.emit('joinRoom', group.value.id);
+  socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
+    storeGuest.isLoading = true;
+    console.time('DataUpdate');
+    if (updatedGuestData) {
+      console.time()
       DataProvider({
         providerType: 'GUESTS',
         type: 'GET_GUESTS',
         params: props.params
       }).then(res => {
-        storeGuest.data = res.body
+        storeGuest.data = res.body;
+        console.timeEnd('DataUpdate');
+        if (user.value.id !== ids.idUser && group.value.id === ids.idGroup) { 
+          showModalInfoGuest.value = true;
+        }
       }).finally(() => {
-        storeGuest.isLoading = false
-      })
-    })
-  })
+        storeGuest.isLoading = false;
+      });
+    }
+  });
+});
   
   
   const onSelectedFriend = async (guest) => {
