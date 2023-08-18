@@ -151,7 +151,9 @@ console.log({socket})
   socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
     storeGuest.isLoading = true;
     console.time('DataUpdate');
+    console.log('last if', updatedGuestData)
     if (updatedGuestData) {
+      console.log('after if', updatedGuestData)
       console.time()
       DataProvider({
         providerType: 'GUESTS',
