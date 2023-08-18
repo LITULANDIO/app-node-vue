@@ -152,7 +152,7 @@ console.log({socket})
     storeGuest.isLoading = true;
     console.time('DataUpdate');
     console.log('last if', updatedGuestData)
-    if (updatedGuestData) {
+    if (updatedGuestData?.status === 200) {
       console.log('after if', updatedGuestData)
       console.time()
       DataProvider({
@@ -168,6 +168,8 @@ console.log({socket})
       }).finally(() => {
         storeGuest.isLoading = false;
       });
+    } else {
+      throw new Error('A problem updatedGuestData', updatedGuestData)
     }
   });
 });
