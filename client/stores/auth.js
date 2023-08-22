@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { DataProvider } from "@/data-provider/index"
+import { parse, stringify } from 'zipson'
 
 export const useStoreAuth = defineStore('auth', {
   state: () => {
@@ -45,7 +46,12 @@ export const useStoreAuth = defineStore('auth', {
   // }
   },
   getter: {},
-  persist: true
+  persist: {
+    serializer: {
+      deserialize: parse,
+      serialize: stringify
+    }
+  }
 })
 
 

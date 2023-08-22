@@ -15,7 +15,7 @@
                   @mouseover="onVisibleDrop(guest.id)" 
                   @mouseleave="onHideDrop" 
                   @touchstart="onVisibleDrop(guest.id)"
-                  @click="onSelectedFriend(guest)">
+                  >
                   <img src="/mysterious.png" />
                   <div class="icon-container" v-if="selectedGuestId === guest.id">
                       <template v-if="isAdmin">

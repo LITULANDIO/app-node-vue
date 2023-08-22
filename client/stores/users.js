@@ -1,5 +1,7 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { DataProvider } from "@/data-provider/index"
+import { parse, stringify } from 'zipson'
+
 import axios from 'axios'
 const runtimeConfig = useRuntimeConfig();
 
@@ -47,7 +49,12 @@ export const useStoreUsers = defineStore('store', {
   getter: {
     getUsers: state => state.users,
   },
-  persist: true
+  persist: {
+    serializer: {
+      deserialize: parse,
+      serialize: stringify
+    }
+  },
 })
 
 
