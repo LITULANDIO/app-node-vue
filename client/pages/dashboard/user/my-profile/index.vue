@@ -100,8 +100,13 @@ confirmed: string()
 //#end
 
 //#cycle life
-onMounted(() => {
+onMounted(async () => {
     localImage.value = user.value.photo
+    await DataProvider({
+      providerType: 'USERS',
+      type: 'GET_USER',
+      params: user.value.id,
+    })
 })
 //#
 
@@ -116,7 +121,7 @@ const onChangePassword = async () => {
         type: 'UPDATE_PASSWORD',
         params: JSON.parse(JSON.stringify(data))
     })
-    console.log({data})
+
 }
 const onPreviewImg = async (event) => {
   const input = event.target;
@@ -125,7 +130,6 @@ const onPreviewImg = async (event) => {
       reader.onload = e => localImage.value = e.target.result; 
       reader.readAsDataURL(input.files[0]);
       dataUser.photo = await storeUser.uploadImage(input.files[0])
-      console.log('path', dataUser.photo)
     }
 }
 const onSelectImage = () =>{
@@ -140,12 +144,14 @@ const onupdatePhoto = async () => {
     await DataProvider({
         providerType: 'USERS',
         type: 'UPDATE_PHOTO',
-        params: JSON.parse(JSON.stringify(data))
+        params: data
     })
-    storeAuth.getUser(
-      { id: user.value.id, 
-        name: user.value.name
-      }) 
+    const fetchUser = await DataProvider({
+      providerType: 'USERS',
+      type: 'GET_USER',
+      params: user.value.id,
+    })
+    user.value.photo = fetchUser.body[0].photo
     showEdit.value = true
 }
 //#end
