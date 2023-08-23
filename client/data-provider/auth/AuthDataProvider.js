@@ -7,6 +7,7 @@ export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
     switch(type) {
         case "LOGIN": 
             if (baseApiUrl) {
+                console.log({params})
                 options = {
                     method: "POST",
                     url: `${baseApiUrl}/auth/login`,
