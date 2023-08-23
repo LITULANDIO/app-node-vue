@@ -68,7 +68,7 @@ const onLogin = async () => {
   const result = await DataProvider({
         providerType: 'AUTH',
         type: 'LOGIN',
-        params: JSON.parse(JSON.stringify(dataUser))
+        params: JSON.parse(dataUser)
       })
   if(result?.data?.body?.error){
     errorLogin.value = result.data.body.msg
