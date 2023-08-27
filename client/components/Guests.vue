@@ -26,6 +26,11 @@
                             <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
                           </div>
                       </template>
+                      <template v-else>
+                        <div @click="onSelectedFriend(guest)">
+                            <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
+                        </div>                      
+                      </template>
                   </div>
                   {{ guest.name }}
               </div>
@@ -151,7 +156,6 @@ console.log({socket})
   socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
     storeGuest.isLoading = true;
     console.time('DataUpdate');
-    console.log('last if', updatedGuestData)
     if (updatedGuestData?.status === 200) {
       console.log('after if', updatedGuestData)
       console.time()
