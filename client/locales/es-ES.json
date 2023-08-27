@@ -68,6 +68,12 @@
       "wish5": "Deseo 5",
       "button": "Guardar"
     },
+    "errorWishes": {
+      "text": "Hubo un error vuelve a intentarlo más tarde"
+    },
+    "successWishes": {
+      "text": "Tus deseos se han guardado correctamente"
+    },
     "deleteGuest": {
       "accept": "Aceptar",
       "cancel": "Cancelar",

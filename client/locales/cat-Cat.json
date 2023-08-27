@@ -68,6 +68,12 @@
         "wish5": "Desig 5",
         "button": "Desa"
       },
+      "errorWishes": {
+        "text": "Hi va haver un error torna a intentar-ho més tard"
+      },
+      "successWishes": {
+        "text": "Els teus desitjos s'han guardat correctament"
+      },
       "deleteGuest": {
         "accept": "Acceptar",
         "cancel": "Cancelar",

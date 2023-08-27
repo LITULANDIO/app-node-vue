@@ -68,6 +68,12 @@
       "wish5": "Wish 5",
       "button": "Save"
     },
+    "errorWishes": {
+      "text": "There was an error, please try again later"
+    },
+    "successWishes": {
+      "text": "Your wishes have been successfully saved"
+    },
     "deleteGuest": {
       "accept": "Accept",
       "cancel": "Cancel",

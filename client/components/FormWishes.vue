@@ -54,10 +54,22 @@
                 <div><button :class="{ 'cursor-pointer button-disabled': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.wishes.button') }}</button></div>
         </VForm>
     </Modal>
+    <Modal :show="showModalError" @onClose="onCloseModalError" padding>
+        <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.errorWishes.text') }}</p>
+        </div>
+      </Modal>
+      <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
+        <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.successWishes.text') }}</p>
+        </div>
+      </Modal>
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { DataProvider } from '@/data-provider/index'
 
@@ -76,19 +88,6 @@ const props = defineProps({
     }
 })
 //#end
-//# cycle life
-onMounted(() => {
-    dataWishes.wish1 = props.wishes.wish1
-    dataWishes.wish2 = props.wishes.wish2
-    dataWishes.wish3 = props.wishes.wish3
-    dataWishes.wish4 = props.wishes.wish4
-    dataWishes.wish5 = props.wishes.wish5
-})
-//#end
-//# emits
-const emit = defineEmits(['onClose', 'onSubmit'])
-const onClose = () => emit("onClose")
-//#
 
 //# const ref
 const schema = object({
@@ -104,6 +103,28 @@ let dataWishes = reactive({
     wish4: '',
     wish5: ''
 })
+const showModalError = ref(false)
+const showModalSuccess = ref(false)
+//#end
+
+//# cycle life
+onMounted(() => {
+    dataWishes.wish1 = props.wishes.wish1
+    dataWishes.wish2 = props.wishes.wish2
+    dataWishes.wish3 = props.wishes.wish3
+    dataWishes.wish4 = props.wishes.wish4
+    dataWishes.wish5 = props.wishes.wish5
+})
+//#end
+
+//# emits
+const emit = defineEmits(['onClose', 'onSubmit'])
+const onClose = () => emit("onClose")
+//#
+
+//# events
+const onCloseModalError = () => showModalError.value = false
+const onCloseModalSuccess = () => showModalSuccess.value = false
 //#end
 
 //#methods
@@ -111,20 +132,26 @@ const onSubmitWishes = async () => {
     dataWishes.idGroup = props.data.idGroup
     dataWishes.idUser = props.data.idUser
     console.log({dataWishes})
-    await DataProvider({
-          providerType: 'WISHES',
-          type: 'INSERT_WISHES',
-          params: JSON.parse(JSON.stringify(dataWishes))
-        })
-    if (!props.wishes.wish1) {
-        dataWishes = {
-            wish1: '',
-            wish2: '',
-            wish3: '',
-            wish4: '',
-            wish5: ''
-        }
+    try {
+        await DataProvider({
+              providerType: 'WISHES',
+              type: 'INSERT_WISHES',
+              params: JSON.parse(JSON.stringify(dataWishes))
+            })
+        showModalSuccess.value = true
+        props.isOpen = false
+    }catch(error){
+        showModalError.value = true
     }
+    // if (!props.wishes.wish1) {
+    //     dataWishes = {
+    //         wish1: '',
+    //         wish2: '',
+    //         wish3: '',
+    //         wish4: '',
+    //         wish5: ''
+    //     }
+    // }
 }
 //#end
 </script>

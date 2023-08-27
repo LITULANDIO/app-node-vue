@@ -68,6 +68,12 @@
         "wish5" : "Souhait 5",
         "button" : "Enregistrer"
       },
+      "errorWishes": {
+        "text": "Une erreur s'est produite, veuillez réessayer plus tard"
+      },
+      "successWishes": {
+        "text": "Vos souhaits ont été enregistrés avec succès"
+      },
       "deleteGuest": {
         "accept": "Acceptar",
         "cancel": "Cancelar",
