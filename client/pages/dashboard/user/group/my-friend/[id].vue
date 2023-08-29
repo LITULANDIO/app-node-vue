@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onBeforeMount } from 'vue'
+import { ref, reactive, computed, onBeforeMount, onUpdated } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStoreAuth } from '~~/stores/auth';
 
@@ -59,19 +59,26 @@ const isOpenModal = ref(false);
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const friend = ref(null)
 const data = reactive({
-    idGroup: group.value.id,
-    idUser: user.value.id
+    idGroup: group.value?.id,
+    idUser: user.value?.id
 })
 //#end
 
 onBeforeMount(() => {
+    console.log('before', data)
     groups.value.map(grup => {
         if (grup.group.id === group.value.id) {
             friend.value = grup
         }
     })
-    console.log('friend',  friend.value)
 })
+
+onUpdated(() => {
+    data.idGroup = group.value.id
+    data.idUser = user.value.id
+    console.log('update', data)
+})
+
 
 //#computed
 const isFriendWishesEmpty = computed(() => {
