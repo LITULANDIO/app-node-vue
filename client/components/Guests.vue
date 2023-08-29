@@ -89,10 +89,10 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import { useStoreAuth } from '~~/stores/auth';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreGroup } from '~~/stores/groups';
-import { storeToRefs } from 'pinia'
 import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
