@@ -51,37 +51,22 @@ import { useStoreAuth } from '~~/stores/auth';
 
 //#ref reactive const
 const storeAuth = useStoreAuth()
-const { user, groups } = storeToRefs(storeAuth)
+const { user } = storeToRefs(storeAuth)
 const isViewFriend = ref(false)
 const isViewWishesFriend = ref(false)
 const isViewWishesMe = ref(false)
 const isOpenModal = ref(false);
 const group = ref(JSON.parse(localStorage.getItem('group')))
-const friend = ref(null)
+const friend = ref(JSON.parse(localStorage.getItem('friend')))
 const data = reactive({
     idGroup: group.value?.id,
     idUser: user.value?.id
 })
 //#end
 
-onBeforeMount(() => {
-    console.log('before', data)
-    groups.value.map(grup => {
-        if (grup.group.id === group.value.id) {
-            friend.value = grup
-        }
-    })
-})
-
 onUpdated(() => {
     data.idGroup = group.value.id
     data.idUser = user.value.id
-    groups.value.map(grup => {
-        if (grup.group.id === group.value.id) {
-            friend.value = grup
-        }
-    })
-    console.log('update', data)
 })
 
 

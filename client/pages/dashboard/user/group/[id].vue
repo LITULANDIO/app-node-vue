@@ -159,6 +159,7 @@ const onGoMyFriend = () => {
     if (grup.group.id === group.value.id ) {
         snug = group.value.snug
         storeAuth.friend = grup
+        localStorage.setItem('friend', JSON.stringify(grup))
     }
   })
   navigateTo(`/dashboard/user/group/my-friend/${snug}`)
