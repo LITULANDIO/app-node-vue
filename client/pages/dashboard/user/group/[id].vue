@@ -27,21 +27,6 @@
 </template>
 
 <script setup>
-/**
- *TODO !!
- * =============================================================
- * - guardar desitjos i recuperarlos --> FET
- * - targeta x despres de seleccionar --> FET
- * - afegir opcio seleccionar  + eliminar usuari vista admin --> FET
- * - afegir admin al crear grup --> FET
- * - BACKBUTTON a les seccions --> FET
- * - afegir idioma --> FET
- * - boto opcions: editar perfil, caambiar idioma --> FET
- * - seccio grups creats i d'invitats segons entras per primera vegada amb codig
- * - implementar afiliacio segons desitjos
- * =============================================================
- */
-
 import { ref, reactive, onMounted, computed, nextTick } from 'vue'
 import { useStoreGroup } from '~~/stores/groups';
 import { useStoreGuest } from '~~/stores/guests';
@@ -85,7 +70,6 @@ onMounted(async() => {
   }
  usersParsed.value = await getAllUsers()
  await storeGuest.getGuests(id.value)
- detectBackButton()
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
 })
@@ -170,7 +154,7 @@ const isFriendSelected = computed(() => {
   let isSelected = false
   storeAuth.groups.forEach(grup => {
     if (grup.group.id === group.value.id) {
-      if (grup.friend.name) {
+      if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
         isSelected = true
       }
     }
@@ -188,19 +172,7 @@ const addUserAdmin = async () => {
     await storeAuth.getGroupsOfUser(user.value.id)
   }
 }
-const detectBackButton = () => {
-  window.addEventListener('popstate', () => {
-    // group.value = {
-    //   id: group.value.id,
-    //   admin: '',
-    //   name: group.value.name,
-    //   date: '',
-    //   location: '',
-    //   budget: '',
-    //   snug: '',
-    // }
-});
-}
+
 const setDataGroupWhenEntryInviteFriend = () => {
   groups.value.forEach(grup => {
     if(grup.snug === route.params.id) {
