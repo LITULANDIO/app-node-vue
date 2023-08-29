@@ -76,6 +76,11 @@ onBeforeMount(() => {
 onUpdated(() => {
     data.idGroup = group.value.id
     data.idUser = user.value.id
+    groups.value.map(grup => {
+        if (grup.group.id === group.value.id) {
+            friend.value = grup
+        }
+    })
     console.log('update', data)
 })
 

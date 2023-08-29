@@ -20,12 +20,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useStoreGroup } from '~~/stores/groups';
-const storeGroups = useStoreGroup()
-const { group } = storeToRefs(storeGroups)
-
-console.log(group.value)
+const group = ref(JSON.parse(localStorage.getItem('group')))
 const showInfo = ref(false)
 
 const onViewInfo = () => {
