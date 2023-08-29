@@ -152,6 +152,16 @@ console.log({socket})
   }
 
   onMounted(() => {
+    console.log('group =>', group.value)
+    group.value = {
+      id: group.value.id,
+      admin: group.value.admin,
+      name: group.value.name,
+      date: group.value.date,
+      location: group.value.location,
+      budget: group.value.budget,
+      snug: group.value.snug,
+    }
   socket.emit('joinRoom', group.value.id);
   socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
     storeGuest.isLoading = true;
@@ -215,7 +225,7 @@ console.log({socket})
 
   //#computed
   const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0))
+  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0 && guest.idGuest != guest.idGuest))
   //#end
 </script>
 
