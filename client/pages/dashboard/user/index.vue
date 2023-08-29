@@ -93,6 +93,7 @@ const onGoGroup = (groupSelceted) => {
   unitGroup.value.date = groupSelceted.date
   unitGroup.value.budget = groupSelceted.budget
   unitGroup.value.snug = groupSelceted.snug
+  localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
   navigateTo(`/dashboard/user/group/${groupSelceted.snug}`)
 }
 const onGoGroupWithCode = async () => {
@@ -118,8 +119,15 @@ const onGoGroupWithCode = async () => {
         unitGroup.value.date = grup.date
         unitGroup.value.budget = grup.budget
         unitGroup.value.snug = grup.snug
+        localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
       }
     })
+    const guests = await DataProvider({
+            providerType: 'GUESTS',
+            type: 'GET_GUESTS',
+            params: fetchUser.body?.snug
+        })
+    storeGuest.data = guests.body
     navigateTo(`/dashboard/user/group/${fetchUser.body?.snug}`)
 }
 //# end

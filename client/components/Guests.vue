@@ -7,7 +7,7 @@
       <div v-else class="w-full">
         <div class="flex justify-center items-center">
           <BackButton />
-          <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
+          <h1 class="text-2xl capitalize text-center text-white">{{ storageGroup.name  }}</h1>
         </div>
         <div id="guests" class="w-full flex justify-center items-center flex-wrap mt-5">
           <template v-for="guest in unselectedFriends" :key="guest.id">
@@ -119,9 +119,7 @@ console.log({socket})
   const selectedGuestId = ref(null);
   const storeAuth = useStoreAuth()
   const storeGuest = useStoreGuest()
-  const storeGroups = useStoreGroup()
   const { user, groups } = storeToRefs(storeAuth)
-  const { group } = storeToRefs(storeGroups)
   const showModalWarning1 = ref(false)
   const showModalWarning2 = ref(false)
   const showModalSuccess = ref(false)
@@ -131,6 +129,7 @@ console.log({socket})
   const isDeleteGuest = ref(false)
   const guestSelected = ref(null)
   const guestParams = ref(null)
+  const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
   //#end
   
   //# events
@@ -146,23 +145,13 @@ console.log({socket})
   const onCloseModalSuccess = () => showModalSuccess.value = false
   const onCloseModalInfoGuest = () => showModalInfoGuest.value = false
   const getIdGroup = () => {
-    if (group.value.snug === route.params.id) {
-      return { id: group.value.id }
+    if (storageGroup.value.snug === route.params.id) {
+      return { id: storageGroup.value.id }
     }
   }
 
   onMounted(() => {
-    console.log('group =>', group.value)
-    group.value = {
-      id: group.value.id,
-      admin: group.value.admin,
-      name: group.value.name,
-      date: group.value.date,
-      location: group.value.location,
-      budget: group.value.budget,
-      snug: group.value.snug,
-    }
-  socket.emit('joinRoom', group.value.id);
+  socket.emit('joinRoom', storageGroup.value.id);
   socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
     storeGuest.isLoading = true;
     console.time('DataUpdate');
@@ -176,7 +165,7 @@ console.log({socket})
       }).then(res => {
         storeGuest.data = res.body;
         console.timeEnd('DataUpdate');
-        if (user.value.id !== ids.idUser && group.value.id === ids.idGroup) { 
+        if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;
         }
       }).finally(() => {
@@ -207,7 +196,7 @@ console.log({socket})
           }
           const ids = {
             idUser: user.value.id,
-            idGroup: group.value.id
+            idGroup: storageGroup.value.id
           }
           socket.emit('guestUpdated', updatedGuest, ids);
           await storeAuth.getGroupsOfUser(user.value.id)
@@ -225,7 +214,7 @@ console.log({socket})
 
   //#computed
   const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0 && guest.idGuest != guest.idGuest))
+  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0)) // && guest.idGuest != guest.idGuest))
   //#end
 </script>
 

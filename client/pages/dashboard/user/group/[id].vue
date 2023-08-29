@@ -57,7 +57,7 @@ definePageMeta({
 const storeGroup = useStoreGroup()
 const storeGuest = useStoreGuest()
 const storeAuth = useStoreAuth()
-const { group, groups } = storeToRefs(storeGroup)
+const { groups } = storeToRefs(storeGroup)
 const { data, isLoading } = storeToRefs(storeGuest)
 const { user } = storeToRefs(storeAuth)
 const { getAllUsers, getUser } = useUsers()
@@ -75,6 +75,8 @@ const isShowDropdownUsers = ref(false)
 const idGuest = ref('')
 const isExistedGuest = ref(false)
 const id = ref('')
+const group = ref(JSON.parse(localStorage.getItem('group')))
+
 //#end
 
 //#cycle life
@@ -188,21 +190,21 @@ const addUserAdmin = async () => {
 }
 const detectBackButton = () => {
   window.addEventListener('popstate', () => {
-    group.value = {
-      id: group.value.id,
-      admin: '',
-      name: group.value.name,
-      date: '',
-      location: '',
-      budget: '',
-      snug: '',
-    }
+    // group.value = {
+    //   id: group.value.id,
+    //   admin: '',
+    //   name: group.value.name,
+    //   date: '',
+    //   location: '',
+    //   budget: '',
+    //   snug: '',
+    // }
 });
 }
 const setDataGroupWhenEntryInviteFriend = () => {
   groups.value.forEach(grup => {
     if(grup.snug === route.params.id) {
-      group.value = {
+      const group = {
         id: grup.id,
         admin: grup.admin,
         name: grup.name,
@@ -211,6 +213,7 @@ const setDataGroupWhenEntryInviteFriend = () => {
         budget: grup.budget,
         snug: grup.snug
       }
+      localStorage.setItem('group', (JSON.stringify(group)))
     }
   })
 }

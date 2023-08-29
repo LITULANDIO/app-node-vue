@@ -23,6 +23,7 @@ const { clearAuthData, deleteAllCookies } = useAuth()
 const onLogout = () => {
   clearAuthData()
   deleteAllCookies()
+  localStorage.removeItem('group')
   group.value = {
       id: '',
       admin: '',
