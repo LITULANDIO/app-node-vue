@@ -151,6 +151,7 @@ const onGoMyFriend = () => {
 //# end
 
 const isFriendSelected = computed(() => {
+  debugger
   let isSelected = false
   storeAuth.groups.forEach(grup => {
     if (grup.group.id === group.value.id) {
