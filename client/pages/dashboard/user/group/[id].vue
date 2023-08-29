@@ -151,9 +151,11 @@ const onGoMyFriend = () => {
 //# end
 
 const isFriendSelected = computed(() => {
-  debugger
   let isSelected = false
+  console.log('store',  storeAuth.groups)
   storeAuth.groups.forEach(grup => {
+    console.log('grup', grup)
+    console.log('id', grup.group.id, '-', group.value.id)
     if (grup.group.id === group.value.id) {
       if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
         isSelected = true
