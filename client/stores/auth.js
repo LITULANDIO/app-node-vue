@@ -47,6 +47,7 @@ export const useStoreAuth = defineStore('auth', {
   },
   getter: {},
   persist: {
+    enabled: true,
     serializer: {
       deserialize: parse,
       serialize: stringify

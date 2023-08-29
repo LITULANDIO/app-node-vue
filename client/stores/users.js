@@ -50,6 +50,7 @@ export const useStoreUsers = defineStore('store', {
     getUsers: state => state.users,
   },
   persist: {
+    enabled: true,
     serializer: {
       deserialize: parse,
       serialize: stringify

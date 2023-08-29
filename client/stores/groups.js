@@ -41,6 +41,7 @@ export const useStoreGroup = defineStore('groups', {
   },
   getter: {},
   persist: {
+    enabled: true,
     serializer: {
       deserialize: parse,
       serialize: stringify

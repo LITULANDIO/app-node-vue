@@ -49,6 +49,7 @@ export const useStoreGuest = defineStore('guests', {
   },
   getter: {},
   persist: {
+    enabled: true,
     serializer: {
       deserialize: parse,
       serialize: stringify
