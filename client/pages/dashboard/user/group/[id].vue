@@ -62,7 +62,6 @@ const { data, isLoading } = storeToRefs(storeGuest)
 const { user } = storeToRefs(storeAuth)
 const { getAllUsers, getUser } = useUsers()
 const route = useRoute()
-const router = useRouter()
 const dataFriend = reactive({
   name: '',
   send: '',
