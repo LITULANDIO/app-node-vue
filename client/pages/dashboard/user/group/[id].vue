@@ -161,9 +161,11 @@ const onGoMyFriend = () => {
 const isFriendSelected = computed(() => {
   let isSelected = false
   try {
-    (groupsOfUser.value || storeAuth.groups).map(grup => {
+    (groupsOfUser.value).map(grup => {
       if (grup.group.id === group.value.id) {
+        console.log('match amb el grup')
         if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
+          console.log('existeix friend')
           isSelected = true
         }
       }
