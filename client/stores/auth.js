@@ -33,10 +33,10 @@ export const useStoreAuth = defineStore('auth', {
        }).then((res) => {
          this.groups = res.body
          window.localStorage.setItem('groups-user', JSON.stringify(res.body))
+         console.log('groups user request', res.body)
        }).finally( () => {
         this.loading = false
        })
-      console.log('groups user request', fetchGroups.body)
   }
   },
   getter: {},
