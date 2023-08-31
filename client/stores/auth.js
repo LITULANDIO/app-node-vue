@@ -32,7 +32,8 @@ export const useStoreAuth = defineStore('auth', {
            params: id
        })
       this.groups = fetchGroups.body
-      window.localStorage.setItem('groups-user', JSON.stringify(this.groups))
+      console.log('groups user request', fetchGroups.body)
+      window.localStorage.setItem('groups-user', JSON.stringify(fetchGroups.body))
   }
   },
   getter: {},
