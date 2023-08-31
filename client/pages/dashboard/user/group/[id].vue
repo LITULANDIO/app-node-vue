@@ -23,7 +23,7 @@
     <section class="button-container" :class="isFriendSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
       <div v-if="isFriendSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
-      <div v-if="loading" class="separator">
+      <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
     </section>
@@ -64,8 +64,6 @@ const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
-const isFriendSelected = ref(false)
-
 //#end
 
 //#cycle life
@@ -77,11 +75,7 @@ onMounted(async() => {
  await storeGuest.getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
- hasFriendSelected()
  console.log('groups user', groupsOfUser.value)
-})
-onUpdated(() => {
-  hasFriendSelected()
 })
 //#end
 
@@ -164,21 +158,19 @@ const onGoMyFriend = () => {
 }
 //# end
 
-const hasFriendSelected = () => {
+const isFriendSelected = computed(() => {
   try {
-  (groupsOfUser.value || storeAuth.groups).forEach(grup => {
-    console.log('grup', grup)
-    console.log('id', grup.group.id, '-', group.value.id)
-    if (grup.group.id === group.value.id) {
-      if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
-        isFriendSelected.value = true
+    (groupsOfUser.value || storeAuth.groups).map(grup => {
+      if (grup.group.id === group.value.id) {
+        if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
+          return true
+        }
       }
-    }
-  })
-} catch(error) {
-  console.error(error)
-}
-}
+    })
+  } catch(error) {
+    console.error(error)
+  }
+})
 
 //# functions
 const addUserAdmin = async () => {
