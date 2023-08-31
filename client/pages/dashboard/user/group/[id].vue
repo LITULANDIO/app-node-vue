@@ -143,13 +143,17 @@ const onDeleteGuest = async (guest, id) => {
 }
 const onGoMyFriend = () => {
   let snug = ''
-  storeAuth.groups.forEach(grup => {
+  try{
+  (groupsOfUser.value || storeAuth.groups).forEach(grup => {
     if (grup.group.id === group.value.id ) {
         snug = group.value.snug
         storeAuth.friend = grup
         localStorage.setItem('friend', JSON.stringify(grup))
     }
   })
+}catch(error) {
+  console.error(`[ERROR: ${error}`)
+}
   navigateTo(`/dashboard/user/group/my-friend/${snug}`)
 }
 //# end
