@@ -32,18 +32,8 @@ export const useStoreAuth = defineStore('auth', {
            params: id
        })
       this.groups = fetchGroups.body
-  },
-  // async getUser ({ id, name }) {
-  //   const fetchUser = await DataProvider({
-  //     providerType: 'USERS',
-  //     type: 'GET_USER',
-  //     params: id
-  //   })
-  //   console.log({fetchUser})
-  //   this.user.id = id
-  //   this.user.name = name
-  //   this.user.photo = fetchUser.body[0].photo
-  // }
+      window.localStorage.setItem('groups-user', JSON.stringify(this.groups))
+  }
   },
   getter: {},
   persist: {

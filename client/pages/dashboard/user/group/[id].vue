@@ -60,6 +60,7 @@ const idGuest = ref('')
 const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
+const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
 
 //#end
 
@@ -72,6 +73,7 @@ onMounted(async() => {
  await storeGuest.getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
+ console.log('groups user', groupsOfUser.value)
 })
 //#end
 
@@ -152,8 +154,8 @@ const onGoMyFriend = () => {
 
 const isFriendSelected = computed(() => {
   let isSelected = false
-  console.log('store',  storeAuth.groups)
-  storeAuth.groups.forEach(grup => {
+  try {
+  (storeAuth.groups || groupsOfUser.value).forEach(grup => {
     console.log('grup', grup)
     console.log('id', grup.group.id, '-', group.value.id)
     if (grup.group.id === group.value.id) {
@@ -162,6 +164,9 @@ const isFriendSelected = computed(() => {
       }
     }
   })
+} catch(error) {
+  console.error(error)
+}
   return isSelected
 })
 

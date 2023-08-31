@@ -25,6 +25,7 @@ const onLogout = () => {
   deleteAllCookies()
   localStorage.removeItem('group')
   localStorage.removeItem('friend')
+  localStorage.removeItem('groups-user')
   user.value = {
     id: '',
     name: '',
