@@ -23,6 +23,9 @@
     <section class="button-container" :class="isFriendSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
       <div v-if="isFriendSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-else class="separator">
+        <Spinner/>
+      </div>
     </section>
 </template>
 
