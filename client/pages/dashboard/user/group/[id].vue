@@ -20,9 +20,9 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isFriendSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
-      <div v-if="isFriendSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-if="isSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
@@ -64,6 +64,7 @@ const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+const isSelected = ref(false)
 //#end
 
 //#cycle life
@@ -75,7 +76,7 @@ onMounted(async() => {
  await storeGuest.getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
- console.log('groups user', groupsOfUser.value)
+ isFriendSelected()
 })
 //#end
 
@@ -102,6 +103,7 @@ const onSelectUser = (event, idUser) => {
     isShowDropdownUsers.value = false
     console.log({userSelected})
   })
+  isSelected.value = true
 }
 const onKeyUp = () => {
   isShowDropdownUsers.value = dataFriend.name.length >= 3
@@ -117,12 +119,6 @@ const onSubmitFriend = async () => {
     guest: {idGroup: group.value.id, idGuest: idGuest.value, friend: 0, active: 0},
     id: id.value
   })
-  const groupOfUser = await DataProvider({
-    providerType: 'GROUPS',
-    type: 'GET_GROUPS_USER',
-    params: user.value.id
-  })
-  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
   isOpenModal.value = false
   DataProvider({
     providerType: 'MAIL',
@@ -154,7 +150,7 @@ const onDeleteGuest = async (guest, id) => {
 const onGoMyFriend = () => {
   let snug = ''
   try{
-  (groupsOfUser.value || storeAuth.groups).forEach(grup => {
+  groupsOfUser.value.forEach(grup => {
     if (grup.group.id === group.value.id ) {
         snug = group.value.snug
         storeAuth.friend = grup
@@ -168,10 +164,17 @@ const onGoMyFriend = () => {
 }
 //# end
 
-const isFriendSelected = computed(() => {
-  const groupsUser = JSON.parse(localStorage.getItem('groups-user'))
-  return groupsUser.map(grup => grup.group.id === group.value.id && grup.friend.name.length > 0)
-})
+const isFriendSelected = () => {
+  groupsOfUser.value.map(grup => {
+    if( grup.group.id === group.value.id) {
+      console.log('fa match el grup', grup)
+      if (grup.friend.name) {
+        console.log('friend exist', grup.friend.name)
+        isSelected.value = true
+      }
+    }
+  })
+}
    
 //# functions
 const addUserAdmin = async () => {
