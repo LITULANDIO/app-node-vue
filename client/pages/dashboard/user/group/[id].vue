@@ -20,9 +20,9 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isFriendSelected() && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isFriendSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
-      <div v-if="isFriendSelected()" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-if="isFriendSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUpdated, computed, nextTick, watchEffect } from 'vue'
+import { ref, reactive, onMounted, computed, nextTick } from 'vue'
 import { useStoreGroup } from '~~/stores/groups';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreAuth } from '~~/stores/auth';
@@ -64,7 +64,6 @@ const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
-const iSelected = ref(false)
 //#end
 
 //#cycle life
@@ -169,20 +168,11 @@ const onGoMyFriend = () => {
 }
 //# end
 
-const isFriendSelected = () => {
-  let isSelected = false
-    groupsOfUser.value.map(grup => {
-      if (grup.group.id === group.value.id) {
-        console.log('match amb el grup')
-        if (grup.friend.name) {
-          console.log('existeix friend')
-          isSelected = true
-        }
-      }
-    })
-    return isSelected
-}
-
+const isFriendSelected = computed(() => {
+  const groupsUser = JSON.parse(localStorage.getItem('group.user'))
+  return groupsUser.map(grup => grup.group.id === group.value.id && grup.friend.name.length > 0)
+})
+   
 //# functions
 const addUserAdmin = async () => {
   if (storeGuest.data.guests.length === 0 ) {
@@ -215,12 +205,6 @@ const setDataGroupWhenEntryInviteFriend = () => {
     }
   })
 }
-
-watchEffect(() => {
-  if (groupsOfUser.value) {
-    isFriendSelected()
-  }
-})
 //#end
 
 </script>
