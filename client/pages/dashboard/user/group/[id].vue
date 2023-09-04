@@ -120,7 +120,7 @@ const onSubmitFriend = async () => {
   const groupOfUser = await DataProvider({
     providerType: 'GROUPS',
     type: 'GET_GROUPS_USER',
-    params: id
+    params: user.value.id
   })
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
   isOpenModal.value = false
@@ -147,7 +147,7 @@ const onDeleteGuest = async (guest, id) => {
   const groupOfUser = await DataProvider({
     providerType: 'GROUPS',
     type: 'GET_GROUPS_USER',
-    params: id
+    params: user.value.id
   })
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
