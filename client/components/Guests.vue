@@ -124,7 +124,6 @@ console.log({socket})
   const showModalSuccess = ref(false)
   const showModalInfoGuest = ref(false)
   const route = useRoute()
-  const isSelect = ref(true)
   const isDeleteGuest = ref(false)
   const guestSelected = ref(null)
   const guestParams = ref(null)
@@ -168,7 +167,6 @@ console.log({socket})
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;
-          storeGuest.isSelected = true
         }
       }).finally(() => {
         storeGuest.isLoading = false;
@@ -208,7 +206,7 @@ console.log({socket})
           }
           socket.emit('guestUpdated', updatedGuest, ids);
           showModalSuccess.value = true
-          isSelect.value = false
+          storeGuest.isSelected = true
       }
   }
   const onCloseModalDelete = () => isDeleteGuest.value = false
