@@ -103,7 +103,6 @@ const onSelectUser = (event, idUser) => {
     isShowDropdownUsers.value = false
     console.log({userSelected})
   })
-  isSelected.value = true
 }
 const onKeyUp = () => {
   isShowDropdownUsers.value = dataFriend.name.length >= 3
@@ -175,6 +174,8 @@ const isFriendSelected = () => {
     }
   })
 }
+
+watchEffect(() => isFriendSelected())
    
 //# functions
 const addUserAdmin = async () => {
