@@ -11,9 +11,6 @@ export const useStoreAuth = defineStore('auth', {
         name: '',
         photo: ''
      },
-     groups: [],
-     friend: {},
-     loading: false
     }
   },
   actions: {
@@ -23,21 +20,7 @@ export const useStoreAuth = defineStore('auth', {
         type: 'LOGIN',
         params: data
       })
-    },
-    async getGroupsOfUser (id) {
-      this.loading = true
-      DataProvider({
-           providerType: 'GROUPS',
-           type: 'GET_GROUPS_USER',
-           params: id
-       }).then((res) => {
-         this.groups = res.body
-         window.localStorage.setItem('groups-user', JSON.stringify(res.body))
-         console.log('groups user request', res.body)
-       }).finally( () => {
-        this.loading = false
-       })
-  }
+    }
   },
   getter: {},
   persist: {

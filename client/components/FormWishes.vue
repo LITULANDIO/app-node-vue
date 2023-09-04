@@ -134,12 +134,11 @@ const onSubmitWishes = async () => {
     console.log({dataWishes})
     try {
         await DataProvider({
-              providerType: 'WISHES',
-              type: 'INSERT_WISHES',
-              params: JSON.parse(JSON.stringify(dataWishes))
+                providerType: 'WISHES',
+                type: 'INSERT_WISHES',
+                params: JSON.parse(JSON.stringify(dataWishes))
             })
         showModalSuccess.value = true
-        props.isOpen = false
     }catch(error){
         showModalError.value = true
     }

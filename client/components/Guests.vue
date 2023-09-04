@@ -92,7 +92,6 @@
 import { storeToRefs } from 'pinia'
 import { useStoreAuth } from '~~/stores/auth';
 import { useStoreGuest } from '~~/stores/guests';
-import { useStoreGroup } from '~~/stores/groups';
 import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
@@ -119,7 +118,7 @@ console.log({socket})
   const selectedGuestId = ref(null);
   const storeAuth = useStoreAuth()
   const storeGuest = useStoreGuest()
-  const { user, groups } = storeToRefs(storeAuth)
+  const { user } = storeToRefs(storeAuth)
   const showModalWarning1 = ref(false)
   const showModalWarning2 = ref(false)
   const showModalSuccess = ref(false)
@@ -130,6 +129,8 @@ console.log({socket})
   const guestSelected = ref(null)
   const guestParams = ref(null)
   const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
+  const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+
   //#end
   
   //# events
@@ -180,7 +181,7 @@ console.log({socket})
   
   const onSelectedFriend = async (guest) => {
       const { id } = getIdGroup()
-      const groupOfGuest = groups.value.find(grup => grup.group.id === id)
+      const groupOfGuest = groupsOfUser.value.find(grup => grup.group.id === id)
       if(guest.id === storeAuth.user.id) {
           showModalWarning1.value = true
           return
@@ -199,7 +200,12 @@ console.log({socket})
             idGroup: storageGroup.value.id
           }
           socket.emit('guestUpdated', updatedGuest, ids);
-          await storeAuth.getGroupsOfUser(user.value.id)
+          const groupOfUser = await DataProvider({
+            providerType: 'GROUPS',
+            type: 'GET_GROUPS_USER',
+            params: id
+          })
+          window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
           showModalSuccess.value = true
           isSelect.value = false
       }

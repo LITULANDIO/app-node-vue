@@ -47,7 +47,7 @@ const storeGuest = useStoreGuest()
 const storeAuth = useStoreAuth()
 const { groups } = storeToRefs(storeGroup)
 const { data, isLoading } = storeToRefs(storeGuest)
-const { user, loading } = storeToRefs(storeAuth)
+const { user } = storeToRefs(storeAuth)
 const { getAllUsers, getUser } = useUsers()
 const route = useRoute()
 const dataFriend = reactive({
@@ -117,7 +117,12 @@ const onSubmitFriend = async () => {
     guest: {idGroup: group.value.id, idGuest: idGuest.value, friend: 0, active: 0},
     id: id.value
   })
-  await storeAuth.getGroupsOfUser(user.value.id)
+  const groupOfUser = await DataProvider({
+    providerType: 'GROUPS',
+    type: 'GET_GROUPS_USER',
+    params: id
+  })
+  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
   isOpenModal.value = false
   DataProvider({
     providerType: 'MAIL',
@@ -139,7 +144,12 @@ const onDeleteGuest = async (guest, id) => {
     guest,
     id
   })
-  await storeAuth.getGroupsOfUser(user.value.id)
+  const groupOfUser = await DataProvider({
+    providerType: 'GROUPS',
+    type: 'GET_GROUPS_USER',
+    params: id
+  })
+  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
 const onGoMyFriend = () => {
   let snug = ''
@@ -183,7 +193,12 @@ const addUserAdmin = async () => {
       guest: {idGroup: group.value.id, idGuest: user.value.id, friend: 0, active: 0},
       id: id.value
     })
-    await storeAuth.getGroupsOfUser(user.value.id)
+    const groupOfUser = await DataProvider({
+      providerType: 'GROUPS',
+      type: 'GET_GROUPS_USER',
+      params: id
+    })
+    window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
   }
 }
 

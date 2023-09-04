@@ -135,7 +135,12 @@ const onGoGroupWithCode = async () => {
 //# cycle life
 onMounted(async () => {
   storeGroup.getGroups(user.value.id)
-  await storeAuth.getGroupsOfUser(user.value.id)
+  const groupOfUser = await DataProvider({
+    providerType: 'GROUPS',
+    type: 'GET_GROUPS_USER',
+    params: id
+  })
+  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 })
 //# end
 </script>
