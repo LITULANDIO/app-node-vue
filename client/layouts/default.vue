@@ -28,5 +28,6 @@ const onLogout = () => {
     name: '',
     photo: ''
   }
+  navigateTo('/')
 }
 </script>
