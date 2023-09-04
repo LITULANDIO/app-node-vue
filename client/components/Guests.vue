@@ -200,12 +200,12 @@ console.log({socket})
             idGroup: storageGroup.value.id
           }
           socket.emit('guestUpdated', updatedGuest, ids);
-          const groupOfUser = await DataProvider({
-            providerType: 'GROUPS',
-            type: 'GET_GROUPS_USER',
-            params: id
-          })
-          window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
+          // const groupOfUser = await DataProvider({
+          //   providerType: 'GROUPS',
+          //   type: 'GET_GROUPS_USER',
+          //   params: id
+          // })
+          // window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
           showModalSuccess.value = true
           isSelect.value = false
       }
