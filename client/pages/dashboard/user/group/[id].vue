@@ -169,7 +169,7 @@ const onGoMyFriend = () => {
 //# end
 
 const isFriendSelected = computed(() => {
-  const groupsUser = JSON.parse(localStorage.getItem('group.user'))
+  const groupsUser = JSON.parse(localStorage.getItem('groups-user'))
   return groupsUser.map(grup => grup.group.id === group.value.id && grup.friend.name.length > 0)
 })
    
