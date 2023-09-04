@@ -78,12 +78,6 @@ onMounted(async() => {
  addUserAdmin()
  console.log('groups user', groupsOfUser.value)
 })
-
-watchEffect(() => {
-  if (groupsOfUser.value) {
-    isFriendSelected()
-  }
-})
 //#end
 
 //#computed
@@ -221,6 +215,12 @@ const setDataGroupWhenEntryInviteFriend = () => {
     }
   })
 }
+
+watchEffect(() => {
+  if (groupsOfUser.value) {
+    isFriendSelected()
+  }
+})
 //#end
 
 </script>
