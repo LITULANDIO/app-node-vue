@@ -9,15 +9,12 @@
 import { useStoreAuth } from '~~/stores/auth';
 import useAuth from '@/composables/auth';
 import { storeToRefs } from 'pinia'
-import { useStoreGroup } from '../stores/groups';
 
 definePageMeta({
   middleware: ["auth"]
 })
 
-const storeGroup = useStoreGroup()
-const { group } = storeToRefs(storeGroup)
-const { user, groups } = storeToRefs(useStoreAuth())
+const { user } = storeToRefs(useStoreAuth())
 const { clearAuthData, deleteAllCookies } = useAuth()
 
 const onLogout = () => {
@@ -31,6 +28,5 @@ const onLogout = () => {
     name: '',
     photo: ''
   }
-  groups.value = []
 }
 </script>
