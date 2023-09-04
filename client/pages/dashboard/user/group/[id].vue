@@ -20,9 +20,9 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isFriendSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isFriendSelected() && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
-      <div v-if="isFriendSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-if="isFriendSelected()" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, onUpdated, computed, nextTick } from 'vue'
+import { ref, reactive, onMounted, onUpdated, computed, nextTick, watchEffect } from 'vue'
 import { useStoreGroup } from '~~/stores/groups';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreAuth } from '~~/stores/auth';
@@ -64,6 +64,7 @@ const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+const iSelected = ref(false)
 //#end
 
 //#cycle life
@@ -76,6 +77,12 @@ onMounted(async() => {
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
  console.log('groups user', groupsOfUser.value)
+})
+
+watchEffect(() => {
+  if (groupsOfUser.value) {
+    isFriendSelected()
+  }
 })
 //#end
 
@@ -168,23 +175,19 @@ const onGoMyFriend = () => {
 }
 //# end
 
-const isFriendSelected = computed(() => {
+const isFriendSelected = () => {
   let isSelected = false
-  try {
-    (groupsOfUser.value).map(grup => {
+    groupsOfUser.value.map(grup => {
       if (grup.group.id === group.value.id) {
         console.log('match amb el grup')
-        if (grup.friend.name || localStorage.getItem('friend')?.friend?.name) {
+        if (grup.friend.name) {
           console.log('existeix friend')
           isSelected = true
         }
       }
     })
     return isSelected
-  } catch(error) {
-    console.error(error)
-  }
-})
+}
 
 //# functions
 const addUserAdmin = async () => {
