@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed, nextTick } from 'vue'
+import { ref, reactive, onMounted, computed, nextTick, watchEffect } from 'vue'
 import { useStoreGroup } from '~~/stores/groups';
 import { useStoreGuest } from '~~/stores/guests';
 import { useStoreAuth } from '~~/stores/auth';
