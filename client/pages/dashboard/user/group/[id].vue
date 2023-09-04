@@ -20,9 +20,9 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isFriendSelected() && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
-      <div v-if="isSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-if="isFriendSelected()" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
@@ -64,7 +64,6 @@ const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
-const isSelected = ref(false)
 //#end
 
 //#cycle life
@@ -164,15 +163,17 @@ const onGoMyFriend = () => {
 //# end
 
 const isFriendSelected = () => {
+  let isSelect = false
   groupsOfUser.value.map(grup => {
     if( grup.group.id === group.value.id) {
       console.log('fa match el grup', grup)
       if (grup.friend.name) {
         console.log('friend exist', grup.friend.name)
-        isSelected.value = true
+        isSelect = true
       }
     }
   })
+  return isSelect
 }
 
 watchEffect(() => isFriendSelected())
