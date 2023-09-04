@@ -6,7 +6,8 @@ export const useStoreGuest = defineStore('guests', {
   state: () => {
     return {
      data: null,
-     isLoading: false
+     isLoading: false,
+     isSelected: false
     }
   },
   actions: {

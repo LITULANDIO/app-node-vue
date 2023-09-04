@@ -20,9 +20,9 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isFriendSelected() && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isFriendSelected() || isSelected && isAdmin ? 'justify-between' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
-      <div v-if="isFriendSelected()" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
+      <div v-if="isFriendSelected() || isSelected" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
         <Spinner/>
       </div>
@@ -46,7 +46,7 @@ const storeGroup = useStoreGroup()
 const storeGuest = useStoreGuest()
 const storeAuth = useStoreAuth()
 const { groups } = storeToRefs(storeGroup)
-const { data, isLoading } = storeToRefs(storeGuest)
+const { data, isLoading, isSelected } = storeToRefs(storeGuest)
 const { user } = storeToRefs(storeAuth)
 const { getAllUsers, getUser } = useUsers()
 const route = useRoute()

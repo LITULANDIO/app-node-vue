@@ -168,6 +168,7 @@ console.log({socket})
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;
+          storeGuest.isSelected = true
         }
       }).finally(() => {
         storeGuest.isLoading = false;
