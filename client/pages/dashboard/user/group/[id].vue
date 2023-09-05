@@ -149,14 +149,9 @@ const onDeleteGuest = async (guest, id) => {
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
 const onGoMyFriend = () => {
-  let snug = ''
   try{
-  debugger
   groupsOfUser.value.forEach(grup => {
-    console.log({grup})
     if (grup.group.id === group.value.id ) {
-       debugger
-        snug = group.value.snug
         storeAuth.friend = grup
         localStorage.setItem('friend', JSON.stringify(grup))
     }
@@ -164,7 +159,7 @@ const onGoMyFriend = () => {
 }catch(error) {
   console.error(`[ERROR: ${error}`)
 }
-  navigateTo(`/dashboard/user/group/my-friend/${snug}`)
+  navigateTo(`/dashboard/user/group/my-friend/${group.value.snug}`)
 }
 //# end
 
