@@ -95,7 +95,10 @@ const meWishes = computed(() => Object.values(friend.me.wishes))
 //#events
 const onViewFriend = () => isViewFriend.value = !isViewFriend.value
 const onViewWishesFriend = () => isViewWishesFriend.value = !isViewWishesFriend.value
-const onCloseModal = () => isOpenModal.value = false 
+const onCloseModal = () => {
+    isOpenModal.value = false 
+    isViewWishesMe.value = false
+}
 const onViewFormWishes = () => { 
     isOpenModal.value = true
     isViewWishesMe.value = true
