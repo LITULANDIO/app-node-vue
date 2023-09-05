@@ -1,5 +1,5 @@
 <template>
-    <Modal :header="$t('modals.wishes.header')" :show="isOpen" @onClose="onClose" top="20%">
+    <Modal :header="$t('modals.wishes.header')" :show="!openModal || isOpen" @onClose="onClose" top="20%">
         <VForm
             :validation-schema="schema"
             :initial-values="dataWishes"
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watchEffect } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { DataProvider } from '@/data-provider/index'
 
@@ -105,6 +105,7 @@ let dataWishes = reactive({
 })
 const showModalError = ref(false)
 const showModalSuccess = ref(false)
+const openModal = ref(true)
 //#end
 
 //# cycle life
@@ -138,6 +139,17 @@ const onSubmitWishes = async () => {
                 type: 'INSERT_WISHES',
                 params: JSON.parse(JSON.stringify(dataWishes))
             })
+        const groupsOfUser = await DataProvider({
+            providerType: 'GROUPS',
+            type: 'GET_GROUPS_USER',
+            params: user.value.id
+          })
+          window.localStorage.setItem('groups-user', JSON.stringify(groupsOfUser.body))
+          JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
+              if (grup.group.id === storageGroup.value.id ) {
+                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
+              }
+            })
         showModalSuccess.value = true
     }catch(error){
         showModalError.value = true
@@ -153,6 +165,12 @@ const onSubmitWishes = async () => {
     // }
 }
 //#end
+
+watchEffect(() => {
+    if (props.isOpen && showModalSuccess.value) {
+        openModal.value = false
+    }
+})
 </script>
 
 <style lang="scss" scoped>
