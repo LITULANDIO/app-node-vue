@@ -6,17 +6,21 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUpdate } from 'vue'
   const nuxtApp = useNuxtApp();
   const loading = ref(false);
+  const isProfile = ref(false)
   const router = useRouter()
   nuxtApp.hook("page:start", () => {
     loading.value = true;
-    const isProfile = computed(() => router.currentRoute._value.name === 'dashboard-user-my-profile')
-  });
+    isProfile.value = router.currentRoute._value.name === 'dashboard-user-my-profile'
+  })
   nuxtApp.hook("page:finish", () => {
     loading.value = false;
   });
+  onBeforeUpdate(() => {
+    isProfile.value = router.currentRoute._value.name === 'dashboard-user-my-profile'
+  })
 </script>
 <style>
 body{
