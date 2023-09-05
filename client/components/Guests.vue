@@ -165,6 +165,13 @@ console.log({socket})
       }).then(res => {
         storeGuest.data = res.body;
         storeGuest.isSelected = true
+        const groupOfUser = await DataProvider({
+            providerType: 'GROUPS',
+            type: 'GET_GROUPS_USER',
+            params: user.value.id
+          })
+        window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
+        emit('selectedGuest', { isSelected: storeGuest.isSelected })
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;
@@ -200,12 +207,6 @@ console.log({socket})
             idGroup: storageGroup.value.id
           }
           socket.emit('guestUpdated', updatedGuest, ids);
-          const groupOfUser = await DataProvider({
-            providerType: 'GROUPS',
-            type: 'GET_GROUPS_USER',
-            params: user.value.id
-          })
-          window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
           showModalSuccess.value = true
       }
   }
