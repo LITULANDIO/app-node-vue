@@ -20,6 +20,12 @@
                 <small class="flex justify-end cursor-pointer text-white save-image" v-else @click="onupdatePhoto">{{ $t('pages.profile.save') }}</small>
             </div>
         </form>
+        <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
+        <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.successWishes.text') }}</p>
+        </div>
+      </Modal>
         <form class="form-lang">
           <label for="locale-select" class="text-white">{{ $t('language') }}: </label>
           <select id="locale-select" v-model="$i18n.locale">
@@ -82,6 +88,7 @@ const { user } = storeToRefs(storeAuth)
 const dataUser = reactive({  password: "", confirmed: "", photo: "" })
 const localImage = ref(null)
 const showEdit = ref(true)
+const showModalSuccess = ref(false)
 
 configure({
 validateOnBlur: true,
@@ -145,13 +152,22 @@ const onupdatePhoto = async () => {
         type: 'UPDATE_PHOTO',
         params: data
     })
-    const fetchUser = await DataProvider({
-      providerType: 'USERS',
-      type: 'GET_USER',
-      params: user.value.id,
-    })
-    user.value.photo = fetchUser.body[0].photo
-    showEdit.value = true
+    try {
+        const fetchUser = await DataProvider({
+          providerType: 'USERS',
+          type: 'GET_USER',
+          params: user.value.id,
+        })
+        
+        user.value.photo = fetchUser.body[0].photo
+        showEdit.value = true
+        showModalSuccess.value = true
+    }catch(error) {
+        console.error(error)
+    }
+}
+const onCloseModalSuccess = () => {
+    showModalSuccess.value = false
 }
 //#end
 </script>
