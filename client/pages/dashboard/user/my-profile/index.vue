@@ -14,7 +14,6 @@
                 type="file"
                 name="file"
                 @change="onPreviewImg"
-                v-show="false"
                 accept="image/png, image/jpeg"
                 id="file_input">
                 <small v-if="showEdit" class="flex justify-end cursor-pointer text-white edit-image" @click="onSelectImage">{{ $t('pages.profile.edit') }}</small>
@@ -234,5 +233,8 @@ section{
 .save-image{
     margin-top: 5.5rem;
     margin-right: 3.7rem;
+}
+.input-file input[type="file"] {
+  display: none;
 }
 </style>
