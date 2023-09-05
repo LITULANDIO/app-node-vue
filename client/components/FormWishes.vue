@@ -130,7 +130,10 @@ const onClose = () => emit("onClose")
 
 //# events
 const onCloseModalError = () => showModalError.value = false
-const onCloseModalSuccess = () => showModalSuccess.value = false
+const onCloseModalSuccess = () => {
+    showModalSuccess.value = false
+    emit('onWhenCloseSuccess')
+}
 //#end
 
 //#methods
