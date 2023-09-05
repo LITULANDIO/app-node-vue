@@ -1,5 +1,5 @@
 <template>
-    <Modal :header="$t('modals.wishes.header')" :show="!openModal || isOpen" @onClose="onClose" top="20%">
+    <Modal :header="$t('modals.wishes.header')" :show="openModal" @onClose="onClose" top="20%">
         <VForm
             :validation-schema="schema"
             :initial-values="dataWishes"
@@ -109,7 +109,7 @@ let dataWishes = reactive({
 })
 const showModalError = ref(false)
 const showModalSuccess = ref(false)
-const openModal = ref(true)
+const openModal = ref(props.isOpen)
 const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
 //#end
 
