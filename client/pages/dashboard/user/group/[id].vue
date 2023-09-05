@@ -64,7 +64,7 @@ const idGuest = ref('')
 const isExistedGuest = ref(false)
 const id = ref('')
 const group = ref(JSON.parse(localStorage.getItem('group')))
-const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+const groupsOfUser = ref('')
 const hasSelectedUser = ref(false)
 //#end
 
@@ -79,6 +79,7 @@ onMounted(async() => {
  addUserAdmin()
  isFriendSelected()
  hasSelectedUser.value = false
+ groupsOfUser.value = JSON.parse(localStorage.getItem('groups-user'))
 })
 //#end
 
@@ -159,12 +160,9 @@ const onGoMyFriend = () => {
 }catch(error) {
   console.error(`[ERROR: ${error}`)
 }
-setInterval(() => {
   if(group.value.snug) {
     navigateTo(`/dashboard/user/group/my-friend/${group.value.snug}`)
   }
-},300)
-clearInterval(group.value.snug)
 }
 //# end
 
