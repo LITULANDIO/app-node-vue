@@ -10,9 +10,9 @@ import { computed } from 'vue'
   const nuxtApp = useNuxtApp();
   const loading = ref(false);
   const router = useRouter()
-  const isProfile = computed(() => router.currentRoute._value.name === 'dashboard-user-my-profile')
   nuxtApp.hook("page:start", () => {
     loading.value = true;
+    const isProfile = computed(() => router.currentRoute._value.name === 'dashboard-user-my-profile')
   });
   nuxtApp.hook("page:finish", () => {
     loading.value = false;
