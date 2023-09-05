@@ -165,12 +165,13 @@ console.log({socket})
       }).then(res => {
         storeGuest.data = res.body;
         storeGuest.isSelected = true
-        const groupOfUser = await DataProvider({
+        DataProvider({
             providerType: 'GROUPS',
             type: 'GET_GROUPS_USER',
             params: user.value.id
+          }).then(result => {
+            window.localStorage.setItem('groups-user', JSON.stringify(result.body))
           })
-        window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
         emit('selectedGuest', { isSelected: storeGuest.isSelected })
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
