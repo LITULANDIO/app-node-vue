@@ -153,7 +153,7 @@ const onGoMyFriend = () => {
   if (groupsOfUser.value) {
     groupsOfUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
-          localStorage.setItem('friend', JSON.stringify(grup))
+          localStorage.setItem('friend-me', JSON.stringify(grup))
       }
     })
   }
