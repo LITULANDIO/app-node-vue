@@ -106,6 +106,7 @@ let dataWishes = reactive({
 const showModalError = ref(false)
 const showModalSuccess = ref(false)
 const openModal = ref(true)
+const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
 //#end
 
 //# cycle life
