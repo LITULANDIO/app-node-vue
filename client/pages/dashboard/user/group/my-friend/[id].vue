@@ -7,7 +7,7 @@
     <section id="options" class="flex justify-center items-center flex-col">
         <Button :label="$t('pages.myFriend.field1')" @click="onViewFriend"/>
         <Transition name="slide-fade">
-            <section class="view-friend" v-if="isViewFriend">
+            <section class="view-friend" v-if="isViewFriend && friend.friend.name">
                 <Modal :show="isViewFriend" @onClose="onCloseViewFriend" padding>
                     <h1 class="capitalize text-center mb-5">{{ friend.friend.name }}</h1>
                     <div class="container-photo mb-3">
