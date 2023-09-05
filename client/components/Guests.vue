@@ -170,7 +170,14 @@ console.log({socket})
             type: 'GET_GROUPS_USER',
             params: user.value.id
           }).then(result => {
+            console.log({result})
+            console.log('storageGroup', storageGroup.value)
             window.localStorage.setItem('groups-user', JSON.stringify(result.body))
+            JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
+              if (grup.group.id === storageGroup.value.id ) {
+                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
+              }
+            })
           })
         emit('selectedGuest', { isSelected: storeGuest.isSelected })
         console.timeEnd('DataUpdate');
