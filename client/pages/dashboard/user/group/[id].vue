@@ -77,6 +77,7 @@ onMounted(async() => {
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
  isFriendSelected()
+ hasSelectedUser.value = false
 })
 //#end
 
@@ -149,8 +150,11 @@ const onDeleteGuest = async (guest, id) => {
 const onGoMyFriend = () => {
   let snug = ''
   try{
+  debugger
   groupsOfUser.value.forEach(grup => {
+    console.log({grup})
     if (grup.group.id === group.value.id ) {
+       debugger
         snug = group.value.snug
         storeAuth.friend = grup
         localStorage.setItem('friend', JSON.stringify(grup))
@@ -195,7 +199,7 @@ const addUserAdmin = async () => {
     const groupOfUser = await DataProvider({
       providerType: 'GROUPS',
       type: 'GET_GROUPS_USER',
-      params: id
+      params: user.value.id
     })
     window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
   }
