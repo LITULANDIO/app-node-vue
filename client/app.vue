@@ -2,12 +2,15 @@
     <div v-if="loading" class="fixed left-0 top-0 h-0.5 w-full z-50 bg-green-500" ></div>
     <NuxtPage />
     <NuxtLoadingIndicator />
-    <ButtonConfig v-if="!loading"/>
+    <ButtonConfig v-if="!loading || !isProfile"/>
 </template>
 
 <script setup>
+import { computed } from 'vue'
   const nuxtApp = useNuxtApp();
   const loading = ref(false);
+  const router = useRouter()
+  const isProfile = computed(() => router.currentRoute._value.name === 'dashboard-user-my-profile')
   nuxtApp.hook("page:start", () => {
     loading.value = true;
   });
