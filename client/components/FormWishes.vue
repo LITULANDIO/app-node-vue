@@ -72,6 +72,8 @@
 import { ref, reactive, onMounted, watchEffect } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { DataProvider } from '@/data-provider/index'
+import { storeToRefs } from 'pinia'
+import { useStoreAuth } from '~~/stores/auth';
 
 //# props
 const props = defineProps({
@@ -90,6 +92,8 @@ const props = defineProps({
 //#end
 
 //# const ref
+const storeAuth = useStoreAuth()
+const { user } = storeToRefs(storeAuth)
 const schema = object({
   wish1: string().required(),
   wish2: string().required(),
