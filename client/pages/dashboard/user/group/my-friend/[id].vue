@@ -40,6 +40,7 @@
                     <FormWishes 
                         :isOpen="isOpenModal"
                         @onClose="onCloseModal"
+                        @onSubmitSuccess="onCloseModal"
                         :data="data"
                         :wishes="friend.me.wishes"
                     />

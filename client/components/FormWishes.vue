@@ -124,7 +124,7 @@ onMounted(() => {
 //#end
 
 //# emits
-const emit = defineEmits(['onClose', 'onSubmit'])
+const emit = defineEmits(['onClose', 'onSubmit', 'onSubmitSuccess'])
 const onClose = () => emit("onClose")
 //#
 
@@ -155,6 +155,7 @@ const onSubmitWishes = async () => {
                     window.localStorage.setItem('friend-me', JSON.stringify(grup))
               }
             })
+        emit("onSubmitSuccess");
         showModalSuccess.value = true
     }catch(error){
         showModalError.value = true
@@ -170,12 +171,6 @@ const onSubmitWishes = async () => {
     // }
 }
 //#end
-
-watchEffect(() => {
-    if (props.isOpen && showModalSuccess.value) {
-        openModal.value = false
-    }
-})
 </script>
 
 <style lang="scss" scoped>
