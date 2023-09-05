@@ -67,6 +67,7 @@ const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref('')
 const hasSelectedUser = ref(false)
 //#end
+groupsOfUser.value = JSON.parse(localStorage.getItem('groups-user'))
 
 //#cycle life
 onMounted(async() => {
@@ -79,7 +80,6 @@ onMounted(async() => {
  addUserAdmin()
  isFriendSelected()
  hasSelectedUser.value = false
- groupsOfUser.value = JSON.parse(localStorage.getItem('groups-user'))
 })
 //#end
 
