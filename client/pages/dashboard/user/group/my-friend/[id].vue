@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout/>
-    <div  v-if="friend.friend.name">
+    <div  v-if="!friend.friend.name">
         <Spinner/>
     </div>
     <div v-else>
