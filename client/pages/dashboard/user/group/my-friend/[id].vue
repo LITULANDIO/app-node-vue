@@ -40,7 +40,7 @@
                     <FormWishes 
                         :isOpen="isOpenModal"
                         @onClose="onCloseModal"
-                        @onSubmitSuccess="onCloseModal"
+                        @onSubmitSuccess="onSubmitSuccessHandler"
                         :data="data"
                         :wishes="friend.me.wishes"
                     />
@@ -98,6 +98,10 @@ const onCloseModal = () => isOpenModal.value = false
 const onViewFormWishes = () => { 
     isOpenModal.value = true
     isViewWishesMe.value = true
+}
+const onSubmitSuccessHandler = () => {
+    isOpenModal.value = false
+    isViewWishesMe.value = false
 }
 const onCloseViewFriend = () => isViewFriend.value = false
 const onCloseViewWishesFriend = () => isViewWishesFriend.value = false
