@@ -78,6 +78,9 @@
         "accept": "Acceptar",
         "cancel": "Cancelar",
         "text": "Voulez-vous vraiment supprimer l'invitation ?"
+      },
+      "successPhoto": {
+        "text": "L'image a été mise à jour avec succès."
       }
     },
     "search": {

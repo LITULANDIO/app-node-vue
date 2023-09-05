@@ -78,6 +78,9 @@
       "accept": "Aceptar",
       "cancel": "Cancelar",
       "text": "¿Seguro que quieres eliminar el invitado?"
+    },
+    "successPhoto": {
+      "text": "La imagen se ha actualizado correctamente."
     }
   },
   "search": {

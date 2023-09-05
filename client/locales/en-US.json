@@ -78,6 +78,9 @@
       "accept": "Accept",
       "cancel": "Cancel",
       "text": "Are you sure you will delete the guest?"
+    },
+    "successPhoto": {
+      "text": "The image has been successfully updated."
     }
   },
   "search": {
