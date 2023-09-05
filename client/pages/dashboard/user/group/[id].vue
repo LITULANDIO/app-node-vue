@@ -1,5 +1,6 @@
 <template>
     <NuxtLayout/>
+    <ButtonConfig />
     <section id="modal">
       <Guests 
         v-if="data"
