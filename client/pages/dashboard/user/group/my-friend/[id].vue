@@ -8,7 +8,7 @@
             <BackButton />
             <ButtonInfo />
         </div>
-        <ButtonConfig />
+            <ButtonConfig />
         <section id="options" class="flex justify-center items-center flex-col">
             <Button :label="$t('pages.myFriend.field1')" @click="onViewFriend"/>
             <Transition name="slide-fade">

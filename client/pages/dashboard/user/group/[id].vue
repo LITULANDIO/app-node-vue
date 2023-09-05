@@ -1,6 +1,8 @@
 <template>
     <NuxtLayout/>
-    <ButtonConfig />
+    <div class="front-button">
+      <ButtonConfig />
+    </div>
     <section id="modal">
       <Guests 
         v-if="data"
@@ -293,6 +295,10 @@ const setDataGroupWhenEntryInviteFriend = () => {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+}
+.front-button{
+    position: relative;
+    z-index: 9999;
 }
 
 </style>
