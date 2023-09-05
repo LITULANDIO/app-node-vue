@@ -91,6 +91,7 @@ const onGoGroup = (groupSelceted) => {
   unitGroup.value.admin = groupSelceted.admin
   unitGroup.value.name = groupSelceted.name
   unitGroup.value.date = groupSelceted.date
+  unitGroup.value.location = groupSelceted.location
   unitGroup.value.budget = groupSelceted.budget
   unitGroup.value.snug = groupSelceted.snug
   localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
