@@ -159,7 +159,12 @@ const onGoMyFriend = () => {
 }catch(error) {
   console.error(`[ERROR: ${error}`)
 }
-  navigateTo(`/dashboard/user/group/my-friend/${group.value.snug}`)
+setInterval(() => {
+  if(group.value.snug) {
+    navigateTo(`/dashboard/user/group/my-friend/${group.value.snug}`)
+  }
+},300)
+clearInterval(group.value.snug)
 }
 //# end
 
