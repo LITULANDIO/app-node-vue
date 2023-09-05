@@ -55,6 +55,7 @@ let dataGroup = reactive({
   id: 0,
   name: '',
   date: '',
+  location: '',
   budget: '',
   admin: user.value.id,
   guests: 0
@@ -118,6 +119,7 @@ const onGoGroupWithCode = async () => {
         unitGroup.value.admin = grup.admin
         unitGroup.value.name = grup.name
         unitGroup.value.date = grup.date
+        unitGroup.value.location = grup.location
         unitGroup.value.budget = grup.budget
         unitGroup.value.snug = grup.snug
         localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
