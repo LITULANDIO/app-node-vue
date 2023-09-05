@@ -23,7 +23,7 @@
         <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
         <div class="text-center">
             <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
-            <p class="mb-3">{{ $t('modals.successWishes.text') }}</p>
+            <p class="mb-3">{{ $t('modals.successPhoto.text') }}</p>
         </div>
       </Modal>
         <form class="form-lang">
