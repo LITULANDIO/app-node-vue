@@ -114,11 +114,13 @@ confirmed: string()
 //#cycle life
 onMounted(async () => {
     localImage.value = user.value.photo
-    await DataProvider({
+    DataProvider({
       providerType: 'USERS',
       type: 'GET_USER',
       params: user.value.id,
-    })
+    }).then((res => {
+        user.value.photo = res.body[0].photo
+    }))
 })
 //#
 
