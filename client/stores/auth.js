@@ -9,8 +9,10 @@ export const useStoreAuth = defineStore('auth', {
         id: null,
         email: '',
         name: '',
+        lastname: '',
         photo: ''
      },
+     loading: false
     }
   },
   actions: {

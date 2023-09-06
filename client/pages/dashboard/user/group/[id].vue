@@ -87,10 +87,7 @@ onMounted(async() => {
 //#end
 
 //#computed
-const getUsers = computed(() => {
-  return usersParsed.value.filter(user => user?.user.toLowerCase().includes(dataFriend.name.toLowerCase()))
-})
-
+const getUsers = computed(() => usersParsed.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
 const isAdmin = computed(() => user.value.id === data.value?.group?.admin || user.value.id ===  group.value.admin )
 //#end
 

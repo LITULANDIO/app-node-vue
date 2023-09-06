@@ -26,7 +26,8 @@ const onLogout = () => {
   user.value = {
     id: '',
     name: '',
-    photo: ''
+    lastname: '',
+    photo: '',
   }
   navigateTo('/')
 }

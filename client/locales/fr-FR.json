@@ -10,6 +10,7 @@
     "register" : {
       "register" : "Registre",
       "user" : "Utilisateur",
+      "lastname": "Le nom",
       "password" : "Mot de passe",
       "selectImage" : "Sélectionner une image de profil",
       "email" : "Email",

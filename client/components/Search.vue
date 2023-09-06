@@ -5,7 +5,7 @@
         <template v-for="user in users" :key="user.id">
           <li @click="onClicked($event, user.id)" class="flex container justify-start items-center">
             <img :src="user.photo" width="40" height="40" class="color-image"/>
-            <div class="ml-3">{{ user.user }}</div>
+            <div class="ml-3">{{ user.user }} {{ user.lastname }}</div>
           </li>
         </template>
         </ul>
@@ -44,6 +44,7 @@ const onClicked = ($event, user) => emit("onClicked", $event, user)
 
 //# cycle life
 onUpdated(() => {
+  console.log('props users', props.users)
     if(props.guest.name === ''){
         props.isShow = false
     }

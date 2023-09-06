@@ -10,6 +10,7 @@
     "register": {
       "register": "Registrar",
       "user": "Usuari",
+      "lastname": "Cognom",
       "password": "Contrasenya",
       "selectImage": "Seleccioneu una foto de perfil",
       "email": "Correu electrònic",

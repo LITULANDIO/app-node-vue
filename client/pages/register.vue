@@ -22,6 +22,16 @@
                 v-model="dataUser.user"
                 :value="dataUser.user"
                 />
+                <TextField
+                type="text"
+                name="user"
+                label="User"
+                :placeholder="$t('register.lastname')"
+                icon="fas fa-user"
+                check
+                v-model="dataUser.lastname"
+                :value="dataUser.lastname"
+                />
             <div class="input-file">
               <input 
                 type="file"
@@ -89,7 +99,7 @@
 
 //#ref reactive const 
   const router = useRouter()
-  const dataUser = reactive({ user: "", email: "", password: "", confirmed: "", photo: "" })
+  const dataUser = reactive({ user: "", lastname: "", email: "", password: "", confirmed: "", photo: "" })
   const localImage = ref(null)
   const storeUser = useStoreUsers()
   const runtimeConfig = useRuntimeConfig();

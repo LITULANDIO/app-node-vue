@@ -10,6 +10,7 @@
   "register": {
     "registrar": "Registrarse",
     "user": "Usuario",
+    "lastname": "Apellido",
     "password": "Contraseña",
     "selectImage": "Selecciona una imagen de perfil",
     "email": "Correo electrónico",
