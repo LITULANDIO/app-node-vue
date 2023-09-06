@@ -173,13 +173,14 @@ console.log({socket})
             console.log({result})
             console.log('storageGroup', storageGroup.value)
             window.localStorage.setItem('groups-user', JSON.stringify(result.body))
-            JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
-              if (grup.group.id === storageGroup.value.id ) {
-                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
-              }
-            })
+            setTimeout(() => {
+              JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
+                if (grup.group.id === storageGroup.value.id ) {
+                      window.localStorage.setItem('friend-me', JSON.stringify(grup))
+                }
+              })
+            }, 500)
           })
-        emit('selectedGuest', { isSelected: storeGuest.isSelected })
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;

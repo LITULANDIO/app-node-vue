@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout/>
-    <div  v-if="!friend.friend.name">
+    <div  class="justify-center items-center" v-if="!friend.friend.name">
         <Spinner/>
     </div>
     <div v-else>
@@ -65,16 +65,19 @@ const isViewWishesFriend = ref(false)
 const isViewWishesMe = ref(false)
 const isOpenModal = ref(false);
 const group = ref(JSON.parse(localStorage.getItem('group')))
-const friend = ref(JSON.parse(localStorage.getItem('friend-me')))
+const friend = ref({})
 const data = reactive({
     idGroup: group.value?.id,
     idUser: user.value?.id
 })
 //#end
-
+onBeforeMount(() => {
+    friend.value = JSON.parse(localStorage.getItem('friend-me'))
+})
 onUpdated(() => {
     data.idGroup = group.value.id
     data.idUser = user.value.id
+    friend.value = JSON.parse(localStorage.getItem('friend-me'))
 })
 
 

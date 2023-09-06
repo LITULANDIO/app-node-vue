@@ -10,7 +10,6 @@
         :params="id"
         :isAdmin="isAdmin"
         @deleteGuest="onDeleteGuest"
-        @selectedGuest="onSelected"
       />
       <ModalAddGuest 
         :isOpen="isOpenModal"
@@ -176,17 +175,6 @@ const isFriendSelected = () => {
   })
   return isSelect
 }
-const onSelected = (data) => {
-  console.log({data})
-  hasSelectedUser.value = data.isSelected
-}
-// watchEffect(() => {
-//   if (isSelected.value) {
-//     console.log('isSELECTED', isSelected.value)
-//     hasSelectedUser.value = true
-//   }
-//   // Realiza acciones basadas en isSelected aquí
-// });
    
 //# functions
 const addUserAdmin = async () => {
