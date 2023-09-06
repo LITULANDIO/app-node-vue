@@ -179,6 +179,7 @@ console.log({socket})
                       window.localStorage.setItem('friend-me', JSON.stringify(grup))
                 }
               })
+              emit('selectedGuest', { isSelected: storeGuest.isSelected })
             }, 500)
           })
         console.timeEnd('DataUpdate');
