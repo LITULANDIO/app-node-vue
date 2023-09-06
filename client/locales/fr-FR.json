@@ -81,6 +81,9 @@
       },
       "successPhoto": {
         "text": "L'image a été mise à jour avec succès."
+      },
+      "successPassword": {
+        "text": "Votre mot de passe a été mis à jour avec succès"
       }
     },
     "search": {

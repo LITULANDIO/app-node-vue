@@ -67,7 +67,12 @@
                 </div>
                 <div><button @click="onChangePassword" :class="{ 'cursor-pointer button': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.addGuest.button') }}</button></div>
             </VForm>
-           
+            <Modal :show="showModalSuccessPassw" @onClose="onCloseModalSuccessPassw" padding>
+                <div class="text-center">
+                    <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
+                    <p class="mb-3">{{ $t('modals.successPassword.text') }}</p>
+                </div>
+            </Modal>
         </div>
     </section>
 </template>
@@ -89,6 +94,7 @@ const dataUser = reactive({  password: "", confirmed: "", photo: "" })
 const localImage = ref(null)
 const showEdit = ref(true)
 const showModalSuccess = ref(false)
+const showModalSuccessPassw = ref(false)
 
 configure({
 validateOnBlur: true,
@@ -127,6 +133,12 @@ const onChangePassword = async () => {
         type: 'UPDATE_PASSWORD',
         params: JSON.parse(JSON.stringify(data))
     })
+    showModalSuccessPassw.value = true
+    setTimeout(() => {
+        dataUser.confirmed = ''
+        dataUser.password = ''
+        showModalSuccessPassw.value = false
+    }, 3000)
 
 }
 const onPreviewImg = async (event) => {
@@ -159,15 +171,21 @@ const onupdatePhoto = async () => {
           params: user.value.id,
         })
         
-        user.value.photo = fetchUser.body[0].photo
         showEdit.value = true
         showModalSuccess.value = true
+        setTimeout(() => {
+            user.value.photo = fetchUser.body[0].photo
+            showModalSuccess.value = false
+        }, 3000)
     }catch(error) {
         console.error(error)
     }
 }
 const onCloseModalSuccess = () => {
     showModalSuccess.value = false
+}
+const onCloseModalSuccessPassw = () => {
+    showModalSuccessPassw.value = false
 }
 //#end
 </script>

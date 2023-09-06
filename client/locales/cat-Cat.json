@@ -81,6 +81,9 @@
       },
       "successPhoto": {
         "text": "La imatge s'ha actualitzat correctament"
+      },
+      "successPassword": {
+        "text": "La contrassenya s'actualizat correctament"
       }
     },
     "search": {

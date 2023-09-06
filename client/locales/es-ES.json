@@ -81,6 +81,9 @@
     },
     "successPhoto": {
       "text": "La imagen se ha actualizado correctamente."
+    },
+    "successPassword": {
+      "text": "La contraseña se ha actualizado correctamente"
     }
   },
   "search": {
