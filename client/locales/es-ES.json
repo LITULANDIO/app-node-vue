@@ -1,7 +1,7 @@
 {
   "login": {
     "login": "inicio de sesión",
-    "user": "Usuario",
+    "user": "Usuario (nombre)",
     "password": "Contraseña",
     "signIn": "Iniciar sesión",
     "hasRegister": "¿No te has registrado?",
@@ -9,7 +9,7 @@
   },
   "register": {
     "registrar": "Registrarse",
-    "user": "Usuario",
+    "user": "Nombre",
     "lastname": "Apellido",
     "password": "Contraseña",
     "selectImage": "Selecciona una imagen de perfil",

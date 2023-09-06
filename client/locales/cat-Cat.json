@@ -1,7 +1,7 @@
 {
     "login": {
       "login": "Iniciar sessió",
-      "user": "Usuari",
+      "user": "Usuari (nom)",
       "password": "Contrasenya",
       "signIn": "Iniciar sessió",
       "hasRegister": "¿No t'has registrat?",
@@ -9,7 +9,7 @@
     },
     "register": {
       "register": "Registrar",
-      "user": "Usuari",
+      "user": "Nom",
       "lastname": "Cognom",
       "password": "Contrasenya",
       "selectImage": "Seleccioneu una foto de perfil",

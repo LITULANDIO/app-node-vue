@@ -1,7 +1,7 @@
 {
     "login" : {
       "login" : "Login",
-      "user" : "Utilisateur",
+      "user" : "Utilisateur (nom)",
       "password" : "Mot de passe",
       "signIn" : "S'inscrire",
       "hasRegister" : "¿Vous n'êtes pas inscrit?",
@@ -9,7 +9,7 @@
     },
     "register" : {
       "register" : "Registre",
-      "user" : "Utilisateur",
+      "user" : "Nom",
       "lastname": "Le nom",
       "password" : "Mot de passe",
       "selectImage" : "Sélectionner une image de profil",
