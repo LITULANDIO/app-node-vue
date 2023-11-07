@@ -1,7 +1,7 @@
 <template>
     <nav>
         <div class="flex justify-between">
-            <div class="text-white flex items-center text-1xl"><span>{{ $t('navMenu.logo') }}</span><span class="text-2xl ml-3 icon">🎭</span></div>
+            <div @click="onGoHome" class="text-white flex items-center text-1xl"><span>{{ $t('navMenu.logo') }}</span><span class="text-2xl ml-3 icon">🎭</span></div>
             <div class="text-white flex items-center text-1xl mr-8">
                 <span class="mr-3">{{ $t('navMenu.welcome') }} <span class="text-1xl icon mr-1">👋</span> {{ user }}</span>
                 <font-awesome-icon @click="onLogout" icon="fa-solid fa-right-from-bracket" class="text-1xl cursor-pointer" />
@@ -19,6 +19,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['logout'])
 const onLogout = () => emit('logout')
+const onGoHome = () => navigateTo('/')
 </script>
 
 <style lang="scss" scoped>
