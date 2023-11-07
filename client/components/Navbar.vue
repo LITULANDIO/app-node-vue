@@ -19,7 +19,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['logout'])
 const onLogout = () => emit('logout')
-const onGoHome = () => navigateTo('/')
+const onGoHome = () => navigateTo('/dashboard/user')
 </script>
 
 <style lang="scss" scoped>
