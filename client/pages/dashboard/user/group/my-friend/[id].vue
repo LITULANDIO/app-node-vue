@@ -89,16 +89,16 @@ onUpdated(() => {
 //#computed
 const isFriendWishesEmpty = computed(() => {
     let isEmpty = true
-    const wishes = friend.value.friend.wishes
+    const wishes = friend.value?.friend?.wishes
     for(const wish in wishes) {
-        if (wishes[wish] !== ''){
+        if (wishes && wishes[wish] !== ''){
             isEmpty = false
         } 
     }
     return isEmpty
 })
-const friendWishes = computed(() => Object.values(friend.value.friend.wishes))
-const meWishes = computed(() => Object.values(friend.me.wishes))
+const friendWishes = computed(() => Object.values(friend.value?.friend.wishes))
+// const meWishes = computed(() => Object.values(friend.me.wishes))
 //#end
 
 //#events
