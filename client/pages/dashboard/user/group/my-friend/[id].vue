@@ -72,7 +72,12 @@ const data = reactive({
 })
 //#end
 onBeforeMount(() => {
-    friend.value = JSON.parse(localStorage.getItem('friend-me'))
+    const getFriend = setInterval(() => {
+        friend.value = JSON.parse(localStorage.getItem('friend-me'))
+        if (friend.value !== null && friend.value !== undefined) {
+            clearInterval(getFriend);
+        }
+    }, 500)
 })
 onUpdated(() => {
     data.idGroup = group.value.id
