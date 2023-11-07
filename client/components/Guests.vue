@@ -230,7 +230,7 @@ console.log({socket})
 
   //#computed
   const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0)) // && guest.idGuest != guest.idGuest))
+  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
   //#end
 </script>
 
