@@ -82,7 +82,6 @@ onBeforeMount(() => {
 onUpdated(() => {
     data.idGroup = group.value.id
     data.idUser = user.value.id
-    friend.value = JSON.parse(localStorage.getItem('friend-me'))
 })
 
 
