@@ -57,6 +57,7 @@ import { ref, reactive, computed, onBeforeMount, onUpdated } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStoreAuth } from '~~/stores/auth';
 
+
 //#ref reactive const
 const storeAuth = useStoreAuth()
 const { user } = storeToRefs(storeAuth)
@@ -65,19 +66,21 @@ const isViewWishesFriend = ref(false)
 const isViewWishesMe = ref(false)
 const isOpenModal = ref(false);
 const group = ref(JSON.parse(localStorage.getItem('group')))
+const groupsOfUser = ref(JSON.parse(window.localStorage.getItem('groups-user')))
 const friend = ref({})
 const data = reactive({
     idGroup: group.value?.id,
     idUser: user.value?.id
 })
 //#end
-onBeforeMount(() => {
-    const getFriend = setInterval(() => {
-        friend.value = JSON.parse(localStorage.getItem('friend-me'))
-        if (friend.value !== null && friend.value !== undefined) {
-            clearInterval(getFriend);
+
+
+onMounted(async() => {
+    groupsOfUser.forEach(grup => {
+        if (grup.group.id === group.value.id ) {
+            friend.value = window.localStorage.setItem('friend-me', JSON.stringify(grup))
         }
-    }, 500)
+    })
 })
 onUpdated(() => {
     data.idGroup = group.value.id
