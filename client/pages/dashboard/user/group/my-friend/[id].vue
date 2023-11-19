@@ -67,7 +67,7 @@ const isViewWishesMe = ref(false)
 const isOpenModal = ref(false);
 const group = ref(JSON.parse(localStorage.getItem('group')))
 const groupsOfUser = ref(JSON.parse(window.localStorage.getItem('groups-user')))
-const friend = ref({})
+const friend = ref(null)
 const data = reactive({
     idGroup: group.value?.id,
     idUser: user.value?.id
