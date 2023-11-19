@@ -41,7 +41,6 @@ import { useStoreAuth } from '~~/stores/auth';
 import { storeToRefs } from 'pinia'
 import useUsers from '@/composables/users'
 import { DataProvider } from '@/data-provider/index'
-import { reloadNuxtApp } from  "nuxt/app" ; 
 definePageMeta({
   middleware: ["auth"]
 })
@@ -151,7 +150,7 @@ const onDeleteGuest = async (guest, id) => {
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
 const onGoMyFriend = async () => {
-  await reloadNuxtApp()
+  window.location.reload()
   if (groupsOfUser.value) {
     groupsOfUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
