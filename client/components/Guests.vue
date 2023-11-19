@@ -188,6 +188,7 @@ console.log({socket})
         }
       }).finally(() => {
         storeGuest.isLoading = false;
+        window.location.reload()
       });
     } else {
       throw new Error('A problem updatedGuestData', updatedGuestData)

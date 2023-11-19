@@ -150,7 +150,6 @@ const onDeleteGuest = async (guest, id) => {
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
 const onGoMyFriend = async () => {
-  window.location.reload()
   if (groupsOfUser.value) {
     groupsOfUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
