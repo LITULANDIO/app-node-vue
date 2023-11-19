@@ -41,6 +41,7 @@ import { useStoreAuth } from '~~/stores/auth';
 import { storeToRefs } from 'pinia'
 import useUsers from '@/composables/users'
 import { DataProvider } from '@/data-provider/index'
+import { reloadNuxtApp } from  "nuxt/app" ; 
 definePageMeta({
   middleware: ["auth"]
 })
@@ -136,6 +137,7 @@ const onSubmitFriend = async () => {
   })
   dataFriend.to = ''
   dataFriend.name = ''
+  await refreshNuxtData()
 }
 const onDeleteGuest = async (guest, id) => {
   await storeGuest.deleteGuest({
