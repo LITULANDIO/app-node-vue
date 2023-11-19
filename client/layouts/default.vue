@@ -23,6 +23,7 @@ const onLogout = () => {
   localStorage.removeItem('group')
   localStorage.removeItem('friend-me')
   localStorage.removeItem('groups-user')
+  localStorage.removeItem('friend')
   user.value = {
     id: '',
     name: '',
