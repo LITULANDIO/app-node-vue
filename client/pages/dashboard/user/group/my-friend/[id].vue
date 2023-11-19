@@ -76,7 +76,7 @@ const data = reactive({
 
 
 onMounted(async() => {
-    groupsOfUser.forEach(grup => {
+    groupsOfUser.value.forEach(grup => {
         if (grup.group.id === group.value.id ) {
             friend.value = window.localStorage.setItem('friend-me', JSON.stringify(grup))
         }
