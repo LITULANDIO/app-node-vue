@@ -137,7 +137,6 @@ const onSubmitFriend = async () => {
   })
   dataFriend.to = ''
   dataFriend.name = ''
-  await refreshNuxtData()
 }
 const onDeleteGuest = async (guest, id) => {
   await storeGuest.deleteGuest({
@@ -151,10 +150,12 @@ const onDeleteGuest = async (guest, id) => {
   })
   window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
 }
-const onGoMyFriend = () => {
+const onGoMyFriend = async () => {
+  await reloadNuxtApp()
   if (groupsOfUser.value) {
     groupsOfUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
+          console.log('go my friend -->', grup)
           localStorage.setItem('friend-me', JSON.stringify(grup))
       }
     })
