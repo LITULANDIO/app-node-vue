@@ -74,7 +74,7 @@ const data = reactive({
 onBeforeMount(() => {
     const getFriend = setInterval(() => {
         friend.value = JSON.parse(localStorage.getItem('friend-me'))
-        if (friend.value.name !== null && friend.value.name !== undefined) {
+        if (friend.value.friend.name !== null && friend.value.friend.name !== undefined) {
             clearInterval(getFriend);
         }
     }, 500)
