@@ -4,11 +4,13 @@ import es from '../locales/es-ES.json'
 import cat from '../locales/cat-Cat.json'
 import fr from '../locales/fr-FR.json'
 
+const langStorage = localStorage.getItem('lang')
+
 export default defineNuxtPlugin(({ vueApp }) => {
   const i18n = createI18n({
     legacy: false,
     globalInjection: true,
-    locale: 'en-US',
+    locale: langStorage || 'en-US',
     messages: {
       'en-US': en, 
       'es-ES': es,

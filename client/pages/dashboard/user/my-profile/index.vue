@@ -27,13 +27,13 @@
         </div>
       </Modal>
         <form class="form-lang">
-          <label for="locale-select" class="text-white">{{ $t('language') }}: </label>
-          <select id="locale-select" v-model="$i18n.locale">
-            <option value="en-US">en-US</option>
-            <option value="es-ES">es-ES</option>
-            <option value="cat-CAT">cat-CAT</option>
-            <option value="fr-FR">fr-FR</option>
-          </select>
+            <label for="locale-select" class="text-white">{{ $t('language') }}: </label>
+            <select id="locale-select" v-model="$i18n.locale" @change="updateLanguage($i18n.locale)">
+                <option value="en-US">en-US</option>
+                <option value="es-ES">es-ES</option>
+                <option value="cat-CAT">cat-CAT</option>
+                <option value="fr-FR">fr-FR</option>
+            </select>
         </form>
         <div class="mt-5">
             <span class="text-white">{{ $t('pages.profile.password') }}</span>
@@ -85,6 +85,7 @@ import { DataProvider } from "@/data-provider/index"
 import { useStoreAuth } from '~~/stores/auth';
 import { useStoreUsers } from '~~/stores/users';
 import { storeToRefs } from 'pinia'
+import { useI18n } from "vue-i18n";
 
 //# const ref reactive
 const storeAuth = useStoreAuth()
@@ -95,7 +96,7 @@ const localImage = ref(null)
 const showEdit = ref(true)
 const showModalSuccess = ref(false)
 const showModalSuccessPassw = ref(false)
-
+const i18n = useI18n()
 configure({
 validateOnBlur: true,
 validateOnChange: true,
@@ -188,6 +189,9 @@ const onCloseModalSuccess = () => {
 }
 const onCloseModalSuccessPassw = () => {
     showModalSuccessPassw.value = false
+}
+const updateLanguage = (lang) => {
+    localStorage.setItem('lang', lang)
 }
 //#end
 </script>

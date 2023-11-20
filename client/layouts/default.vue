@@ -19,7 +19,7 @@ const { clearAuthData, deleteAllCookies } = useAuth()
 
 const onLogout = () => {
   clearAuthData()
-  deleteAllCookies()
+  //deleteAllCookies()
   localStorage.removeItem('group')
   localStorage.removeItem('friend-me')
   localStorage.removeItem('groups-user')
