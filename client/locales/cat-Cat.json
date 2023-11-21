@@ -110,7 +110,8 @@
         "save": "Desar"
       },
       "groups": {
-        "header": "Grups"
+        "header": "Grups",
+        "headerInvited": "Grups invitat"
       }
     },
     "language": "Idioma"

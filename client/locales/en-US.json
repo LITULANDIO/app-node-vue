@@ -110,7 +110,8 @@
       "save": "Save"
     },
     "groups": {
-      "header": "Groups"
+      "header": "Groups",
+      "headerInvited": "Groups invited"
     }
   },
   "language": "Language"

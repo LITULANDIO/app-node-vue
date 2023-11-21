@@ -3,13 +3,28 @@
         <div v-if="isLoading">
             <Spinner />
         </div>
-        <div v-else class="box-group" v-for="group in groups" :key="group.id">
-            <div @click="onClicked(group)">{{ group.name }}</div>
+        <div v-if="!isLoading && groupsProp">
+            <h1 class="mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.header') }}</h1>
+            <div class="box-group" v-for="group in groupsProp" :key="group.id">
+                <div @click="onClicked(group)">{{ group.name }}</div>
+            </div>
+        </div> 
+           
+        <div v-if="groupsUserList && !isLoading" mt-5>
+            <h1 class="mt-5 mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.headerInvited') }}</h1>
+            <div class="box-group" v-for="group in groupsUserList" :key="group.id">
+                <div @click="onClicked(group)">{{ group.name }}</div>
+            </div>
         </div>
     </section>
 </template>
 
 <script setup>
+import { DataProvider } from '@/data-provider/index'
+import { onMounted, ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useStoreAuth } from '~~/stores/auth';
+
 //# props
 const props = defineProps({
     groups: {
@@ -22,11 +37,39 @@ const props = defineProps({
     }
 })
 //#end
+const groupsUserList = ref([])
+const groupsUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+const groupsProp = computed(() =>props.groups)
+const storeAuth = useStoreAuth()
+const { user } = storeToRefs(storeAuth)
+
+onMounted(async() => {
+    await getGroups()
+    groupsProp.value = [...groupsUserList.value]
+})
 
 //# emits
 const emit = defineEmits(['onClicked'])
 
 const onClicked = (group) => emit("onClicked", group)
+
+const getGroups = async () => {
+    const fetchGroup = await DataProvider({
+        providerType: 'GROUPS',
+        type: 'GET_GROUPS',
+    })
+    if (groupsUser.value) {
+        fetchGroup.body.forEach(grup => {
+            groupsUser.value.forEach(grupuser => {
+                if (grup.id === grupuser.group.id && user.value.id !== grup.admin) {
+                    groupsUserList.value.push(grup)
+                }
+            })
+        })
+    }
+    console.log()
+    return groupsUserList.value
+}
 //#
 
 </script>

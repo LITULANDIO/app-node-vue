@@ -3,7 +3,6 @@
     <NuxtLayout/>
     <ButtonConfig />
     <section class="flex justify-center items-center flex-col">
-      <h1 class="capitalize text-center text-white text-2xl">{{ $t('pages.groups.header') }}</h1>
       <Groups 
         :groups="groups"
         :isLoading="isLoading"
