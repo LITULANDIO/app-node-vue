@@ -47,6 +47,9 @@
             <nuxt-link to="/register"><span class="text-xs">{{ $t('login.hasRegister') }}</span></nuxt-link>
           </div>
         </VForm>
+        <footer>
+          <small class="flex justify-center font-bold text-white powered-litus" data-text="Powered by Litus">Powered by Litus ❤️</small>
+        </footer>
       </div>
     </div>
     <!-- <div class="flex items-center justify-center mt-5" @click="onOpenModal"><div class="join-group text-center" data-text="UNIRSE A UN GRUP">UNIRSE A UN GRUP</div></div> -->
@@ -140,23 +143,38 @@ const schema = object({
       border-radius: 0.3rem;
       color: #dbdbdb;
   }
-  .join-group{
-    cursor: pointer;
-    position: realtive;
-    z-index: 999;
-    bottom: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: 2px solid rgba(4, 192, 168, 0.7651654412);
+ .box-slogan {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: -4rem;
+  @media (max-height: 757px) {
+    top: -8rem;
+  }
+  @media (min-height: 758px) and (max-width: 900px) {
+    top: -1rem;
+  }
+  @media (max-width: 414px) {
+    top: -7rem;
+  }
+  @media (max-width: 375px) and (max-height: 875px) {
+    top: -8rem;
+  }
+
+  .slogan {
+    width: 240px;
+   }  
+  }
+
+  .powered-litus{
     color: white;
-    background: #3F3E3E;
-    box-shadow:0 0 0 0.2rem #3F3E3E;
-    padding: 0.7rem;
+    white-space: nowrap;
     &:hover{
       opacity: 0.9;
     }
     &:before{
-      text-shadow: 0px 0px 20px  rgba(4, 192, 168, 0.7651654412);
+      text-shadow: 0px 0px 50px  rgba(4, 192, 168, 0.7651654412);
       position: absolute;
       content: attr(data-text);
       animation: flicker 8s linear forwards;
@@ -191,28 +209,5 @@ const schema = object({
     }
   }
  }
- .box-slogan {
-  width: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  top: -4rem;
-  @media (max-height: 757px) {
-    top: -8rem;
-  }
-  @media (min-height: 758px) and (max-width: 900px) {
-    top: -1rem;
-  }
-  @media (max-width: 414px) {
-    top: -7rem;
-  }
-  @media (max-width: 375px) and (max-height: 875px) {
-    top: -8rem;
-  }
-
-  .slogan {
-    width: 240px;
-   }  
-  }
   
 </style>
