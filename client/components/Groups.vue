@@ -10,7 +10,7 @@
             </div>
         </div> 
            
-        <div v-if="groupsUserList && !isLoading" mt-5>
+        <div v-if="(groupsUserList.length > 1) && !isLoading" mt-5>
             <h1 class="mt-5 mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.headerInvited') }}</h1>
             <div class="box-group" v-for="group in groupsUserList" :key="group.id">
                 <div @click="onClicked(group)">{{ group.name }}</div>
