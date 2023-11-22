@@ -3,14 +3,14 @@
         <div v-if="isLoading">
             <Spinner />
         </div>
-        <div v-if="!isLoading && groupsProp">
+        <div v-if="!isLoading && groups">
             <h1 class="mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.header') }}</h1>
-            <div class="box-group" v-for="group in groupsProp" :key="group.id">
+            <div class="box-group" v-for="group in groups" :key="group.id">
                 <div @click="onClicked(group)">{{ group.name }}</div>
             </div>
         </div> 
            
-        <div v-if="(groupsUserList.length > 1) && !isLoading" mt-5>
+        <div v-if="groupsUserList && !isLoading" mt-5>
             <h1 class="mt-5 mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.headerInvited') }}</h1>
             <div class="box-group" v-for="group in groupsUserList" :key="group.id">
                 <div @click="onClicked(group)">{{ group.name }}</div>
@@ -39,13 +39,11 @@ const props = defineProps({
 //#end
 const groupsUserList = ref([])
 const groupsUser = ref(JSON.parse(localStorage.getItem('groups-user')))
-const groupsProp = computed(() =>props.groups)
 const storeAuth = useStoreAuth()
 const { user } = storeToRefs(storeAuth)
 
 onMounted(async() => {
     await getGroups()
-    groupsProp.value = [...groupsUserList.value]
 })
 
 //# emits
@@ -67,7 +65,7 @@ const getGroups = async () => {
             })
         })
     }
-    console.log()
+    console.log(groupsUserList.value)
     return groupsUserList.value
 }
 //#
