@@ -28,7 +28,7 @@
             type="password"
             name="password"
             label="Password"
-            :placeholder="$t('login.password')"
+            :placeholder="$t('register.password')"
             icon="fas fa-lock"
             v-model="dataUser.password"
             :value="dataUser.password"
