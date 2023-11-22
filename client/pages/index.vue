@@ -17,12 +17,12 @@
           <h1 class="display mt-2 mb-5">{{ $t('login.login') }}</h1>
           <TextField
             type="text"
-            name="user"
-            label="User"
-            :placeholder="$t('login.user')"
-            icon="fas fa-user"
-            v-model="dataUser.user"
-            :value="dataUser.user"
+            name="email"
+            label="Email"
+            :placeholder="$t('login.email')"
+            icon="fas fa-envelope"
+            v-model="dataUser.email"
+            :value="dataUser.email"
           />
           <TextField
             type="password"
@@ -78,7 +78,7 @@ import uniqid from 'uniqid'
 const storeAuth = useStoreAuth()
 const { user } = storeToRefs(storeAuth)
 const errorLogin = ref('')
-const dataUser = reactive({ user: "", password: ""})
+const dataUser = reactive({ email: "", password: ""})
 const showModalForgotPassw = ref(false)
 const showModalSuccess = ref(false)
 
@@ -88,7 +88,6 @@ const onLogin = async () => {
         type: 'LOGIN',
         params: dataUser
       })
-      console.log({result})
   if(result?.data?.body?.error){
     errorLogin.value = result.data.body.msg
   } else {
@@ -113,7 +112,7 @@ configure({
   validateOnModelUpdate: true, // controls if `update:modelValue` events should trigger validation with `handleChange` handler
 });
 const schema = object({
-  user: string().required(),
+  email: string().required(),
   password: string().required().label("Your Password"),
 });
 
