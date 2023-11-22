@@ -85,6 +85,10 @@
       },
       "successPassword": {
         "text": "Votre mot de passe a été mis à jour avec succès"
+      },
+      "forgotPassword": {
+        "text": "Récupérer mot de passe",
+        "send": "Envoyer"
       }
     },
     "search": {

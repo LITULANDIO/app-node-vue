@@ -65,14 +65,12 @@
                     :value="dataUser.confirmed"
                     />
                 </div>
-                <div><button @click="onChangePassword" :class="{ 'cursor-pointer button': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.addGuest.button') }}</button></div>
+                <div><button type="submit" @click="onChangePassword" :class="{ 'cursor-pointer button': formMeta.valid, 'cursor-not-allowed btn-allowed': !formMeta.valid }">{{ $t('modals.addGuest.button') }}</button></div>
             </VForm>
-            <Modal :show="showModalSuccessPassw" @onClose="onCloseModalSuccessPassw" padding>
-                <div class="text-center">
-                    <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
-                    <p class="mb-3">{{ $t('modals.successPassword.text') }}</p>
-                </div>
-            </Modal>
+            <ModalSuccess 
+                :showModal="showModalSuccessPassw" 
+                :text="$t('modals.successPassword.text')" 
+                @onCloseModal="onCloseModalSuccessPassw" />
         </div>
     </section>
 </template>
@@ -136,7 +134,9 @@ const onChangePassword = async () => {
         type: 'UPDATE_PASSWORD',
         params: JSON.parse(JSON.stringify(data))
     })
-    showModalSuccessPassw.value = true
+    if (dataUser.password) {
+        showModalSuccessPassw.value = true
+    }
     setTimeout(() => {
         dataUser.confirmed = ''
         dataUser.password = ''

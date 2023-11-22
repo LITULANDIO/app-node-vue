@@ -85,6 +85,10 @@
     },
     "successPassword": {
       "text": "Your password has been updated successfully"
+    },
+    "forgotPassword": {
+      "text": "Recover Password",
+      "send": "Send"
     }
   },
   "search": {

@@ -13,7 +13,7 @@
       "lastname": "Cognom",
       "password": "Contrasenya",
       "selectImage": "Seleccioneu una foto de perfil",
-      "email": "Correu electrònic",
+      "email": "Curreu electrònic",
       "confirmPass": "Confirmar la contrasenya",
       "signUp": "Registreu-vos",
       "registered": "Ja estic registrat"
@@ -85,6 +85,10 @@
       },
       "successPassword": {
         "text": "La contrassenya s'actualizat correctament"
+      },
+      "forgotPassword": {
+        "text": "Recuperar contrasenya",
+        "send": "Enviar"
       }
     },
     "search": {

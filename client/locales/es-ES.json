@@ -85,6 +85,10 @@
     },
     "successPassword": {
       "text": "La contraseña se ha actualizado correctamente"
+    },
+    "forgotPassword": {
+      "text": "Recuperar contrasenya",
+      "send": "Enviar"
     }
   },
   "search": {

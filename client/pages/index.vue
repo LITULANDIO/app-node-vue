@@ -34,7 +34,11 @@
             :value="dataUser.password"
           />
           <span class="text-sm text-red-600 block" style="width: 110%;">{{ errorLogin ? $t('login.error') : '' }}</span>
-          <div class="flex items-center justify-between" style="width:111%">
+          <div class="flex justify-between w-custom absolute">
+            <small class="underline text-white" @click="onShowModalForgotPassw">Forgot password</small>
+            <nuxt-link class="-mt-1" to="/register"><small class="">{{ $t('login.hasRegister') }}</small></nuxt-link>
+          </div>
+          <div class="flex items-center justify-between mt-6" style="width:111%">
             <button
               class="button mt-3 hover:text-slate	"
               :class="{ 'cursor-pointer': formMeta.valid, 'cursor-not-allowed': !formMeta.valid }"
@@ -44,7 +48,6 @@
             >
               {{ $t('login.signIn') }}
             </button>
-            <nuxt-link to="/register"><span class="text-xs">{{ $t('login.hasRegister') }}</span></nuxt-link>
           </div>
         </VForm>
         <footer>
@@ -52,6 +55,14 @@
         </footer>
       </div>
     </div>
+    <ModalForgotPassword 
+      :showModalForgotPassw="showModalForgotPassw" 
+      @onSubmit="onSubmitForgotPassword"
+      @onCloseModal="onCloseModalForgotPassw"/>
+    <ModalSuccess 
+      :showModal="showModalSuccess" 
+      :text="$t('modals.successPassword.text')" 
+      @onCloseModal="onCloseModalSuccess" />
     <!-- <div class="flex items-center justify-center mt-5" @click="onOpenModal"><div class="join-group text-center" data-text="UNIRSE A UN GRUP">UNIRSE A UN GRUP</div></div> -->
   </div>
 </template>
@@ -62,10 +73,14 @@ import { storeToRefs } from 'pinia'
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
 import { useStoreAuth } from '~~/stores/auth';
+import uniqid from 'uniqid'
+
 const storeAuth = useStoreAuth()
 const { user } = storeToRefs(storeAuth)
 const errorLogin = ref('')
 const dataUser = reactive({ user: "", password: ""})
+const showModalForgotPassw = ref(false)
+const showModalSuccess = ref(false)
 
 const onLogin = async () => {
   const result = await DataProvider({
@@ -101,6 +116,54 @@ const schema = object({
   user: string().required(),
   password: string().required().label("Your Password"),
 });
+
+const onShowModalForgotPassw = () => {
+  showModalForgotPassw.value = true
+}
+const onCloseModalForgotPassw = () => {
+  showModalForgotPassw.value = false
+}
+const onCloseModalSuccess = () => {
+  showModalSuccess.value = false
+}
+const onSubmitForgotPassword = async (email) => {
+  const getUsers = await DataProvider({
+      providerType: 'USERS',
+      type: 'GET_USERS',
+    })
+  const userMail = getUsers.body.find(user => user.email === email)
+  if (userMail) {
+    const uniqueId = uniqid();
+    const data = {
+        password: uniqueId,
+        id: userMail.id
+    }
+    DataProvider({
+        providerType: 'AUTH',
+        type: 'UPDATE_PASSWORD',
+        params: JSON.parse(JSON.stringify(data))
+    }).then(_ => {
+      showModalSuccess.value = true
+    })
+
+    DataProvider({
+      providerType: 'MAIL',
+      type: 'SENDMAILFORGOT',
+      params: {
+        to: userMail.email,
+        password: uniqueId
+        
+      }
+    })
+    showModalForgotPassw.value = false
+    setTimeout(() => {
+      showModalSuccess.value = false
+    },4000)
+  } else {
+    return false
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -209,5 +272,15 @@ const schema = object({
     }
   }
  }
+
+ .btn-allowed{
+      padding: 0.5rem;
+      border: 1px solid;
+      border-radius: 0.3rem;
+      color: #dbdbdb;
+  }
+.w-custom {
+  width: 15.7rem;
+}
   
 </style>

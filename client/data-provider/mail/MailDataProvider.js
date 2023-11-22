@@ -18,6 +18,21 @@ export const MailDataProvider = ({ type, params, baseApiUrl }) => {
                 throw new Error('Error baseApiUrl are necessary')
             }
             break;
+
+        case "SENDMAILFORGOT": 
+            if (baseApiUrl) {
+                options = {
+                    method: "POST",
+                    url: `${baseApiUrl}/users/mail/forgotPassword`,
+                    data: JSON.parse(JSON.stringify(params)),
+                    headers: {
+                        Accept: "application/json",
+                    }
+                }
+            } else {
+                throw new Error('Error baseApiUrl are necessary')
+            }
+            break;
       
     }
     if (!!options) {
