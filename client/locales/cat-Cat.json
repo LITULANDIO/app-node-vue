@@ -5,7 +5,7 @@
       "password": "Contrasenya",
       "signIn": "Iniciar sessió",
       "hasRegister": "¿No t'has registrat?",
-      "error": "La contrasenya o el nom d'usuari no són correctes"
+      "error": "La contrasenya o el email no són correctes"
     },
     "register": {
       "register": "Registrar",

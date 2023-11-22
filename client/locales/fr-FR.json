@@ -5,7 +5,7 @@
       "password" : "Mot de passe",
       "signIn" : "S'inscrire",
       "hasRegister" : "¿Vous n'êtes pas inscrit?",
-      "error": "Le mot de passe ou le nom d'utilisateur n'est pas correct"
+      "error": "Le mot de passe ou email n'est pas correct"
     },
     "register" : {
       "register" : "Registre",
