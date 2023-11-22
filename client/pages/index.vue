@@ -19,7 +19,7 @@
             type="text"
             name="email"
             label="Email"
-            :placeholder="$t('login.email')"
+            :placeholder="$t('register.email')"
             icon="fas fa-envelope"
             v-model="dataUser.email"
             :value="dataUser.email"
