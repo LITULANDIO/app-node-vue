@@ -23,8 +23,6 @@
                 />
                 <button
                     class="button mt-3 hover:text-slate	"
-                    :class="{ 'cursor-pointer': formMeta.valid, 'cursor-not-allowed': !formMeta.valid }"
-                    :disabled="!formMeta.valid"
                     type="submit"
                     @click="onSubmit"
                 >
