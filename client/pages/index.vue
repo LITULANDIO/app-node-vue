@@ -280,7 +280,7 @@ const onSubmitForgotPassword = async (email) => {
       color: #dbdbdb;
   }
 .w-custom {
-  width: 15.7rem;
+ width: 17.7rem;
 }
   
 </style>
