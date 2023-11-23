@@ -151,6 +151,7 @@ const onPreviewImg = async (event) => {
       reader.onload = e => localImage.value = e.target.result; 
       reader.readAsDataURL(input.files[0]);
       dataUser.photo = await storeUser.uploadImage(input.files[0])
+      console.log(dataUser.photo)
     }
 }
 const onSelectImage = () =>{
@@ -179,7 +180,7 @@ const onupdatePhoto = async () => {
         setTimeout(() => {
             user.value.photo = fetchUser.body[0].photo
             showModalSuccess.value = false
-        }, 3000)
+        }, 5000)
     }catch(error) {
         console.error(error)
     }
