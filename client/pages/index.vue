@@ -37,10 +37,10 @@
           <div class="flex justify-between">
             <div>
               <input type="checkbox" id="showPassword" v-model="showPassword">
-              <small class="ml-1 mb-3" for="showPassword">{{ t('login.showPassword') }}</small>
+              <small class="ml-1 mb-3" for="showPassword">{{ $t('login.showPassword') }}</small>
             </div>
             <div>
-              <small class="underline text-white absolute" style="right:0; margin-right: 1.6rem" @click="onShowModalForgotPassw">{{ t('login.forgotPassword') }}</small>
+              <small class="underline text-white absolute" style="right:0; margin-right: 1.6rem" @click="onShowModalForgotPassw">{{ $t('login.forgotPassword') }}</small>
             </div>
          </div>
           <div class="flex items-center justify-center mt-0" style="width:111%">
