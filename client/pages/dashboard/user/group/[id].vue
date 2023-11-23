@@ -24,7 +24,7 @@
         @onSubmit="onSubmitFriend"
       />
     </section>
-    <section class="button-container" :class="isFriendSelected() || hasSelectedUser && isAdmin ? 'justify-between' : 'justify-center'"> 
+    <section class="button-container" :class="isFriendSelected() || hasSelectedUser && isAdmin ? 'justify-center' : 'justify-center'"> 
       <Button v-if="isAdmin" :label="$t('buttons.addGuest')" @onClicked="onCreateFriend" class="separator"/>
       <div v-if="isFriendSelected() || hasSelectedUser" class="join-group separator"  @click="onGoMyFriend" :data-text="$t('buttons.myFriend')">{{ $t('buttons.myFriend') }}</div>
       <div v-if="isLoading" class="separator">
