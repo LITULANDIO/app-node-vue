@@ -25,7 +25,7 @@
             :value="dataUser.email"
           />
           <TextField
-            type="password"
+            :type="showPassword ? 'text' : 'password'" 
             name="password"
             label="Password"
             :placeholder="$t('register.password')"
@@ -34,11 +34,16 @@
             :value="dataUser.password"
           />
           <span class="text-sm text-red-600 block" style="width: 110%;">{{ errorLogin ? $t('login.error') : '' }}</span>
-          <div class="flex justify-between w-custom absolute">
-            <small class="underline text-white" @click="onShowModalForgotPassw">Forgot password</small>
-            <nuxt-link class="-mt-1" to="/register"><small class="">{{ $t('login.hasRegister') }}</small></nuxt-link>
-          </div>
-          <div class="flex items-center justify-between mt-6" style="width:111%">
+          <div class="flex justify-between">
+            <div>
+              <input type="checkbox" id="showPassword" v-model="showPassword">
+              <small class="ml-1 mb-3" for="showPassword">Mostrar Contraseña</small>
+            </div>
+            <div>
+              <small class="underline text-white absolute" style="right:0; margin-right: 1.6rem" @click="onShowModalForgotPassw">Forgot password</small>
+            </div>
+         </div>
+          <div class="flex items-center justify-center mt-0" style="width:111%">
             <button
               class="button mt-3 hover:text-slate	"
               :class="{ 'cursor-pointer': formMeta.valid, 'cursor-not-allowed': !formMeta.valid }"
@@ -48,6 +53,9 @@
             >
               {{ $t('login.signIn') }}
             </button>
+          </div>
+          <div class="flex justify-center ml-5 mt-2">
+            <nuxt-link class="mt-1" to="/register"><small class="">{{ $t('login.hasRegister') }}</small></nuxt-link>
           </div>
         </VForm>
         <footer>
@@ -81,6 +89,7 @@ const errorLogin = ref('')
 const dataUser = reactive({ email: "", password: ""})
 const showModalForgotPassw = ref(false)
 const showModalSuccess = ref(false)
+const showPassword = ref(false)
 
 const onLogin = async () => {
   const result = await DataProvider({
