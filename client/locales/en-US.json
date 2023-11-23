@@ -5,7 +5,10 @@
     "password": "Password",
     "signIn": "Sign in",
     "hasRegister": "¿You have not registered?",
-    "error": "The password or email is not correct"
+    "error": "The password or email is not correct",
+    "showPassword": "Show password",
+    "forgotPassword": "Forgot password"
+
   },
   "register": {
     "register": "Register",
