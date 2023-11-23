@@ -32,8 +32,10 @@ const onClose = () => {
 
 //#methods
 const changeFormatDate = (date) => {
-    const fullDate = date.split('T')[0].split('-')
-    return `${fullDate[2]}/${fullDate[1]}/${fullDate[0]}`
+    const day = new Date(date).getDate()
+    const month = new Date(date).getMonth()
+    const year = new Date(date).getFullYear()
+    return `${day}/${month}/${year}`
 }
 //
 
