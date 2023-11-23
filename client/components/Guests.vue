@@ -173,14 +173,13 @@ console.log({socket})
             console.log({result})
             console.log('storageGroup', storageGroup.value)
             window.localStorage.setItem('groups-user', JSON.stringify(result.body))
-            setTimeout(() => {
-              JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
-                if (grup.group.id === storageGroup.value.id ) {
-                      window.localStorage.setItem('friend-me', JSON.stringify(grup))
-                }
-              })
-              emit('selectedGuest', { isSelected: storeGuest.isSelected })
-            }, 500)
+            JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
+              if (grup.group.id === storageGroup.value.id ) {
+                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
+              }
+            })
+            emit('selectedGuest', { isSelected: true, group: result.body})
+            
           })
         console.timeEnd('DataUpdate');
         if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
