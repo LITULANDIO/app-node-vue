@@ -82,7 +82,7 @@
                 >
                 {{ $t('register.signUp') }}
                 </button>
-                <nuxt-link to="/"><span class="text-xs">{{ $t('register.registered') }}</span></nuxt-link>
+                <nuxt-link to="/"><span class="text-xs underline">{{ $t('register.registered') }}</span></nuxt-link>
             </div>
           </VForm>
         </div>
