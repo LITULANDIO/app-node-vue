@@ -98,14 +98,12 @@ const onCreateFriend = () => {
 }
 const onCloseModal = () => isOpenModal.value = false 
 const onSelectUser = (event, idUser) => {
-  nextTick(async () => {
     const userSelected = await getUser(idUser)
     idGuest.value = idUser
     dataFriend.name = event.target.textContent
     dataFriend.to = userSelected[0].email
     isShowDropdownUsers.value = false
     console.log({userSelected})
-  })
 }
 const onKeyUp = () => {
   isShowDropdownUsers.value = dataFriend.name.length >= 3
@@ -169,10 +167,7 @@ const isFriendSelected = () => {
   groupsOfUser.value.map(grup => {
     if( grup.group.id === group.value.id) {
       console.log('fa match el grup', grup)
-      if (grup.friend.name) {
-        console.log('friend exist', grup.friend.name)
         isSelect = true
-      }
     }
   })
   return isSelect
