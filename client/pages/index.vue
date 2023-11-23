@@ -39,10 +39,8 @@
               <input type="checkbox" id="showPassword" v-model="showPassword">
               <small class="ml-1 mb-3" for="showPassword">{{ $t('login.showPassword') }}</small>
             </div>
-            <div>
-              <small class="underline text-white absolute" style="right:0; margin-right: 1.6rem" @click="onShowModalForgotPassw">{{ $t('login.forgotPassword') }}</small>
-            </div>
          </div>
+        
           <div class="flex items-center justify-center mt-0" style="width:111%">
             <button
               class="button mt-3 hover:text-slate	"
@@ -54,8 +52,13 @@
               {{ $t('login.signIn') }}
             </button>
           </div>
-          <div class="flex justify-center ml-5 mt-2">
-            <nuxt-link class="mt-1" to="/register"><small class="">{{ $t('login.hasRegister') }}</small></nuxt-link>
+          <div>
+          </div>
+          <div class="flex justify-center ml-5 mt-3">
+          <small class="underline text-white" @click="onShowModalForgotPassw">{{ $t('login.forgotPassword') }}</small>
+          </div>
+          <div class="flex justify-center ml-5 mt-0">
+            <nuxt-link class="mt-1 underline" to="/register"><small class="">{{ $t('login.hasRegister') }}</small></nuxt-link>
           </div>
         </VForm>
         <footer>
@@ -234,7 +237,8 @@ const onSubmitForgotPassword = async (email) => {
   }
 
   .slogan {
-    width: 240px;
+    width: 200px;
+    margin-top: -1rem;
    }  
   }
 
