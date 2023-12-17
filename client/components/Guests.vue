@@ -227,30 +227,8 @@ console.log({socket})
           return
       } else if (groupOfGuest?.friend?.id >= 1) {
           showModalWarning2.value = true
-      } else if(isSelectedCheckBox.value){
-        console.log(selectedItems)
-          selectedItems.value.some(items => {
-            unselectedFriends.value.forEach(friends => {
-              if (items === friends.id && items === guest.id) {
-                console.log({items}, friends.id)
-                showModalWarnFriend.value = true
-              } else {
-                const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
-                const updatedGuest = {
-                    friend: guest.id,
-                    active: 1,
-                    idFriend: hash[0]['hashGuest'],
-                    idGuest: guest.hashGuest,
-                }
-                const ids = {
-                  idUser: user.value.id,
-                  idGroup: storageGroup.value.id
-                }
-                socket.emit('guestUpdated', updatedGuest, ids);
-                showModalSuccess.value = true
-              }
-            })
-          })
+      } else if(isSelectedCheckBox.value && isMatchFriendList(guest.id)){
+          showModalWarnFriend.value = true
       } else {
           const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
           const updatedGuest = {
@@ -277,6 +255,8 @@ console.log({socket})
   const onCloseGuestList = () => showGuestList.value = false
   const onCloseModalWarnFriend = () => showModalWarnFriend.value = false
   const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
+  const isMatchFriendList = (id) => selectedItems.value.some(item => item === id)
+
 
   //#end
 
