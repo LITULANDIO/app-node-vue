@@ -234,6 +234,20 @@ console.log({socket})
               if (items === friends.id && items === guest.id) {
                 console.log({items}, friends.id)
                 showModalWarnFriend.value = true
+              } else {
+                const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
+                const updatedGuest = {
+                    friend: guest.id,
+                    active: 1,
+                    idFriend: hash[0]['hashGuest'],
+                    idGuest: guest.hashGuest,
+                }
+                const ids = {
+                  idUser: user.value.id,
+                  idGroup: storageGroup.value.id
+                }
+                socket.emit('guestUpdated', updatedGuest, ids);
+                showModalSuccess.value = true
               }
             })
           })
