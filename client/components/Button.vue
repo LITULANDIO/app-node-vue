@@ -1,5 +1,8 @@
 <template>
-    <div class="button" @click="onClicked"><span>{{ label }}</span></div>
+    <div class="button" @click="onClicked">
+    <span v-if="label">{{ label }}</span>
+    <slot></slot>
+    </div>
 </template>
 
 <script setup>

@@ -56,6 +56,9 @@
       "warning2": {
         "text": "Ja has seleccionat el teu amic invisible"
       },
+      "warning3": {
+        "text": "Has seleccionat la teva parella, pare, mare o el teu fill/a, torna a seleccionar."
+      },
       "success": {
         "text": "Enhorabona, has seleccionat el teu amic invisible."
       },

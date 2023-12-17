@@ -57,6 +57,9 @@
     "warning2": {
       "text": "Ya has seleccionado a tu amigo invisible."
     },
+    "warning3": {
+      "text": "Has seleccionado a tu pareja o pare, madre o bien a tu hijo/a, vuelve a seleccionar."
+    },
     "success": {
       "text": "Enhorabuena ya has seleccionado a tu amigo invisible."
     },

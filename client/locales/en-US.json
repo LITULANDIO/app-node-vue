@@ -57,6 +57,9 @@
     "warning2": {
       "text": "You have already selected your invisble friend"
     },
+    "warning3": {
+      "text": "You have selected your partner, father, mother or your child, select again."
+    },
     "success": {
       "text": "Congratulations you have selected your invisible friend."
     },

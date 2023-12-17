@@ -3,7 +3,6 @@
       <div v-if="isLoading" class="spinner">
           <Spinner />
       </div>
-   
       <div v-else class="w-full">
         <div class="flex justify-center items-center">
           <BackButton />
@@ -84,8 +83,28 @@
             <p class="mb-3">{{ $t('modals.info.text') }}</p>
         </div>
       </Modal>
+      <Modal :show="showModalWarnFriend" @onClose="onCloseModalWarnFriend" padding>
+        <div class="text-center">
+            <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+            <p class="mb-3">{{ $t('modals.warning3.text') }}</p>
+        </div>
+      </Modal>
       </div>
   </Transition>
+  <Button class="custom-btn" @onClicked="onShowGuestList">
+    <img src="/user-off.svg" />
+  </Button>
+  <Modal :show="showGuestList" @onClose="onCloseGuestList" padding>
+    <div v-for="guests in guestsList" :key="guests.id">
+        <input
+          type="checkbox"
+          :id="guests.id"
+          :value="guests.id"
+          v-model="selectedItems"
+        />
+        <label class="ml-1 capitalize" :for="guests.id">{{ guests.user }}</label>
+    </div>
+  </Modal>
 </template>
 
 <script setup>
@@ -129,6 +148,9 @@ console.log({socket})
   const guestParams = ref(null)
   const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
   const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
+  const showGuestList = ref(false)
+  const selectedItems = ref([])
+  const showModalWarnFriend = ref(false)
 
   //#end
   
@@ -204,6 +226,14 @@ console.log({socket})
           return
       } else if (groupOfGuest?.friend?.id >= 1) {
           showModalWarning2.value = true
+      } else if(selectedItems.value.length !== 0){
+          selectedItems.value.some(items => {
+            unselectedFriends.value.forEach(friends => {
+              if (items === friends.id) {
+                showModalWarnFriend.value = true
+              }
+            })
+          })
       } else {
           const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
           const updatedGuest = {
@@ -226,11 +256,16 @@ console.log({socket})
     guestSelected.value = guest
     guestParams.value = params
   }
+  const onShowGuestList = () => showGuestList.value = true
+  const onCloseGuestList = () => showGuestList.value = false
+  const onCloseModalWarnFriend = () => showModalWarnFriend.value = false
+
   //#end
 
   //#computed
   const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
   const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
+  const guestsList = computed(() => storeGuest.data.guests)
   //#end
 </script>
 
@@ -296,5 +331,11 @@ text-shadow: 2px 2px 4px rgba(4, 192, 168, 0.7651654412);
 .spinner {
 position: absolute;
 left: 45%;
+}
+.custom-btn {
+  position: fixed;
+  top: 18rem;
+  height: 20px;
+  width: 20px;
 }
 </style>
