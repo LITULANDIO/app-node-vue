@@ -228,9 +228,11 @@ console.log({socket})
       } else if (groupOfGuest?.friend?.id >= 1) {
           showModalWarning2.value = true
       } else if(isSelectedCheckBox.value){
+        console.log(selectedItems)
           selectedItems.value.some(items => {
             unselectedFriends.value.forEach(friends => {
               if (items === friends.id) {
+                console.log({items}, friends.id)
                 showModalWarnFriend.value = true
               }
             })
