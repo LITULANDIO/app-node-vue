@@ -101,6 +101,7 @@
           :id="guests.id"
           :value="guests.id"
           v-model="selectedItems"
+          @change="onChangeSelected"
         />
         <label class="ml-1 capitalize" :for="guests.id">{{ guests.user }}</label>
     </div>
@@ -226,7 +227,7 @@ console.log({socket})
           return
       } else if (groupOfGuest?.friend?.id >= 1) {
           showModalWarning2.value = true
-      } else if(selectedItems.value.length !== 0){
+      } else if(isSelectedCheckBox.value){
           selectedItems.value.some(items => {
             unselectedFriends.value.forEach(friends => {
               if (items === friends.id) {
@@ -259,6 +260,7 @@ console.log({socket})
   const onShowGuestList = () => showGuestList.value = true
   const onCloseGuestList = () => showGuestList.value = false
   const onCloseModalWarnFriend = () => showModalWarnFriend.value = false
+  const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
 
   //#end
 
