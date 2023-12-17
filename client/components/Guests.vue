@@ -231,7 +231,7 @@ console.log({socket})
         console.log(selectedItems)
           selectedItems.value.some(items => {
             unselectedFriends.value.forEach(friends => {
-              if (items === friends.id) {
+              if (items === friends.id && items === guest.id) {
                 console.log({items}, friends.id)
                 showModalWarnFriend.value = true
               }
