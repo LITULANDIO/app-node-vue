@@ -261,8 +261,8 @@ console.log({socket})
   //#end
 
   //#computed
-  const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.friend !== 0))
-  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.friend === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
+  const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0)).slice().sort(() => Math.random() - 0.8)
+  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
   const guestsList = computed(() => storeGuest.data.guests)
   //#end
 </script>
