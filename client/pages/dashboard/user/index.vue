@@ -52,7 +52,7 @@ let dataGroup = reactive({
   date: '',
   location: '',
   budget: '',
-  admin: user.value.id,
+  admin: authUser.value.id,
   guests: 0
 })
 const dataUser = reactive({
