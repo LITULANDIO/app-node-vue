@@ -34,7 +34,7 @@ import { reactive, onMounted, computed } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 import { useAuth } from '@/composables/useAuth'
 import { useGroups } from '@/composables/useGroups'
-import { useGuest } from '@/composables/useGuest'
+import { useGuests } from '@/composables/useGuests'
 
 definePageMeta({
   middleware: ["auth"]
