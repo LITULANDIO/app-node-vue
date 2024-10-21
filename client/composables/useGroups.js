@@ -1,8 +1,8 @@
-import { ref, reactive, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 
 export function useGroups() {
-  const group = reactive({
+  const group = ref({
     id: '',
     admin: '',
     name: '',
