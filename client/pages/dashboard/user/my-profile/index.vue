@@ -81,7 +81,7 @@ import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
 import { DataProvider } from "@/data-provider/index"
 import { useAuth } from '@/composables/useAuth'
-import { useUsers } from '@/composables/useUser'
+import { useUsers } from '@/composables/useUsers'
 import useI18n from "vue-i18n";
 
 //# const ref reactive
