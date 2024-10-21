@@ -3,13 +3,13 @@ import { DataProvider } from '@/data-provider/index'
 import rs from 'jsrsasign'
 
 export function useAuth() {
-  const userDefault = {
+  const userDefault = ref({
     email: '',
     id: '',
     lastname: '',
     name: '',
     photo: ''
-  }
+  })
   const user = ref(process.client ? JSON.parse(localStorage.getItem('user')) || userDefault : userDefault)  
   const isAuthenticated = computed(() => checkToken())
 
