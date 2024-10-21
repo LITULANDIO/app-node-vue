@@ -25,6 +25,7 @@ export function useUsers() {
         providerType: 'USERS',
         type: 'GET_USER',
       })
+      console.log('response user', response?.data?.body)
       currentUser.value = response?.data?.body
     } catch (error) {
       console.error('Error fetching user:', error)
