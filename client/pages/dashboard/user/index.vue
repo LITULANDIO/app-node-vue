@@ -42,7 +42,7 @@ definePageMeta({
 
 //# const, ref, reactive
 const { user: authUser } = useAuth()
-const { group, groups, isLoading, addGroup, setCurrentGroup, setGroupsUser } = useGroup()
+const { group, groups, isLoading, addGroup, setCurrentGroup, setGroupsUser } = useGroups()
 const { guests } = useGuest()
 const isOpenModalCreate = ref(false)
 const isOpenModalEntryGroup = ref(false)
