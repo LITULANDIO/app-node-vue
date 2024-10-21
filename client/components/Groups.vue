@@ -27,7 +27,7 @@ import { useGroups } from '@/composables/useGroups'
 //#end
 
 const { user: authUser } = useAuth()
-const { groups, isLoading } = useGroups()
+const { groups, isLoading, groupsUser } = useGroups()
 const groupsUserList = ref([])
 
 onMounted(async() => {
