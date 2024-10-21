@@ -71,6 +71,7 @@ export function useAuth() {
     user.value = null
     deleteToken()
     deleteAllCookies()
+    navigateTo(`/`);
   }
 
   function clearAuthData() {
