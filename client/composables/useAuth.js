@@ -10,7 +10,7 @@ export function useAuth() {
     lastname: '',
     photo: ''
   })
-  const isAuthenticated = computed(() => !!user.value && checkToken())
+  const isAuthenticated = computed(() => checkToken())
 
   watch(user, (newValue) => {
     localStorage.setItem('user', JSON.stringify(newValue))
