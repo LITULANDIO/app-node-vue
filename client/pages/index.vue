@@ -91,7 +91,7 @@ const dataUser = reactive({ email: "", password: ""})
 const showModalForgotPassw = ref(false)
 const showModalSuccess = ref(false)
 const showPassword = ref(false)
-const { getAllUsers, currentUser } = useUsers()
+const { getAllUsers } = useUsers()
 const { user: authUser } = useAuth()
 
 const onLogin = async () => {
@@ -108,13 +108,12 @@ const onLogin = async () => {
       type: 'GET_USER',
       params: result.data.body.id
     })
-    console.log('currentUser', currentUser.value)
     console.log('authUser', authUser.value)
-    currentUser.value.id = result.data.body.id,
-    currentUser.value.name = result.data.body.user
-    currentUser.value.lastname = result.data.body.lastname
-    currentUser.value.photo = fetchUser.body[0].photo
-    currentUser.value.email = fetchUser.body[0].email
+    authUser.value.id = result.data.body.id,
+    authUser.value.name = result.data.body.user
+    authUser.value.lastname = result.data.body.lastname
+    authUser.value.photo = fetchUser.body[0].photo
+    authUser.value.email = fetchUser.body[0].email
     navigateTo(`/dashboard/user`);
   }
 };
