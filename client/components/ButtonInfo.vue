@@ -20,7 +20,9 @@
 
 <script setup>
 import { ref } from 'vue'
-const group = ref(JSON.parse(localStorage.getItem('group')))
+import { useGroups } from '@/composables/useGroups'
+const { group } = useGroups()
+
 const showInfo = ref(false)
 
 const onViewInfo = () => {

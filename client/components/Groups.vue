@@ -22,25 +22,12 @@
 <script setup>
 import { DataProvider } from '@/data-provider/index'
 import { onMounted, ref, computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useStoreAuth } from '~~/stores/auth';
-
-//# props
-const props = defineProps({
-    groups: {
-        type: Array,
-        required: true
-      },
-    isLoading: {
-        type: Boolean,
-        default: false
-    }
-})
+import { useAuth } from '@/composables/useAuth'
+import { useGroups } from '@/composables/useGroups'
 //#end
-const groupsUserList = ref([])
-const groupsUser = ref(JSON.parse(localStorage.getItem('groups-user')))
-const storeAuth = useStoreAuth()
-const { user } = storeToRefs(storeAuth)
+
+const { user: authUser } = useAuth()
+const { groups, isLoading } = useGroups()
 
 onMounted(async() => {
     await getGroups()
@@ -59,7 +46,7 @@ const getGroups = async () => {
     if (groupsUser.value) {
         fetchGroup.body.forEach(grup => {
             groupsUser.value.forEach(grupuser => {
-                if (grup.id === grupuser.group.id && user.value.id !== grup.admin) {
+                if (grup.id === grupuser.group.id && authUser.value.id !== grup.admin) {
                     groupsUserList.value.push(grup)
                 }
             })

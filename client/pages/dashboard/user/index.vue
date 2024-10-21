@@ -4,8 +4,6 @@
     <ButtonConfig />
     <section class="flex justify-center items-center flex-col">
       <Groups 
-        :groups="groups"
-        :isLoading="isLoading"
         @onClicked="onGoGroup"
       />
     </section>
@@ -34,21 +32,18 @@
 <script setup>
 import { reactive, onMounted, computed } from 'vue'
 import { DataProvider } from '@/data-provider/index'
-import { useStoreAuth } from '~~/stores/auth';
-import { useStoreGroup } from '~~/stores/groups';
-import { useStoreGuest } from '~~/stores/guests';
-import { storeToRefs } from 'pinia'
+import { useAuth } from '@/composables/useAuth'
+import { useGroup } from '@/composables/useGroup'
+import { useGuest } from '@/composables/useGuest'
 
 definePageMeta({
   middleware: ["auth"]
 })
 
 //# const, ref, reactive
-const storeAuth = useStoreAuth()
-const storeGroup = useStoreGroup()
-const storeGuest = useStoreGuest()
-const { user } = storeToRefs(storeAuth)
-const { group, groups, isLoading } = storeToRefs(storeGroup)
+const { user: authUser } = useAuth()
+const { group, groups, isLoading, addGroup, setCurrentGroup, setGroupsUser } = useGroup()
+const { guests } = useGuest()
 const isOpenModalCreate = ref(false)
 const isOpenModalEntryGroup = ref(false)
 let dataGroup = reactive({
@@ -78,12 +73,12 @@ const onCloseModalCreate = () => isOpenModalCreate.value = false
 const onCloseModalEntry = () => isOpenModalEntryGroup.value = false 
 const onShowModalCodeGroup = () => {
   isOpenModalEntryGroup.value = true
-  dataUser.user = user.value.name
+  dataUser.user = authUser.value.name
 }
 const handleSubmit = async () => {
-  await storeGroup.addGroup({
+  await addGroup({
     dataGroup, 
-    idUser: user.value.id
+    idUser: authUser.value.id
   })
   isOpenModalCreate.value = false
 }
@@ -95,7 +90,7 @@ const onGoGroup = (groupSelceted) => {
   unitGroup.value.location = groupSelceted.location
   unitGroup.value.budget = groupSelceted.budget
   unitGroup.value.snug = groupSelceted.snug
-  localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
+  setCurrentGroup(unitGroup.value)
   navigateTo(`/dashboard/user/group/${groupSelceted.snug}`)
 }
 const onGoGroupWithCode = async () => {
@@ -122,15 +117,15 @@ const onGoGroupWithCode = async () => {
         unitGroup.value.location = grup.location
         unitGroup.value.budget = grup.budget
         unitGroup.value.snug = grup.snug
-        localStorage.setItem('group', (JSON.stringify(unitGroup.value)))
+        setCurrentGroup(unitGroup.value)
       }
     })
-    const guests = await DataProvider({
+    const _guests = await DataProvider({
             providerType: 'GUESTS',
             type: 'GET_GUESTS',
             params: fetchUser.body?.snug
         })
-    storeGuest.data = guests.body
+    guests.value = _guests.body
     navigateTo(`/dashboard/user/group/${fetchUser.body?.snug}`)
 }
 //# end
@@ -143,7 +138,7 @@ onMounted(async () => {
     type: 'GET_GROUPS_USER',
     params: user.value.id
   })
-  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
+  setGroupsUser(groupOfUser.body)
 })
 //# end
 </script>

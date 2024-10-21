@@ -80,15 +80,13 @@ import { reactive, onMounted } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
 import { DataProvider } from "@/data-provider/index"
-import { useStoreAuth } from '~~/stores/auth';
-import { useStoreUsers } from '~~/stores/users';
-import { storeToRefs } from 'pinia'
-import { useI18n } from "vue-i18n";
+import { useAuth } from '@/composables/useAuth'
+import { useUsers } from '@/composables/useUser'
+import useI18n from "vue-i18n";
 
 //# const ref reactive
-const storeAuth = useStoreAuth()
-const storeUser = useStoreUsers()
-const { user } = storeToRefs(storeAuth)
+const { uploadImage, getUser } = useUsers()
+const { user: authUser } = useAuth()
 const dataUser = reactive({  password: "", confirmed: "", photo: "" })
 const localImage = ref(null)
 const showEdit = ref(true)
@@ -112,13 +110,13 @@ confirmed: string()
 
 //#cycle life
 onMounted(async () => {
-    localImage.value = user.value.photo
+    localImage.value = authUser.value.photo
     DataProvider({
       providerType: 'USERS',
       type: 'GET_USER',
-      params: user.value.id,
+      params: authUser.value.id,
     }).then((res => {
-        user.value.photo = res.body[0].photo
+        authUser.value.photo = res.body[0].photo
     }))
 })
 //#
@@ -127,7 +125,7 @@ onMounted(async () => {
 const onChangePassword = async () => {
     const data = {
         password: dataUser.password,
-        id: user.value.id
+        id: authUser.value.id
     }
     await DataProvider({
         providerType: 'AUTH',
@@ -150,7 +148,7 @@ const onPreviewImg = async (event) => {
       const reader = new FileReader();
       reader.onload = e => localImage.value = e.target.result; 
       reader.readAsDataURL(input.files[0]);
-      dataUser.photo = await storeUser.uploadImage(input.files[0])
+      dataUser.photo = await uploadImage(input.files[0])
       console.log(dataUser.photo)
     }
 }
@@ -161,7 +159,7 @@ const onSelectImage = () =>{
 const onupdatePhoto = async () => {
     const data = {
         photo: dataUser.photo,
-        id: user.value.id
+        id: authUser.value.id
     }
     await DataProvider({
         providerType: 'USERS',
@@ -169,16 +167,12 @@ const onupdatePhoto = async () => {
         params: data
     })
     try {
-        const fetchUser = await DataProvider({
-          providerType: 'USERS',
-          type: 'GET_USER',
-          params: user.value.id,
-        })
+        const fetchUser = await getUser(authUser.value.id)
         
         showEdit.value = true
         showModalSuccess.value = true
         setTimeout(() => {
-            user.value.photo = fetchUser.body[0].photo
+            authUser.value.photo = fetchUser.body[0].photo
             showModalSuccess.value = false
         }, 5000)
     }catch(error) {
@@ -192,7 +186,9 @@ const onCloseModalSuccessPassw = () => {
     showModalSuccessPassw.value = false
 }
 const updateLanguage = (lang) => {
-    localStorage.setItem('lang', lang)
+    if (process.client) {
+        localStorage.setItem('lang', lang)
+    }
 }
 //#end
 </script>

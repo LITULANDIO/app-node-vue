@@ -94,16 +94,15 @@
   import { object, string, ref as yupRef } from "yup";
   import { configure } from "vee-validate";
   import { useRouter } from 'vue-router';
-  import { useStoreUsers } from '~~/stores/users';
+  import { useUsers } from '@/composables/useUsers'
 
 
 //#ref reactive const 
   const router = useRouter()
   const dataUser = reactive({ user: "", lastname: "", email: "", password: "", confirmed: "", photo: "" })
   const localImage = ref(null)
-  const storeUser = useStoreUsers()
   const runtimeConfig = useRuntimeConfig();
-
+  const { uploadImage } = useUsers()
   configure({
     validateOnBlur: true,
     validateOnChange: true,
@@ -153,7 +152,7 @@
       const reader = new FileReader();
       reader.onload = e => localImage.value = e.target.result; 
       reader.readAsDataURL(input.files[0]);
-      dataUser.photo = await storeUser.uploadImage(input.files[0])
+      dataUser.photo = await uploadImage(input.files[0])
     }
 }
 const onSelectImage = () =>{

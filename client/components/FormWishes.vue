@@ -72,8 +72,9 @@
 import { ref, reactive, onMounted, watchEffect } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { DataProvider } from '@/data-provider/index'
-import { storeToRefs } from 'pinia'
-import { useStoreAuth } from '~~/stores/auth';
+import { useAuth } from '@/composables/useAuth'
+import { useGroup } from '@/composables/useGroup'
+import { useFriend } from '@/composables/useFriend'
 
 //# props
 const props = defineProps({
@@ -92,8 +93,10 @@ const props = defineProps({
 //#end
 
 //# const ref
-const storeAuth = useStoreAuth()
-const { user } = storeToRefs(storeAuth)
+const { user: authUser } = useAuth()
+const { group, setGroupsUser, groupsUser } = useGroups()
+const { setFriend } = useFriend()
+
 const schema = object({
   wish1: string().required(),
   wish2: string().required(),
@@ -109,7 +112,6 @@ let dataWishes = reactive({
 })
 const showModalError = ref(false)
 const showModalSuccess = ref(false)
-const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
 //#end
 
 //# cycle life
@@ -129,9 +131,7 @@ const onClose = () => emit("onClose")
 
 //# events
 const onCloseModalError = () => showModalError.value = false
-const onCloseModalSuccess = () => {
-    showModalSuccess.value = false
-}
+const onCloseModalSuccess = () => showModalSuccess.value = false
 //#end
 
 //#methods
@@ -148,12 +148,13 @@ const onSubmitWishes = async () => {
         const groupsOfUser = await DataProvider({
             providerType: 'GROUPS',
             type: 'GET_GROUPS_USER',
-            params: user.value.id
+            params: authUser.value.id
           })
-          window.localStorage.setItem('groups-user', JSON.stringify(groupsOfUser.body))
-          JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
-              if (grup.group.id === storageGroup.value.id ) {
-                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
+          setGroupsUser(groupsOfUser.body)
+
+          groupsUser.value.forEach(grup => {
+              if (grup.group.id === group.value.id ) {
+                setFriend(grup)
               }
             })
         emit("onSubmitSuccess");
@@ -164,15 +165,6 @@ const onSubmitWishes = async () => {
     }catch(error){
         showModalError.value = true
     }
-    // if (!props.wishes.wish1) {
-    //     dataWishes = {
-    //         wish1: '',
-    //         wish2: '',
-    //         wish3: '',
-    //         wish4: '',
-    //         wish5: ''
-    //     }
-    // }
 }
 //#end
 </script>

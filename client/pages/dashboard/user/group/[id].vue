@@ -6,7 +6,6 @@
     <section id="modal">
       <Guests 
         v-if="data"
-        :isLoading="isLoading"
         :params="id"
         :isAdmin="isAdmin"
         @deleteGuest="onDeleteGuest"
@@ -35,24 +34,23 @@
 
 <script setup>
 import { ref, reactive, onMounted, computed, nextTick, watchEffect } from 'vue'
-import { useStoreGroup } from '~~/stores/groups';
-import { useStoreGuest } from '~~/stores/guests';
-import { useStoreAuth } from '~~/stores/auth';
-import { storeToRefs } from 'pinia'
-import useUsers from '@/composables/users'
+import { useUsers } from '@/composables/useUsers'
+import { useAuth } from '@/composables/useAuth'
+import { useGroups } from '@/composables/useGroups'
+import { useGuests } from '@/composables/useGuests'
+import { useFriend } from '@/composables/useFriend'
 import { DataProvider } from '@/data-provider/index'
 definePageMeta({
   middleware: ["auth"]
 })
 
 //#ref reactive const 
-const storeGroup = useStoreGroup()
-const storeGuest = useStoreGuest()
-const storeAuth = useStoreAuth()
-const { groups } = storeToRefs(storeGroup)
-const { data, isLoading, isSelected } = storeToRefs(storeGuest)
-const { user } = storeToRefs(storeAuth)
 const { getAllUsers, getUser } = useUsers()
+const { user: authUser } = useAuth()
+const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
+const { setFriend } = useFriend()
+const { guests, isLoading, isSelected, getGuests, deleteGuest, addGuestInGroup } = useGuests()
+
 const route = useRoute()
 const dataFriend = reactive({
   name: '',
@@ -66,11 +64,8 @@ const isShowDropdownUsers = ref(false)
 const idGuest = ref('')
 const isExistedGuest = ref(false)
 const id = ref('')
-const group = ref(JSON.parse(localStorage.getItem('group')))
-const groupsOfUser = ref('')
 const hasSelectedUser = ref(false)
 //#end
-groupsOfUser.value = JSON.parse(localStorage.getItem('groups-user'))
 
 //#cycle life
 onMounted(async() => {
@@ -78,7 +73,7 @@ onMounted(async() => {
     id.value = route.params.id
   }
  usersParsed.value = await getAllUsers()
- await storeGuest.getGuests(id.value)
+ await getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
  isFriendSelected()
@@ -87,13 +82,13 @@ onMounted(async() => {
 
 //#computed
 const getUsers = computed(() => usersParsed.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
-const isAdmin = computed(() => user.value.id === data.value?.group?.admin || user.value.id ===  group.value.admin )
+const isAdmin = computed(() => authUser.value.id === data.value?.group?.admin || authUser.value.id ===  group.value.admin )
 //#end
 
 //#events
 const onCreateFriend = () => {
   isOpenModal.value = true
-  dataFriend.send = user.value.email
+  dataFriend.send = authUser.value.email
 }
 const onCloseModal = () => isOpenModal.value = false 
 const onSelectUser = (event, idUser) => {
@@ -111,12 +106,12 @@ const onKeyUp = () => {
   isExistedGuest.value = false
 }
 const onSubmitFriend = async () => {
-  const isExistGuest = data.value.guests.some(guest => guest.id === idGuest.value)
+  const isExistGuest = guests.value.guests.some(guest => guest.id === idGuest.value)
   if (isExistGuest) {
     isExistedGuest.value = true
     return
   }
-  await storeGuest.addGuestInGroup({
+  await addGuestInGroup({
     guest: {idGroup: group.value.id, idGuest: idGuest.value, friend: 0, active: 0},
     id: id.value
   })
@@ -136,24 +131,26 @@ const onSubmitFriend = async () => {
   dataFriend.to = ''
   dataFriend.name = ''
 }
+
 const onDeleteGuest = async (guest, id) => {
-  await storeGuest.deleteGuest({
+  await deleteGuest({
     guest,
     id
   })
   const groupOfUser = await DataProvider({
     providerType: 'GROUPS',
     type: 'GET_GROUPS_USER',
-    params: user.value.id
+    params: authUser.value.id
   })
-  window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
+  setGroupsUser(groupOfUser.body)
 }
+
 const onGoMyFriend = async () => {
-  if (groupsOfUser.value) {
-    groupsOfUser.value.forEach(grup => {
+  if (groupsUser.value) {
+    groupsUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
           console.log('go my friend -->', grup)
-          localStorage.setItem('friend-me', JSON.stringify(grup))
+          setFriend(grup)
       }
     })
   }
@@ -165,7 +162,7 @@ const onGoMyFriend = async () => {
 
 const isFriendSelected = () => {
   let isSelect = false
-  groupsOfUser.value.map(grup => {
+  groupsUser.value.map(grup => {
     if( grup.group.id === group.value.id) {
       console.log('fa match el grup', grup)
       if (grup?.friend?.name) {
@@ -179,7 +176,7 @@ const isFriendSelected = () => {
 const onSelected = (data1, data2) => {
   console.log({data})
   hasSelectedUser.value = data1.isSelected
-  groupsOfUser.value = data2.group
+  setGroupsUser(data2.group)
 }
 // watchEffect(() => {
 //   if (isSelected.value) {
@@ -191,24 +188,24 @@ const onSelected = (data1, data2) => {
    
 //# functions
 const addUserAdmin = async () => {
-  if (storeGuest.data.guests.length === 0 ) {
-    await storeGuest.addGuestInGroup({
-      guest: {idGroup: group.value.id, idGuest: user.value.id, friend: 0, active: 0},
+  if (guests.value.guests.length === 0 ) {
+    await addGuestInGroup({
+      guest: {idGroup: group.value.id, idGuest: authUser.value.id, friend: 0, active: 0},
       id: id.value
     })
     const groupOfUser = await DataProvider({
       providerType: 'GROUPS',
       type: 'GET_GROUPS_USER',
-      params: user.value.id
+      params: authUser.value.id
     })
-    window.localStorage.setItem('groups-user', JSON.stringify(groupOfUser.body))
+    setGroupsUser(groupOfUser.body)
   }
 }
 
 const setDataGroupWhenEntryInviteFriend = () => {
   groups.value.forEach(grup => {
     if(grup.snug === route.params.id) {
-      const group = {
+      const _group = {
         id: grup.id,
         admin: grup.admin,
         name: grup.name,
@@ -217,7 +214,7 @@ const setDataGroupWhenEntryInviteFriend = () => {
         budget: grup.budget,
         snug: grup.snug
       }
-      localStorage.setItem('group', (JSON.stringify(group)))
+      setCurrentGroup(_group)
     }
   })
 }

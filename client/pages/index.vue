@@ -80,19 +80,19 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { DataProvider } from "@/data-provider/index"
-import { storeToRefs } from 'pinia'
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
-import { useStoreAuth } from '~~/stores/auth';
 import uniqid from 'uniqid'
+import { useUsers } from '@/composables/useUsers'
+import { useAuth } from '@/composables/useAuth'
 
-const storeAuth = useStoreAuth()
-const { user } = storeToRefs(storeAuth)
 const errorLogin = ref('')
 const dataUser = reactive({ email: "", password: ""})
 const showModalForgotPassw = ref(false)
 const showModalSuccess = ref(false)
 const showPassword = ref(false)
+const { getAllUsers } = useUsers()
+const { user: authUser, user } = useAuth()
 
 const onLogin = async () => {
   const result = await DataProvider({
@@ -108,11 +108,11 @@ const onLogin = async () => {
       type: 'GET_USER',
       params: result.data.body.id
     })
-    user.value.id = result.data.body.id,
-    user.value.name = result.data.body.user
-    user.value.lastname = result.data.body.lastname
-    user.value.photo = fetchUser.body[0].photo
-    user.value.email = fetchUser.body[0].email
+    authUser.value.id = result.data.body.id,
+    authUser.value.name = result.data.body.user
+    authUser.value.lastname = result.data.body.lastname
+    authUser.value.photo = fetchUser.body[0].photo
+    authUser.value.email = fetchUser.body[0].email
     navigateTo(`/dashboard/user`);
   }
 };
@@ -138,10 +138,8 @@ const onCloseModalSuccess = () => {
   showModalSuccess.value = false
 }
 const onSubmitForgotPassword = async (email) => {
-  const getUsers = await DataProvider({
-      providerType: 'USERS',
-      type: 'GET_USERS',
-    })
+
+  const getUsers = await getAllUsers()
   const userMail = getUsers.body.find(user => user.email === email)
   if (userMail) {
     const uniqueId = uniqid();

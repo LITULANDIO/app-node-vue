@@ -1,6 +1,6 @@
 import axios from 'axios'
-import AuthStore from '@/composables/auth'
-const { setToken } = AuthStore()
+import { useAuth } from '@/composables/useAuth'
+const { setToken } = useAuth()
 
 export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
     let options = null

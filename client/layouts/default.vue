@@ -1,30 +1,27 @@
 <template>
   <div>
-    <Navbar :user="user.name" @logout="onLogout"/>
+    <Navbar :user="authUser.name" @logout="onLogout"/>
     <slot />
   </div>
 </template>
 
 <script setup>
-import { useStoreAuth } from '~~/stores/auth';
-import useAuth from '@/composables/auth';
-import { storeToRefs } from 'pinia'
+import { useAuth } from '@/composables/useAuth'
 
 definePageMeta({
   middleware: ["auth"]
 })
 
-const { user } = storeToRefs(useStoreAuth())
-const { clearAuthData, deleteAllCookies } = useAuth()
+const { user: authUser, clearAuthData, deleteAllCookies } = useAuth()
 
 const onLogout = () => {
   clearAuthData()
   //deleteAllCookies()
-  localStorage.removeItem('group')
-  localStorage.removeItem('friend-me')
+  // localStorage.removeItem('group')
+  // localStorage.removeItem('friend-me')
   //localStorage.removeItem('groups-user')
-  localStorage.removeItem('friend')
-  user.value = {
+  // localStorage.removeItem('friend')
+  authUser.value = {
     id: '',
     name: '',
     lastname: '',

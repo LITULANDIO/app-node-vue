@@ -54,26 +54,26 @@
 
 <script setup>
 import { ref, reactive, computed, onBeforeMount, onUpdated } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useStoreAuth } from '~~/stores/auth';
+import { useAuth } from '@/composables/useAuth'
+import { useGroups } from '@/composables/useGroups'
+import { useFriend } from '@/composables/useFriend'
 
 //#ref reactive const
-const storeAuth = useStoreAuth()
-const { user } = storeToRefs(storeAuth)
+const { user: authUser } = useAuth()
+const { group } = useGroups()
+const { fiend } = useFriend()
+
 const isViewFriend = ref(false)
 const isViewWishesFriend = ref(false)
 const isViewWishesMe = ref(false)
 const isOpenModal = ref(false);
-const group = ref(JSON.parse(localStorage.getItem('group')))
-const friend = ref({})
 const data = reactive({
     idGroup: group.value?.id,
-    idUser: user.value?.id
+    idUser: authUser.value?.id
 })
 //#end
 onBeforeMount(() => {
     const getFriend = setInterval(() => {
-        friend.value = JSON.parse(localStorage.getItem('friend-me'))
         if (friend.value.friend.name !== null && friend.value.friend.name !== undefined) {
             clearInterval(getFriend);
         }
@@ -81,7 +81,7 @@ onBeforeMount(() => {
 })
 onUpdated(() => {
     data.idGroup = group.value.id
-    data.idUser = user.value.id
+    data.idUser = authUser.value.id
 })
 
 

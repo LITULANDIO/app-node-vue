@@ -6,7 +6,7 @@
       <div v-else class="w-full">
         <div class="flex justify-center items-center">
           <BackButton />
-          <h1 class="text-2xl capitalize text-center text-white">{{ storageGroup.name  }}</h1>
+          <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
         </div>
         <div id="guests" class="w-full flex justify-center items-center flex-wrap mt-5">
           <template v-for="guest in unselectedFriends" :key="guest.id">
@@ -109,21 +109,21 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useStoreAuth } from '~~/stores/auth';
-import { useStoreGuest } from '~~/stores/guests';
 import { io } from 'socket.io-client';
 import { onMounted } from 'vue';
 import { DataProvider } from '@/data-provider/index'
+import { useAuth } from '@/composables/useAuth'
+import { useGuests } from '@/composables/useGuests'
+import { useGroups } from '@/composables/useGroups'
+import { useFriend } from '@/composables/useFriend'
+
 
 const socket = io('wss://socket-friends.quisqui.com');
+// const socket = io('http://localhost:3001');
+
 console.log({socket})
   //# props
   const props = defineProps({
-    isLoading: {
-      type: Boolean,
-      default: false,
-    },
     params: {
       type: [String, Object]
     },
@@ -135,10 +135,12 @@ console.log({socket})
   //#end
 
   //# const ref
-  const selectedGuestId = ref(null);
-  const storeAuth = useStoreAuth()
-  const storeGuest = useStoreGuest()
-  const { user } = storeToRefs(storeAuth)
+  const { user: authUser, isAuthenticated } = useAuth()
+  const { isLoading } = useGuests()
+  const { group, groupsUser, setGroupsUser } = useGroups()
+  const { setFriend } = useFriend()
+
+  const selectedGuestId = ref(null)
   const showModalWarning1 = ref(false)
   const showModalWarning2 = ref(false)
   const showModalSuccess = ref(false)
@@ -147,8 +149,6 @@ console.log({socket})
   const isDeleteGuest = ref(false)
   const guestSelected = ref(null)
   const guestParams = ref(null)
-  const storageGroup = ref(JSON.parse(localStorage.getItem('group')))
-  const groupsOfUser = ref(JSON.parse(localStorage.getItem('groups-user')))
   const showGuestList = ref(false)
   const selectedItems = ref([])
   const showModalWarnFriend = ref(false)
@@ -168,15 +168,15 @@ console.log({socket})
   const onCloseModalSuccess = () => showModalSuccess.value = false
   const onCloseModalInfoGuest = () => showModalInfoGuest.value = false
   const getIdGroup = () => {
-    if (storageGroup.value.snug === route.params.id) {
-      return { id: storageGroup.value.id }
+    if (group.value.snug === route.params.id) {
+      return { id: group.value.id }
     }
   }
 
   onMounted(() => {
-  socket.emit('joinRoom', storageGroup.value.id);
+  socket.emit('joinRoom', group.value.id);
   socket.on('guestUpdatedCompleted', async (updatedGuestData, ids) => {
-    storeGuest.isLoading = true;
+    isLoading = true;
     console.time('DataUpdate');
     if (updatedGuestData?.status === 200) {
       console.log('after if', updatedGuestData)
@@ -186,30 +186,31 @@ console.log({socket})
         type: 'GET_GUESTS',
         params: props.params
       }).then(res => {
-        storeGuest.data = res.body;
-        storeGuest.isSelected = true
+        guests.value = res.body;
+        isSelected = true
         DataProvider({
             providerType: 'GROUPS',
             type: 'GET_GROUPS_USER',
-            params: user.value.id
+            params: authUser.value.id
           }).then(result => {
             console.log({result})
-            console.log('storageGroup', storageGroup.value)
-            window.localStorage.setItem('groups-user', JSON.stringify(result.body))
-            JSON.parse(window.localStorage.getItem('groups-user')).forEach(grup => {
-              if (grup.group.id === storageGroup.value.id ) {
-                    window.localStorage.setItem('friend-me', JSON.stringify(grup))
+            console.log('group then socket', group.value)
+            setGroupsUser(result.body)
+            groupsUser.forEach(grup => {
+              if (grup.group.id === group.value.id ) {
+                  setFriend(grup)
               }
             })
             emit('selectedGuest', { isSelected: true, group: result.body})
+            console.log('selectedGuest', result.body)
             
           })
         console.timeEnd('DataUpdate');
-        if (user.value.id !== ids.idUser && storageGroup.value.id === ids.idGroup) { 
+        if (authUser.value.id !== ids.idUser && group.value.id === ids.idGroup) { 
           showModalInfoGuest.value = true;
         }
       }).finally(() => {
-        storeGuest.isLoading = false;
+        isLoading = false;
         window.location.reload()
       });
     } else {
@@ -221,8 +222,8 @@ console.log({socket})
   
   const onSelectedFriend = async (guest) => {
       const { id } = getIdGroup()
-      const groupOfGuest = groupsOfUser.value.find(grup => grup.group.id === id)
-      if(guest.id === storeAuth.user.id) {
+      const groupOfGuest = groupsUser.value.find(grup => grup.group.id === id)
+      if(guest.id === authUser.value.id) {
           showModalWarning1.value = true
           return
       } else if (groupOfGuest?.friend?.id >= 1) {
@@ -230,7 +231,7 @@ console.log({socket})
       } else if(isSelectedCheckBox.value && isMatchFriendList(guest.id)){
           showModalWarnFriend.value = true
       } else {
-          const hash = storeGuest.data.guests.filter(guest => guest.id === user.value.id)
+          const hash = data.guests.filter(guest => guest.id === authUser.value.id)
           const updatedGuest = {
               friend: guest.id,
               active: 1,
@@ -238,8 +239,8 @@ console.log({socket})
               idGuest: guest.hashGuest,
           }
           const ids = {
-            idUser: user.value.id,
-            idGroup: storageGroup.value.id
+            idUser: authUser.value.id,
+            idGroup: group.value.id
           }
           socket.emit('guestUpdated', updatedGuest, ids);
           showModalSuccess.value = true
@@ -261,9 +262,9 @@ console.log({socket})
   //#end
 
   //#computed
-  const selectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => storeGuest.data.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
-  const guestsList = computed(() => storeGuest.data.guests)
+  const selectedFriends = computed(() => guests.value?.filter(guest => guest.active === 1))
+  const unselectedFriends = computed(() => guests.value?.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
+  const guestsList = computed(() => guests.value || [])
   //#end
 </script>
 
