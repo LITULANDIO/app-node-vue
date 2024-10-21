@@ -1,5 +1,5 @@
 <template>
-    <Title>Dashboard {{ user.name }}</Title>
+    <Title>Dashboard {{ authUser.name }}</Title>
     <NuxtLayout/>
     <ButtonConfig />
     <section class="flex justify-center items-center flex-col">
