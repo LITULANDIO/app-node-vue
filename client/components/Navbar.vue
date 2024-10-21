@@ -15,10 +15,7 @@ import { useAuth } from '@/composables/useAuth'
 
 const { user: authUser, logout } = useAuth()
 
-const onLogout = () => {
-  logout()
-  navigateTo('/login')
-}
+const onLogout = () => logout()
 const onGoHome = () => navigateTo('/dashboard/user')
 </script>
 

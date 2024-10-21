@@ -12,21 +12,7 @@ definePageMeta({
   middleware: ["auth"]
 })
 
-const { user: authUser, clearAuthData, deleteAllCookies } = useAuth()
+const { user: authUser, logout } = useAuth()
+const onLogout = () => logout()
 
-const onLogout = () => {
-  clearAuthData()
-  //deleteAllCookies()
-  // localStorage.removeItem('group')
-  // localStorage.removeItem('friend-me')
-  //localStorage.removeItem('groups-user')
-  // localStorage.removeItem('friend')
-  authUser.value = {
-    id: '',
-    name: '',
-    lastname: '',
-    photo: '',
-  }
-  navigateTo('/')
-}
 </script>
