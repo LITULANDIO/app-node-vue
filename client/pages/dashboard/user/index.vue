@@ -33,7 +33,7 @@
 import { reactive, onMounted, computed } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 import { useAuth } from '@/composables/useAuth'
-import { useGroup } from '@/composables/useGroup'
+import { useGroups } from '@/composables/useGroups'
 import { useGuest } from '@/composables/useGuest'
 
 definePageMeta({

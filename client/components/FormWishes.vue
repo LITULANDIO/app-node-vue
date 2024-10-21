@@ -73,7 +73,7 @@ import { ref, reactive, onMounted, watchEffect } from 'vue'
 import { object, string, ref as yupRef } from "yup";
 import { DataProvider } from '@/data-provider/index'
 import { useAuth } from '@/composables/useAuth'
-import { useGroup } from '@/composables/useGroup'
+import { useGroups } from '@/composables/useGroups'
 import { useFriend } from '@/composables/useFriend'
 
 //# props
