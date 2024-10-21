@@ -42,7 +42,7 @@ definePageMeta({
 
 //# const, ref, reactive
 const { user: authUser } = useAuth()
-const { group, groups, isLoading, addGroup, setCurrentGroup, setGroupsUser } = useGroups()
+const { group, groups, isLoading, addGroup, setCurrentGroup, setGroupsUser, get } = useGroups()
 const { guests } = useGuests()
 const isOpenModalCreate = ref(false)
 const isOpenModalEntryGroup = ref(false)
@@ -132,11 +132,11 @@ const onGoGroupWithCode = async () => {
 
 //# cycle life
 onMounted(async () => {
-  storeGroup.getGroups(user.value.id)
+  await getGroups(authUser.value.id)
   const groupOfUser = await DataProvider({
     providerType: 'GROUPS',
     type: 'GET_GROUPS_USER',
-    params: user.value.id
+    params: authUser.value.id
   })
   setGroupsUser(groupOfUser.body)
 })
