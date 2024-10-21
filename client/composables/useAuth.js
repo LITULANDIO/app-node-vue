@@ -3,13 +3,13 @@ import { DataProvider } from '@/data-provider/index'
 import rs from 'jsrsasign'
 
 export function useAuth() {
-  const user = {
+  const user = ref({
     id: null,
     email: '',
     name: '',
     lastname: '',
     photo: ''
-  }
+  })
   const isAuthenticated = computed(() => !!user.value && checkToken())
 
   watch(user, (newValue) => {
