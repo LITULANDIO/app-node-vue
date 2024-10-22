@@ -186,7 +186,7 @@ console.log({socket})
         type: 'GET_GUESTS',
         params: props.params
       }).then(res => {
-        setGuests(...guests.value, res.body);
+        setGuests(res.body);
         isSelected = true
         DataProvider({
             providerType: 'GROUPS',
@@ -263,9 +263,9 @@ console.log({socket})
 
   //#computed
   console.log('GUESTSSSSS', guests.value)
-  const selectedFriends = computed(() => guests.value?.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => guests.value?.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
-  const guestsList = computed(() => guests.value || [])
+  const selectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 1))
+  const unselectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
+  const guestsList = computed(() => guests.value.guests || [])
   //#end
 </script>
 
