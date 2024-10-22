@@ -75,7 +75,7 @@ onMounted(async() => {
   }
  usersParsed.value = await getAllUsers()
  console.log('getusers', await getAllUsers())
- setGuests(await getGuests(id.value))
+ await getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
  isFriendSelected()

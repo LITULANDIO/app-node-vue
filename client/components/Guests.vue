@@ -262,6 +262,7 @@ console.log({socket})
   //#end
 
   //#computed
+  console.log('GUESTSSSSS', guests.value)
   const selectedFriends = computed(() => guests.value?.filter(guest => guest.active === 1))
   const unselectedFriends = computed(() => guests.value?.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
   const guestsList = computed(() => guests.value || [])
