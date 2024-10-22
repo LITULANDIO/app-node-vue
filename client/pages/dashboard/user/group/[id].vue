@@ -71,7 +71,7 @@ const hasSelectedUser = ref(false)
 //#cycle life
 onBeforeMount(() => {
   nextTick(() => {
-    getAllUsers().then(resp => usersParsed.value = resp)
+    getAllUsers().then(resp => usersParsed.value = resp.body)
   })
 })
 onMounted(async() => {
