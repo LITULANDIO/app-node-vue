@@ -4,6 +4,7 @@
     <ButtonConfig />
     <section class="flex justify-center items-center flex-col">
       <Groups 
+        :key="groups.length"
         @onClicked="onGoGroup"
       />
     </section>

@@ -5,7 +5,8 @@
     </div>
     <section id="modal">
       <Guests 
-        v-if="data"
+        v-if="guests"
+        :key="guests.length"
         :params="id"
         :isAdmin="isAdmin"
         @deleteGuest="onDeleteGuest"
@@ -61,7 +62,7 @@ const dataFriend = reactive({
 const usersParsed = ref([])
 const isOpenModal = ref(false);
 const isShowDropdownUsers = ref(false)
-const idGuest = ref('')
+const idGuest = ref(0)
 const isExistedGuest = ref(false)
 const id = ref('')
 const hasSelectedUser = ref(false)
@@ -73,6 +74,7 @@ onMounted(async() => {
     id.value = route.params.id
   }
  usersParsed.value = await getAllUsers()
+ console.log('getusers', await getAllUsers())
  await getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
@@ -81,8 +83,8 @@ onMounted(async() => {
 //#end
 
 //#computed
-const getUsers = computed(() => usersParsed.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
-const isAdmin = computed(() => authUser.value.id === data.value?.group?.admin || authUser.value.id ===  group.value.admin )
+const getUsers = computed(() => usersParsed.value?.filter(user => user?.user?.toLowerCase()?.includes(dataFriend?.name?.toLowerCase())))
+const isAdmin = computed(() => authUser.value.id === group.value?.admin)
 //#end
 
 //#events
@@ -92,6 +94,7 @@ const onCreateFriend = () => {
 }
 const onCloseModal = () => isOpenModal.value = false 
 const onSelectUser = (event, idUser) => {
+  console.log({idUser})
   nextTick(async () => {
     const userSelected = await getUser(idUser)
     idGuest.value = idUser
@@ -188,6 +191,7 @@ const onSelected = (data1, data2) => {
    
 //# functions
 const addUserAdmin = async () => {
+  console.log('guests', guests.value)
   if (guests.value.guests.length === 0 ) {
     await addGuestInGroup({
       guest: {idGroup: group.value.id, idGuest: authUser.value.id, friend: 0, active: 0},
