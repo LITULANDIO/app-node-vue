@@ -4,8 +4,22 @@ import axios from 'axios'
 
 export function useUsers() {
   const users = ref([])
+  const usersSearch = ref([])
   const currentUser = ref(null)
   const runtimeConfig = useRuntimeConfig()
+
+  const getUsersSearch = async () => {
+    try {
+      const response = await DataProvider({
+        providerType: 'AUTH',
+        type: 'GET_USERS',
+      })
+      usersSearch.value = response?.data?.body
+    } catch (error) {
+      console.error('Error fetching all users:', error)
+    }
+  }
+
 
   const getAllUsers = async () => {
     try {
@@ -53,6 +67,8 @@ export function useUsers() {
     users,
     currentUser,
     getAllUsers,
+    getUsersSearch,
+    usersSearch,
     getUser,
     uploadImage
   }

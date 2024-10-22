@@ -46,7 +46,7 @@ definePageMeta({
 })
 
 //#ref reactive const 
-const { users, getAllUsers, getUser } = useUsers()
+const { users, getAllUsers, getUser  getUsersSearch, usersSearch } = useUsers()
 const { user: authUser } = useAuth()
 const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
 const { setFriend } = useFriend()
@@ -59,7 +59,6 @@ const dataFriend = reactive({
   to: '',
   file: ''
 })
-const usersParsed = ref([])
 const isOpenModal = ref(false);
 const isShowDropdownUsers = ref(false)
 const idGuest = ref(0)
@@ -69,15 +68,11 @@ const hasSelectedUser = ref(false)
 //#end
 
 //#cycle life
-onBeforeMount(() => {
-  nextTick(() => {
-    getAllUsers().then(resp => usersParsed.value = resp.body)
-  })
-})
 onMounted(async() => {
   if (route.params.id) {
     id.value = route.params.id
   }
+ await getUsersSearch()
  await getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
@@ -86,7 +81,7 @@ onMounted(async() => {
 //#end
 
 //#computed
-const getUsers = computed(() => usersParsed.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
+const getUsers = computed(() => usersSearch.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
 const isAdmin = computed(() => authUser.value.id === group.value?.admin)
 //#end
 
