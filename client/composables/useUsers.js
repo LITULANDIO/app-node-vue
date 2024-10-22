@@ -33,17 +33,19 @@ export function useUsers() {
     }
   }
 
-  const getUser = async () => {
+
+  const getUser = async (id) => {
     try {
-      const response = await DataProvider({
+    const response = await DataProvider({
         providerType: 'USERS',
         type: 'GET_USER',
+        params: id
       })
-      console.log('response user', response?.data?.body)
-      currentUser.value = response?.data?.body
+      currentUser.value = response.body
     } catch (error) {
       console.error('Error fetching user:', error)
     }
+      
   }
 
   const uploadImage = async (file) => {
