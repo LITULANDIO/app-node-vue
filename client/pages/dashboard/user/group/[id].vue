@@ -69,7 +69,11 @@ const hasSelectedUser = ref(false)
 //#end
 
 //#cycle life
-onBeforeMount(async() => usersParsed.value = await getAllUsers())
+onBeforeMount(() => {
+  nextTick(() => {
+    getAllUsers().then(resp => usersParsed.value = resp)
+  })
+})
 onMounted(async() => {
   if (route.params.id) {
     id.value = route.params.id
