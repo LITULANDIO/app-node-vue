@@ -21,12 +21,16 @@ export function useGuests() {
         params: id
       })
       console.log('response gueests', response.body, '-', id)
-      guests.value = response.body
+      setGuests(response.body)
     } catch (error) {
       console.error('Error fetching guests:', error)
     } finally {
       isLoading.value = false
     }
+  }
+
+  const setGuests = (newGuests) => {
+    guests.value = newGuests
   }
 
   const addGuestInGroup = async ({ guest, id }) => {
@@ -76,6 +80,7 @@ export function useGuests() {
     isLoading,
     isSelected,
     getGuests,
+    setGuests,
     addGuestInGroup,
     deleteGuest,
     updateGuest

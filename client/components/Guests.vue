@@ -136,7 +136,7 @@ console.log({socket})
 
   //# const ref
   const { user: authUser, isAuthenticated } = useAuth()
-  const { guests, isLoading } = useGuests()
+  const { guests, setGuests, isLoading } = useGuests()
   const { group, groupsUser, setGroupsUser } = useGroups()
   const { setFriend } = useFriend()
 
@@ -186,7 +186,7 @@ console.log({socket})
         type: 'GET_GUESTS',
         params: props.params
       }).then(res => {
-        guests.value = res.body;
+        setGuests(...guests.value, res.body);
         isSelected = true
         DataProvider({
             providerType: 'GROUPS',
