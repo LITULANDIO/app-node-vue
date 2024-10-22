@@ -46,7 +46,7 @@ definePageMeta({
 })
 
 //#ref reactive const 
-const { users, getAllUsers, getUser  getUsersSearch, usersSearch } = useUsers()
+const { getUser, getUsersSearch, usersSearch } = useUsers()
 const { user: authUser } = useAuth()
 const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
 const { setFriend } = useFriend()
