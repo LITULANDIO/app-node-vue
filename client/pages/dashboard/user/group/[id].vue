@@ -17,7 +17,7 @@
         :guest="dataFriend"
         :isShowDropdownUsers="isShowDropdownUsers"
         :isExistedGuest="isExistedGuest"
-        :users="users"
+        :users="getUsers"
         @onClose="onCloseModal"
         @onKeyUp="onKeyUp"
         @onClicked="onSelectUser"
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, computed, nextTick, watchEffect } from 'vue'
+import { ref, reactive, onMounted, onBeforeMount, computed, nextTick, watchEffect } from 'vue'
 import { useUsers } from '@/composables/useUsers'
 import { useAuth } from '@/composables/useAuth'
 import { useGroups } from '@/composables/useGroups'
@@ -69,12 +69,11 @@ const hasSelectedUser = ref(false)
 //#end
 
 //#cycle life
+onBeforeMount(async() => usersParsed.value = await getAllUsers())
 onMounted(async() => {
   if (route.params.id) {
     id.value = route.params.id
   }
- usersParsed.value = await getAllUsers()
- console.log('getusers', await getAllUsers())
  await getGuests(id.value)
  setDataGroupWhenEntryInviteFriend()
  addUserAdmin()
