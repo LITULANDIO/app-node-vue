@@ -17,7 +17,7 @@
         :guest="dataFriend"
         :isShowDropdownUsers="isShowDropdownUsers"
         :isExistedGuest="isExistedGuest"
-        :users="getUsers"
+        :users="users"
         @onClose="onCloseModal"
         @onKeyUp="onKeyUp"
         @onClicked="onSelectUser"
@@ -46,7 +46,7 @@ definePageMeta({
 })
 
 //#ref reactive const 
-const { getAllUsers, getUser } = useUsers()
+const { users, getAllUsers, getUser } = useUsers()
 const { user: authUser } = useAuth()
 const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
 const { setFriend } = useFriend()
@@ -83,7 +83,7 @@ onMounted(async() => {
 //#end
 
 //#computed
-const getUsers = computed(() => usersParsed.value?.filter(user => user?.user?.toLowerCase()?.includes(dataFriend?.name?.toLowerCase())))
+const getUsers = computed(() => usersParsed.value.filter(user => user.user.toLowerCase().includes(dataFriend.name.toLowerCase())))
 const isAdmin = computed(() => authUser.value.id === group.value?.admin)
 //#end
 

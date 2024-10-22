@@ -3,7 +3,7 @@ import { DataProvider } from "@/data-provider/index"
 import axios from 'axios'
 
 export function useUsers() {
-  const users = ref(null)
+  const users = ref([])
   const currentUser = ref(null)
   const runtimeConfig = useRuntimeConfig()
 
