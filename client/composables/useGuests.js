@@ -2,9 +2,15 @@ import { ref } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 
 export function useGuests() {
-  const guests = ref(null)
+  const guests = ref(JSON.parse(localStorage.getItem('guests')) || [])
   const isLoading = ref(false)
   const isSelected = ref(false)
+
+  watch(guests, (newValue) => {
+    if (process.client) {
+      localStorage.setItem('guests', JSON.stringify(newValue))
+    }
+  }, { deep: true })
 
   const getGuests = async (id) => {
     isLoading.value = true
@@ -14,6 +20,7 @@ export function useGuests() {
         type: 'GET_GUESTS',
         params: id
       })
+      console.log('response gueests', response.body, '-', id)
       guests.value = response.body
     } catch (error) {
       console.error('Error fetching guests:', error)
