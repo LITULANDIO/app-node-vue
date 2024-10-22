@@ -13,7 +13,6 @@ export function useGuests() {
   }, { deep: true })
 
   const getGuests = async (id) => {
-    debugger
     isLoading.value = true
     try {
       const response = await DataProvider({
@@ -35,7 +34,6 @@ export function useGuests() {
   }
 
   const addGuestInGroup = async ({ guest, id }) => {
-    debugger
     isLoading.value = true
     try {
       await DataProvider({

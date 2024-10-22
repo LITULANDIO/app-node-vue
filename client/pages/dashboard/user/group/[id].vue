@@ -191,14 +191,13 @@ const onSelected = (data1, data2) => {
    
 //# functions
 const addUserAdmin = async () => {
-  debugger
   console.log('guests', guests.value.guests)
   if (guests.value.guests.length === 0 ) {
     await addGuestInGroup({
       guest: {idGroup: group.value.id, idGuest: authUser.value.id, friend: 0, active: 0},
       id: id.value
     })
-    
+
     const groupOfUser = await DataProvider({
       providerType: 'GROUPS',
       type: 'GET_GROUPS_USER',
