@@ -191,6 +191,7 @@ const onSelected = (data1, data2) => {
    
 //# functions
 const addUserAdmin = async () => {
+  debugger
   console.log('guests', guests.value)
   if (guests.value.length === 0 ) {
     await addGuestInGroup({
