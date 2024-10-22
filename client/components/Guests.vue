@@ -136,7 +136,7 @@ console.log({socket})
 
   //# const ref
   const { user: authUser, isAuthenticated } = useAuth()
-  const { isLoading } = useGuests()
+  const { guests, isLoading } = useGuests()
   const { group, groupsUser, setGroupsUser } = useGroups()
   const { setFriend } = useFriend()
 
@@ -231,7 +231,7 @@ console.log({socket})
       } else if(isSelectedCheckBox.value && isMatchFriendList(guest.id)){
           showModalWarnFriend.value = true
       } else {
-          const hash = data.guests.filter(guest => guest.id === authUser.value.id)
+          const hash = guests.value.filter(guest => guest.id === authUser.value.id)
           const updatedGuest = {
               friend: guest.id,
               active: 1,
