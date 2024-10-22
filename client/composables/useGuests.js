@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 
 export function useGuests() {
-  const guests = ref(JSON.parse(localStorage.getItem('guests')) || [])
+  const guests = ref(process.client ? JSON.parse(localStorage.getItem('guests')) || [] : [])
   const isLoading = ref(false)
   const isSelected = ref(false)
 
