@@ -2,7 +2,7 @@ import { ref, watch } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 
 export function useGroups() {
-  const group = ref({
+  const groupDefault = ref({
     id: '',
     admin: '',
     name: '',
@@ -13,16 +13,24 @@ export function useGroups() {
   })
 
   const isLoading = ref(false)
-  const groups = ref(JSON.parse(localStorage.getItem('groups')) || [])
-  const groupsUser = ref(JSON.parse(localStorage.getItem('groups-user')) || [])
+  const group = ref(process.client ? JSON.parse(localStorage.getItem('group')) || groupDefault : groupDefault)
+  const groups = ref(process.client ? JSON.parse(localStorage.getItem('groups')) || [] : [])
+  const groupsUser = ref(process.client ? JSON.parse(localStorage.getItem('groups-user')) || [] : [])
 
-  watch(groups, (newValue) => {
+
+  watch(groups, async (newValue) => {
     localStorage.setItem('groups', JSON.stringify(newValue))
   }, { deep: true })
 
   watch(groupsUser, (newValue) => {
     localStorage.setItem('groups-user', JSON.stringify(newValue))
   }, { deep: true })
+
+  watch(group, (newValue) => {
+    if (process.client) {
+      localStorage.setItem('group', JSON.stringify(newValue));
+    }
+  }, { deep: true });
 
   const setGroups = (newGroups) => {
     groups.value = newGroups
@@ -77,17 +85,9 @@ export function useGroups() {
   }
 
   const setCurrentGroup = (newGroup) => {
-    Object.assign(group, newGroup)
-    localStorage.setItem('group', JSON.stringify(newGroup))
+    group.value = newGroup
   }
 
-  const getCurrentGroup = () => {
-    const storedGroup = localStorage.getItem('group')
-    if (storedGroup) {
-      Object.assign(group, JSON.parse(storedGroup))
-    }
-    return group
-  }
 
   return {
     group,
@@ -99,7 +99,6 @@ export function useGroups() {
     addGroup,
     addGuestInGroup,
     setCurrentGroup,
-    getCurrentGroup,
     isLoading
   }
 }
