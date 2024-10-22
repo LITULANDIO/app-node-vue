@@ -114,11 +114,10 @@ const onSubmitFriend = async () => {
     isExistedGuest.value = true
     return
   }
-  const _guest = await addGuestInGroup({
+  await addGuestInGroup({
     guest: {idGroup: group.value.id, idGuest: idGuest.value, friend: 0, active: 0},
     id: id.value
   })
-  setGuests(...guests.value, _guest)
   isOpenModal.value = false
   DataProvider({
     providerType: 'MAIL',
@@ -194,11 +193,10 @@ const onSelected = (data1, data2) => {
 const addUserAdmin = async () => {
   console.log('guests', guests.value)
   if (guests.value.length === 0 ) {
-    const _guest = await addGuestInGroup({
+    await addGuestInGroup({
       guest: {idGroup: group.value.id, idGuest: authUser.value.id, friend: 0, active: 0},
       id: id.value
     })
-    setGuests(...guests.value, _guest)
     const groupOfUser = await DataProvider({
       providerType: 'GROUPS',
       type: 'GET_GROUPS_USER',
