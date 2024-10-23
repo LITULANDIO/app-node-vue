@@ -48,8 +48,8 @@ definePageMeta({
 //#ref reactive const 
 const { getUser, getUsersSearch, usersSearch, currentUser  } = useUsers()
 const { user: authUser } = useAuth()
-const { guests, isLoading, isSelected, getGuests, setGuests, deleteGuest, addGuestInGroup } = useGuests(group.value.id)
 const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
+const { guests, isLoading, isSelected, getGuests, setGuests, deleteGuest, addGuestInGroup } = useGuests(group.value.id)
 const { setFriend } = useFriend()
 
 const route = useRoute()
