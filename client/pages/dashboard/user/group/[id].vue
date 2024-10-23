@@ -46,7 +46,7 @@ definePageMeta({
 })
 
 //#ref reactive const 
-const { getUser, getUsersSearch, usersSearch } = useUsers()
+const { getUser, getUsersSearch, usersSearch, currentUser  } = useUsers()
 const { user: authUser } = useAuth()
 const { groups, group, groupsUser, setCurrentGroup, setGroupsUser } = useGroups()
 const { setFriend } = useFriend()
@@ -97,7 +97,7 @@ const onSelectUser = (event, idUser) => {
     const userSelected = await getUser(idUser)
     idGuest.value = idUser
     dataFriend.name = event.target.textContent
-    dataFriend.to = userSelected[0].email
+    dataFriend.to = currentUser.value.email
     isShowDropdownUsers.value = false
     console.log({userSelected})
   })
