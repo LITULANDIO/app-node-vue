@@ -136,8 +136,8 @@ console.log({socket})
 
   //# const ref
   const { user: authUser, isAuthenticated } = useAuth()
-  const { guests, setGuests, isLoading } = useGuests()
   const { group, groupsUser, setGroupsUser } = useGroups()
+  const { guests, setGuests, isLoading } = useGuests(group.value.id)
   const { setFriend } = useFriend()
 
   const selectedGuestId = ref(null)

@@ -1,53 +1,62 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { DataProvider } from '@/data-provider/index'
 
-export function useGuests() {
-  const guests = ref(process.client ? JSON.parse(localStorage.getItem('guests')) || [] : [])
-  const isLoading = ref(false)
-  const isSelected = ref(false)
+export function useGuests(groupId) {
+  const guests = ref([]);
+  const isLoading = ref(false);
+  const isSelected = ref(false);
 
+  // Cargar invitados desde localStorage al inicializar
+  const loadGuestsFromLocalStorage = () => {
+    const storedGuests = JSON.parse(localStorage.getItem('guests')) || {};
+    guests.value = storedGuests[groupId] || [];
+  };
+
+  loadGuestsFromLocalStorage();
+
+  // Sincronizar con localStorage
   watch(guests, (newValue) => {
-    if (process.client) {
-      localStorage.setItem('guests', JSON.stringify(newValue))
-    }
-  }, { deep: true })
+    const storedGuests = JSON.parse(localStorage.getItem('guests')) || {};
+    storedGuests[groupId] = newValue; // Actualiza solo los invitados del grupo actual
+    localStorage.setItem('guests', JSON.stringify(storedGuests));
+  }, { deep: true });
 
   const getGuests = async (id) => {
-    isLoading.value = true
+    isLoading.value = true;
     try {
       const response = await DataProvider({
         providerType: 'GUESTS',
         type: 'GET_GUESTS',
         params: id
-      })
-      console.log('response gueests', response.body, '-', id)
-      setGuests(response.body)
+      });
+      console.log('response guests', response.body, '-', id);
+      setGuests(response.body);
     } catch (error) {
-      console.error('Error fetching guests:', error)
+      console.error('Error fetching guests:', error);
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
-  }
+  };
 
   const setGuests = (newGuests) => {
-    guests.value = newGuests
-  }
+    guests.value = newGuests;
+  };
 
   const addGuestInGroup = async ({ guest, id }) => {
-    isLoading.value = true
+    isLoading.value = true;
     try {
       await DataProvider({
         providerType: 'GUESTS',
         type: 'INSERT_GUEST',
         params: guest
-      })
-      await getGuests(id)
+      });
+      await getGuests(id);
     } catch (error) {
-      console.error('Error adding guest:', error)
+      console.error('Error adding guest:', error);
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
-  }
+  };
 
   const deleteGuest = async ({ guest, id }) => {
     try {
@@ -55,12 +64,12 @@ export function useGuests() {
         providerType: 'GUESTS',
         type: 'DELETE_GUEST',
         params: guest
-      })
-      await getGuests(id)
+      });
+      await getGuests(id);
     } catch (error) {
-      console.error('Error deleting guest:', error)
+      console.error('Error deleting guest:', error);
     }
-  }
+  };
 
   const updateGuest = async (guest, id) => {
     try {
@@ -68,12 +77,12 @@ export function useGuests() {
         providerType: 'GUESTS',
         type: 'UPDATE_GUEST',
         params: guest
-      })
-      await getGuests(id)
+      });
+      await getGuests(id);
     } catch (error) {
-      console.error('Error updating guest:', error)
+      console.error('Error updating guest:', error);
     }
-  }
+  };
 
   return {
     guests,
@@ -84,5 +93,5 @@ export function useGuests() {
     addGuestInGroup,
     deleteGuest,
     updateGuest
-  }
+  };
 }
