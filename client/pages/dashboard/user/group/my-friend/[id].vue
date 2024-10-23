@@ -61,7 +61,7 @@ import { useFriend } from '@/composables/useFriend'
 //#ref reactive const
 const { user: authUser } = useAuth()
 const { group } = useGroups()
-const { fiend } = useFriend()
+const { friend } = useFriend()
 
 const isViewFriend = ref(false)
 const isViewWishesFriend = ref(false)
