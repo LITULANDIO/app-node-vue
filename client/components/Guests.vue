@@ -231,7 +231,7 @@ console.log({socket})
       } else if(isSelectedCheckBox.value && isMatchFriendList(guest.id)){
           showModalWarnFriend.value = true
       } else {
-          const hash = guests.value.filter(guest => guest.id === authUser.value.id)
+          const hash = guests.value.guests.filter(guest => guest.id === authUser.value.id)
           const updatedGuest = {
               friend: guest.id,
               active: 1,
