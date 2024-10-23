@@ -138,7 +138,7 @@ console.log({socket})
   const { user: authUser, isAuthenticated } = useAuth()
   const { group, groupsUser, setGroupsUser } = useGroups()
   const { guests, setGuests, isLoading } = useGuests(group.value.id)
-  const { setFriend } = useFriend()
+  const { setFriend } = useFriend(group.value.id)
 
   const selectedGuestId = ref(null)
   const showModalWarning1 = ref(false)

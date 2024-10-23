@@ -95,7 +95,7 @@ const props = defineProps({
 //# const ref
 const { user: authUser } = useAuth()
 const { group, setGroupsUser, groupsUser } = useGroups()
-const { setFriend } = useFriend()
+const { setFriend } = useFriend(group.value.id)
 
 const schema = object({
   wish1: string().required(),

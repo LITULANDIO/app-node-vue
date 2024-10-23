@@ -1,20 +1,31 @@
 import { ref, watch } from 'vue'
 
-export function useFriend() {
-  const friend = ref(JSON.parse(localStorage.getItem('friend-me')) || null)
+export function useFriend(groupId) {
+  const friend = ref(null)
+
+  const loadFriendFromLocalStorage = () => {
+    const storedFriends = JSON.parse(localStorage.getItem('friends')) || {};
+    friend.value = storedFriends[groupId] || null;
+  };
+
+  loadFriendFromLocalStorage();
 
   watch(friend, (newValue) => {
+    const storedFriends = JSON.parse(localStorage.getItem('friends')) || {};
     if (newValue) {
-      localStorage.setItem('friend-me', JSON.stringify(newValue))
+      storedFriends[groupId] = newValue;
+    } else {
+      delete storedFriends[groupId];
     }
-  }, { deep: true })
+    localStorage.setItem('friends', JSON.stringify(storedFriends));
+  }, { deep: true });
 
   const setFriend = (newFriend) => {
-    friend.value = newFriend
+    friend.value = newFriend;
   }
 
   const getFriend = () => {
-    return friend.value
+    return friend.value;
   }
 
   return {

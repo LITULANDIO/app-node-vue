@@ -6,7 +6,6 @@ export function useGuests(groupId) {
   const isLoading = ref(false);
   const isSelected = ref(false);
 
-  // Cargar invitados desde localStorage al inicializar
   const loadGuestsFromLocalStorage = () => {
     const storedGuests = JSON.parse(localStorage.getItem('guests')) || {};
     guests.value = storedGuests[groupId] || [];
@@ -14,10 +13,9 @@ export function useGuests(groupId) {
 
   loadGuestsFromLocalStorage();
 
-  // Sincronizar con localStorage
   watch(guests, (newValue) => {
     const storedGuests = JSON.parse(localStorage.getItem('guests')) || {};
-    storedGuests[groupId] = newValue; // Actualiza solo los invitados del grupo actual
+    storedGuests[groupId] = newValue;
     localStorage.setItem('guests', JSON.stringify(storedGuests));
   }, { deep: true });
 
