@@ -27,7 +27,6 @@ const onLogout = () => {
     setCurrentGroup({})
     setFriend({})
     logout()
-
 }
 const onGoHome = () => navigateTo('/dashboard/user')
 </script>
