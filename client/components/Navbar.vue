@@ -12,10 +12,23 @@
 
 <script setup>
 import { useAuth } from '@/composables/useAuth'
-
+import { useGuests } from '@/composables/useGuests'
+import { useGroups } from '@/composables/useGroups'
+import { useFriend } from '@/composables/useFriend'
 const { user: authUser, logout } = useAuth()
+const { setGuests } = useGuests()
+const { setGroups, setGroupsUser, setCurrentGroup } = useGroups()
+const { setFriend } = useFriend()
 
-const onLogout = () => logout()
+const onLogout = () => {
+    setGuests([])
+    setGroups([])
+    setGroupsUser([])
+    setCurrentGroup({})
+    setFriend({})
+    logout()
+
+}
 const onGoHome = () => navigateTo('/dashboard/user')
 </script>
 
