@@ -186,19 +186,18 @@ console.log({socket})
 //# cycle life
 onMounted(() => {
   socket.emit('joinRoom', group.value.id);
-
   socket.on('guestUpdatedCompleted', (updatedGuestData, ids) => {
     guests.value.guests.forEach(g => {
       if (g.id === updatedGuestData.idGuest) {
-        g.active = 1; // Marcar como seleccionado
+        g.active = 1
         setFriend(updatedGuestData)
       }
-    });
-  });
+    })
+  })
 
   socket.on('selectionConflict', (data) => {
     showModalInfoGuest.value = true
-    alert(data.message); // Notificar al usuario sobre el conflicto
+    alert(data.message)
   });
 });
 //# end
@@ -232,7 +231,7 @@ const onSelectedFriend = async (guest) => {
       selectedGuestId.value = guest.id
       showModalSuccess.value = true
     }
-  });
+  })
     socket.emit('guestUpdated', updatedGuest, ids)
    }
 };
