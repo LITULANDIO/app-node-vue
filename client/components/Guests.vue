@@ -204,6 +204,8 @@ onMounted(() => {
 //# end
 
 const onSelectedFriend = async (guest) => {
+    const { id } = getIdGroup()
+    const groupOfGuest = groupsUser.value.find(grup => grup.group.id === id)
   if (guest.id === authUser.value.id) {
     showModalWarning1.value = true;
     return
