@@ -167,7 +167,6 @@ console.log({socket})
   const onCloseModalWarn2 = () => showModalWarning2.value = false
   const onCloseModalSuccess = () => showModalSuccess.value = false
   const onCloseModalInfoGuest = () => showModalInfoGuest.value = false
-  const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
   const isMatchFriendList = (id) => selectedItems.value.some(item => item === id)
   const onCloseModalDelete = () => isDeleteGuest.value = false
   const onOpenModalDelete = (guest, params) => {
@@ -228,16 +227,13 @@ const onSelectedFriend = async (guest) => {
     showModalSuccess.value = true
    }
 };
-  
- 
-  const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
-  const isMatchFriendList = (id) => selectedItems.value.some(item => item === id)
-  //#end
+//#end
 
   //#computed
   const selectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 1))
   const unselectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
   const guestsList = computed(() => guests.value.guests || [])
+  const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
   //#end
 </script>
 
