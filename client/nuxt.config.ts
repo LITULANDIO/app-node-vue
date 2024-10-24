@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-require('dotenv').config()
+// require('dotenv').config()
 
 export default defineNuxtConfig({
     runtimeConfig: {
