@@ -225,8 +225,15 @@ const onSelectedFriend = async (guest) => {
       idUser: authUser.value.id,
       idGroup: group.value.id
     };
+
+    guests.value.guests.forEach(g => {
+    if (g.id === guest.id) {
+      g.active = 1
+      selectedGuestId.value = guest.id
+      showModalSuccess.value = true
+    }
+  });
     socket.emit('guestUpdated', updatedGuest, ids)
-    showModalSuccess.value = true
    }
 };
 //#end
