@@ -1,70 +1,69 @@
 <template>
   <Transition name="slide-fade">
-      <div v-if="isLoading" class="spinner">
-          <Spinner />
+    <div v-if="isLoading" class="spinner">
+      <Spinner />
+    </div>
+    <div v-else class="w-full">
+      <div class="flex justify-center items-center">
+        <BackButton />
+        <h1 class="text-2xl capitalize text-center text-white">{{ group.name }}</h1>
       </div>
-      <div v-else class="w-full">
-        <div class="flex justify-center items-center">
-          <BackButton />
-          <h1 class="text-2xl capitalize text-center text-white">{{ group.name  }}</h1>
-        </div>
-        <div id="guests" class="w-full flex justify-center items-center flex-wrap mt-5">
-          <template v-for="guest in unselectedFriends" :key="guest.id">
-              <div id="guest" class="cursor-pointer"
-                  @mouseover="onVisibleDrop(guest.id)" 
-                  @mouseleave="onHideDrop" 
-                  @touchstart="onVisibleDrop(guest.id)"
-                  >
-                  <img src="/mysterious.png" />
-                  <div class="icon-container" v-if="selectedGuestId === guest.id">
-                      <template v-if="isAdmin">
-                          <div @click="onOpenModalDelete(guest.hashGuest, params)">
-                            <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
-                          </div>
-                          <div @click="onSelectedFriend(guest)">
-                            <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
-                          </div>
-                      </template>
-                      <template v-else>
-                        <div @click="onSelectedFriend(guest)">
-                            <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
-                        </div>                      
-                      </template>
-                  </div>
-                  {{ guest.name }}
+      <div id="guests" class="w-full flex justify-center items-center flex-wrap mt-5">
+        <!-- Amigos no seleccionados -->
+        <template v-for="guest in unselectedFriends" :key="guest.id">
+          <div id="guest" class="cursor-pointer"
+               @mouseover="onVisibleDrop(guest.id)"
+               @mouseleave="onHideDrop"
+               @touchstart="onVisibleDrop(guest.id)">
+            <img src="/mysterious.png" />
+            <div class="icon-container" v-if="selectedGuestId === guest.id">
+              <template v-if="isAdmin">
+                <div @click="onOpenModalDelete(guest.hashGuest, params)">
+                  <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
+                </div>
+              </template>
+              <div @click="onSelectedFriend(guest)">
+                <font-awesome-icon icon="fa-solid fa-hand-pointer" class="icon text-3xl cursor-pointer ml-3" title="select user" />
               </div>
-          </template>
-          <template  v-for="guest in selectedFriends" :key="guest.id">
-            <div id="guest"
-                  @mouseover="onVisibleDrop(guest.id)" 
-                  @mouseleave="onHideDrop" 
-                  @touchstart="onVisibleDrop(guest.id)">
-              <img src="/select.jpg" />
-              <div class="icon-container" v-if="selectedGuestId === guest.id">
-                      <div v-if="isAdmin" @click="onOpenModalDelete(guest.hashGuest, params)">
-                          <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
-                      </div>
-                  </div>
-              {{ guest.name }}
             </div>
-          </template>
-      </div>
-      <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
-          <div class="text-center">
-              <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-              <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
+            {{ guest.name }}
           </div>
+        </template>
+
+        <!-- Amigos seleccionados -->
+        <template v-for="guest in selectedFriends" :key="guest.id">
+          <div id="guest"
+               @mouseover="onVisibleDrop(guest.id)"
+               @mouseleave="onHideDrop"
+               @touchstart="onVisibleDrop(guest.id)">
+            <img src="/select.jpg" />
+            <div class="icon-container" v-if="selectedGuestId === guest.id">
+              <div v-if="isAdmin" @click="onOpenModalDelete(guest.hashGuest, params)">
+                <font-awesome-icon icon="fa-solid fa-trash" class="icon text-3xl cursor-pointer" />
+              </div>
+            </div>
+            {{ guest.name }}
+          </div>
+        </template>
+      </div>
+
+      <!-- Modales para advertencias y éxito -->
+      <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
+        <div class="text-center">
+          <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+          <p class="mb-3">{{ $t('modals.warning1.text') }}</p>
+        </div>
       </Modal>
       <Modal :show="showModalWarning2" @onClose="onCloseModalWarn2" padding>
         <div class="text-center">
-            <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-            <p class="mb-3">{{ $t('modals.warning2.text') }}</p>
+          <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+          <p class="mb-3">{{ $t('modals.warning2.text') }}</p>
         </div>
       </Modal>
       <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
         <div class="text-center">
-            <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
-            <p class="mb-3">{{ $t('modals.success.text') }}</p>
+          <font-awesome-icon icon="fa-solid fa-circle-check" class="icon text-teal-600 text-3xl mb-2" />
+          <p class="mb-3">{{ $t('modals.success.text') }}</p>
         </div>
       </Modal>
       <Modal :show="isDeleteGuest" @onClose="onCloseModalDelete" padding>
@@ -72,175 +71,166 @@
           <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
           <p class="mb-3">{{ $t('modals.deleteGuest.text') }}</p>
           <div class="flex justify-around">
-            <Button :label="$t('modals.deleteGuest.accept')" @onClicked="deleteGuest()"/>
-            <Button :label="$t('modals.deleteGuest.cancel')" @onClicked="onCloseModalDelete"/>
+            <Button :label="$t('modals.deleteGuest.accept')" @onClicked="deleteGuest()" />
+            <Button :label="$t('modals.deleteGuest.cancel')" @onClicked="onCloseModalDelete" />
           </div>
         </div>
       </Modal>
       <Modal :show="showModalInfoGuest" @onClose="onCloseModalInfoGuest" padding>
         <div class="text-center">
-            <font-awesome-icon icon="fa-solid fa-circle-info" class="icon text-teal-600 text-3xl mb-2" />
-            <p class="mb-3">{{ $t('modals.info.text') }}</p>
+          <font-awesome-icon icon="fa-solid fa-circle-info" class="icon text-teal-600 text-3xl mb-2" />
+          <p class="mb-3">{{ $t('modals.info.text') }}</p>
         </div>
       </Modal>
       <Modal :show="showModalWarnFriend" @onClose="onCloseModalWarnFriend" padding>
         <div class="text-center">
-            <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
-            <p class="mb-3">{{ $t('modals.warning3.text') }}</p>
+          <font-awesome-icon icon="fa-solid fa-triangle-exclamation" class="icon text-orange-300 text-3xl mb-2" />
+          <p class="mb-3">{{ $t('modals.warning3.text') }}</p>
         </div>
       </Modal>
-      </div>
+    </div>
   </Transition>
+
   <Button class="custom-btn" @onClicked="onShowGuestList">
     <img src="/user-off.svg" />
   </Button>
+
   <Modal :show="showGuestList" @onClose="onCloseGuestList" padding>
     <div v-for="guests in guestsList" :key="guests.id">
-        <input
-          type="checkbox"
-          :id="guests.id"
-          :value="guests.id"
-          v-model="selectedItems"
-          @change="onChangeSelected"
-        />
-        <label class="ml-1 capitalize" :for="guests.id">{{ guests.user }}</label>
+      <input
+        type="checkbox"
+        :id="guests.id"
+        :value="guests.id"
+        v-model="selectedItems"
+        @change="onChangeSelected"
+      />
+      <label class="ml-1 capitalize" :for="guests.id">{{ guests.user }}</label>
     </div>
   </Modal>
 </template>
 
 <script setup>
 import { io } from 'socket.io-client';
-import { onMounted } from 'vue';
-import { DataProvider } from '@/data-provider/index'
-import { useAuth } from '@/composables/useAuth'
-import { useGuests } from '@/composables/useGuests'
-import { useGroups } from '@/composables/useGroups'
-import { useFriend } from '@/composables/useFriend'
-
+import { ref, computed, onMounted } from 'vue';
+import { useAuth } from '@/composables/useAuth';
+import { useGuests } from '@/composables/useGuests';
+import { useGroups } from '@/composables/useGroups';
+import { useFriend } from '@/composables/useFriend';
 
 const socket = io('wss://socket-friends.quisqui.com');
-// const socket = io('http://localhost:3001');
 
-console.log({socket})
-  //# props
-  const props = defineProps({
-    params: {
-      type: [String, Object]
-    },
-    isAdmin: {
-      type: Boolean,
-      default: false
-    }
-  });
-  //#end
+// Props
+const props = defineProps({
+  params: {
+    type: [String, Object],
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-  //# const ref
-  const { user: authUser, isAuthenticated } = useAuth()
-  const { group, groupsUser, setGroupsUser } = useGroups()
-  const { guests, setGuests, isLoading } = useGuests(group.value.id)
-  const { setFriend } = useFriend(group.value.id)
+// Referencias y estados
+const { user: authUser } = useAuth();
+const { group, groupsUser } = useGroups();
+const { guests, setGuests, isLoading } = useGuests(group.value.id);
+const { setFriend } = useFriend(group.value.id);
 
-  const selectedGuestId = ref(null)
-  const showModalWarning1 = ref(false)
-  const showModalWarning2 = ref(false)
-  const showModalSuccess = ref(false)
-  const showModalInfoGuest = ref(false)
-  const route = useRoute()
-  const isDeleteGuest = ref(false)
-  const guestSelected = ref(null)
-  const guestParams = ref(null)
-  const showGuestList = ref(false)
-  const selectedItems = ref([])
-  const showModalWarnFriend = ref(false)
+const selectedGuestId = ref(null);
+const showModalWarning1 = ref(false);
+const showModalWarning2 = ref(false);
+const showModalSuccess = ref(false);
+const showModalInfoGuest = ref(false);
+const isDeleteGuest = ref(false);
+const guestSelected = ref(null);
+const guestParams = ref(null);
+const showGuestList = ref(false);
+const selectedItems = ref([]);
+const showModalWarnFriend = ref(false);
 
-  //#end
-  
-  //# events
-  const emit = defineEmits(['deleteGuest'])
-  const onVisibleDrop = (id) => (selectedGuestId.value = id);
-  const onHideDrop = () => (selectedGuestId.value = null);
-  const deleteGuest = () => {
-    emit('deleteGuest', guestSelected.value, guestParams.value)
-    isDeleteGuest.value = false
-  }
-  const onCloseModalWarn1 = () => showModalWarning1.value = false
-  const onCloseModalWarn2 = () => showModalWarning2.value = false
-  const onCloseModalSuccess = () => showModalSuccess.value = false
-  const onCloseModalInfoGuest = () => showModalInfoGuest.value = false
-  const isMatchFriendList = (id) => selectedItems.value.some(item => item === id)
-  const onCloseModalDelete = () => isDeleteGuest.value = false
-  const onOpenModalDelete = (guest, params) => {
-    isDeleteGuest.value = true
-    guestSelected.value = guest
-    guestParams.value = params
-  }
-  const onShowGuestList = () => showGuestList.value = true
-  const onCloseGuestList = () => showGuestList.value = false
-  const onCloseModalWarnFriend = () => showModalWarnFriend.value = false
-  const getIdGroup = () => {
-    if (group.value.snug === route.params.id) {
-      return { id: group.value.id }
-    }
-  }
-
-//# cycle life
+// Ciclos de vida
 onMounted(() => {
-  socket.emit('joinRoom', group.value.id)
+  socket.emit('joinRoom', group.value.id);
 
-  // Escucha el evento de actualización en tiempo real
-  socket.on('guestUpdatedCompleted', (updatedGuestData, ids) => {
-    // Aquí actualizamos el estado de los invitados
-    const guestIndex = guests.value.guests.findIndex(g => g.hashGuest === updatedGuestData.idGuest)
+  socket.on('guestUpdatedCompleted', (updatedGuestData) => {
+    const guestIndex = guests.value.guests.findIndex(g => g.hashGuest === updatedGuestData.idGuest);
     if (guestIndex !== -1) {
       guests.value.guests[guestIndex].active = updatedGuestData.active;
-      setFriend(updatedGuestData) // Otras acciones que deban realizarse con el amigo
-      showModalInfoGuest.value = true
+      setFriend(updatedGuestData);
+      showModalInfoGuest.value = true;
     }
-  })
-})
-//# end
+  });
+});
 
-const onSelectedFriend = async (guest) => {
-    const { id } = getIdGroup()
-    const groupOfGuest = groupsUser.value.find(grup => grup.group.id === id)
+// Métodos de selección y advertencias
+const onVisibleDrop = (id) => (selectedGuestId.value = id);
+const onHideDrop = () => (selectedGuestId.value = null);
+
+const deleteGuest = () => {
+  emit('deleteGuest', guestSelected.value, guestParams.value);
+  isDeleteGuest.value = false;
+};
+
+const onSelectedFriend = (guest) => {
   if (guest.id === authUser.value.id) {
     showModalWarning1.value = true;
-    return
-   } else if (groupOfGuest?.friend?.id >= 1) {
-          showModalWarning2.value = true
-   } else if(isSelectedCheckBox.value && isMatchFriendList(guest.id)){
-          showModalWarnFriend.value = true
-   } else {
+    return;
+  }
 
-    const updatedGuest = {
-      friend: guest.id,
-      active: 1,
-      idFriend: guests.value.guests.find(g => g.id === authUser.value.id).hashGuest,
-      idGuest: guest.hashGuest,
-    };
-    const ids = {
-      idUser: authUser.value.id,
-      idGroup: group.value.id
-    };
+  const groupOfGuest = groupsUser.value.find(grup => grup.group.id === group.value.id);
+  if (groupOfGuest?.friend?.id >= 1) {
+    showModalWarning2.value = true;
+    return;
+  }
 
-    guests.value.guests.forEach(g => {
-    if (g.id === guest.id) {
-      g.active = 1
-      selectedGuestId.value = guest.id
-      showModalSuccess.value = true
-    }
-  })
-    socket.emit('guestUpdated', updatedGuest, ids)
-   }
+  // Actualizar selección
+  const updatedGuest = {
+    friend: guest.id,
+    active: 1,
+    idFriend: guests.value.guests.find(g => g.id === authUser.value.id).friend.id,
+  };
+
+  const ids = {
+    idUser: authUser.value.id,
+    idGroup: group.value.id,
+  };
+  
+  setFriend(updatedGuest);
+  socket.emit('guestUpdated', updatedGuest, ids);
+  showModalSuccess.value = true;
 };
-//#end
 
-  //#computed
-  const selectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 1))
-  const unselectedFriends = computed(() => guests.value?.guests.filter(guest => guest.active === 0).slice().sort(() => Math.random() - 0.5)) // && guest.idGuest != guest.idGuest))
-  const guestsList = computed(() => guests.value.guests || [])
-  const isSelectedCheckBox = computed(() => selectedItems.value.length >= 1)
-  //#end
+const onChangeSelected = (guestId) => {
+  const index = selectedItems.value.indexOf(guestId);
+  if (index !== -1) {
+    selectedItems.value.splice(index, 1);
+  } else {
+    selectedItems.value.push(guestId);
+  }
+};
+
+const onShowGuestList = () => {
+  selectedItems.value = [];
+  showGuestList.value = true;
+};
+
+// Computed properties
+const unselectedFriends = computed(() => guests.value.guests.filter(guest => guest.active !== 1));
+const selectedFriends = computed(() => guests.value.guests.filter(guest => guest.active === 1));
+
+// Métodos para cerrar modales
+const onCloseModalWarn1 = () => (showModalWarning1.value = false);
+const onCloseModalWarn2 = () => (showModalWarning2.value = false);
+const onCloseModalSuccess = () => (showModalSuccess.value = false);
+const onCloseModalDelete = () => (isDeleteGuest.value = false);
+const onCloseModalInfoGuest = () => (showModalInfoGuest.value = false);
+const onCloseModalWarnFriend = () => (showModalWarnFriend.value = false);
+const onCloseGuestList = () => (showGuestList.value = false);
+const onOpenModalDelete = (hashGuest, params) => {
+  guestSelected.value = hashGuest;
+  guestParams.value = params;
+  isDeleteGuest.value = true;
+};
 </script>
 
 <style lang="scss">
