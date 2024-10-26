@@ -185,21 +185,19 @@ console.log({socket})
 
 //# cycle life
 onMounted(() => {
-  socket.emit('joinRoom', group.value.id);
-  socket.on('guestUpdatedCompleted', (updatedGuestData, ids) => {
-    guests.value.guests.forEach(g => {
-      if (g.id === updatedGuestData.idGuest) {
-        g.active = 1
-        setFriend(updatedGuestData)
-      }
-    })
-  })
+  socket.emit('joinRoom', group.value.id)
 
-  socket.on('selectionConflict', (data) => {
-    showModalInfoGuest.value = true
-    alert(data.message)
-  });
-});
+  // Escucha el evento de actualización en tiempo real
+  socket.on('guestUpdatedCompleted', (updatedGuestData, ids) => {
+    // Aquí actualizamos el estado de los invitados
+    const guestIndex = guests.value.guests.findIndex(g => g.hashGuest === updatedGuestData.idGuest)
+    if (guestIndex !== -1) {
+      guests.value.guests[guestIndex].active = updatedGuestData.active;
+      setFriend(updatedGuestData) // Otras acciones que deban realizarse con el amigo
+      showModalInfoGuest.value = true
+    }
+  })
+})
 //# end
 
 const onSelectedFriend = async (guest) => {
