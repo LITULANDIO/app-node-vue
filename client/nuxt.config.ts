@@ -8,15 +8,15 @@ export default defineNuxtConfig({
             apiKey: process.env.API_URL
         }
       },
-    vite: {
-      server: {
-        hmr: {
-          port: 4001,
-          protocol: 'wss',
-          host: 'localhost',
+      vite: process.env.NODE_ENV === 'development' ? {
+        server: {
+            hmr: {
+                port: 4001,
+                protocol: 'wss',
+                host: 'localhost',
+            }
         }
-      }
-    },
+    } : {},
     css: ['~/assets/css/main.css','@fortawesome/fontawesome-svg-core/styles.css'],
     postcss: {
         plugins: {
