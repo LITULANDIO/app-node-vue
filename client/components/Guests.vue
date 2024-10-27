@@ -124,7 +124,8 @@ import { useFriend } from '@/composables/useFriend'
 //   reconnectionDelay: 1000,
 // })
 // const socket = io('http://localhost:3001');
-const socket = io('https://lopsided-unequaled-garnet.glitch.me');
+// const socket = io('https://lopsided-unequaled-garnet.glitch.me');
+const socket = io('https://socket-friend.onrender.com/')
 
 console.log({socket})
   //# props
