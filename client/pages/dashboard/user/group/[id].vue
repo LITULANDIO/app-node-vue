@@ -165,9 +165,7 @@ const isFriendSelected = () => {
   let isSelect = false
   groupsUser.value.map(grup => {
     if( grup.group.id === group.value.id) {
-      console.log('fa match el grup', grup)
       if (grup?.friend?.name) {
-        console.log('friend exist', grup.friend.name)
         isSelect = true
       }
     }
@@ -184,10 +182,11 @@ const onSelected = async (data1, data2) => {
     setGroupsUser(response.body)
     console.log('response selected', response.body)
     if (data2.idUser !== authUser.value.id) {
+      console.log('BOTON AMIC')
       hasSelectedUser.value = data1.isSelected
     }
     groupsUser.value.forEach(grup => {
-      if (grup.group.id === storageGroup.value.id ) {
+      if (grup.group.id === group.value.id ) {
         console.log('OK FRIEND', grup)
         setFriend(grup)
       }
