@@ -110,7 +110,7 @@
 
 <script setup>
 import { io } from 'socket.io-client';
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted, computed, ref } from 'vue';
 import { DataProvider } from '@/data-provider/index'
 import { useAuth } from '@/composables/useAuth'
 import { useGuests } from '@/composables/useGuests'
@@ -214,6 +214,13 @@ onMounted(() => {
     })
   })
 
+  socket.on('disconnect', (reason) => {
+      console.log('Disconnected from server: ', reason);
+      setTimeout(() => {
+          socket.connect()
+      }, 5000)
+  })
+
   socket.on('selectionConflict', (data) => {
     showModalInfoGuest.value = true 
     alert(data.message)
@@ -224,6 +231,16 @@ onMounted(() => {
     alert(data.message)
   })
 })
+
+onUnmounted(() => {
+    socket.off('connect');
+    socket.off('disconnect');
+    socket.off('updateGuests');
+    socket.off('guestUpdatedCompleted')
+    socket.off('selectionConflict')
+    socket.off('updateError');
+    socket.disconnect();
+});
 //#end
 
 //#methods
