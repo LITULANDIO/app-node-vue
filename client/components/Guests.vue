@@ -221,7 +221,7 @@ onMounted(() => {
       }).then(response => {
         setGroupsUser(response.body)
       })
-     emit('selectedGuest', { isSelected: true, user: ids.idUser})
+     emit('selectedGuest', { isSelected: true, user: success.idUser})
   })
 
   socket.on('disconnect', (reason) => {
