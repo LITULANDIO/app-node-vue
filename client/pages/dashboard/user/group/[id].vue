@@ -181,7 +181,7 @@ const onSelected = async (data1, data2) => {
   }).then(response => {
     setGroupsUser(response.body)
     console.log('response selected', response.body)
-    if (data2.idUser !== authUser.value.id) {
+    if (data2.user !== authUser.value.id) {
       console.log('BOTON AMIC')
       hasSelectedUser.value = data1.isSelected
     }
