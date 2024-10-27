@@ -205,13 +205,23 @@ onMounted(() => {
       if (g.hashGuest === updatedGuestData.idGuest) {
         g.active = 1
          selectedGuestId.value = guest.id;
-        setFriend(updatedGuestData)
-        emit('selectedGuest', { isSelected: true, user: ids.idUser})
          if (ids.idUser !== authUser.value.id) {
           showModalInfoGuest.value = true 
         }
       }
     })
+  })
+
+  socket.on('successGuest', (success) => {
+     console.log({success})
+      DataProvider({
+        providerType: 'GROUPS',
+        type: 'GET_GROUPS_USER',
+        params: authUser.value.id
+      }).then(response => {
+        setGroupsUser(response.body)
+      })
+     emit('selectedGuest', { isSelected: true, user: ids.idUser})
   })
 
   socket.on('disconnect', (reason) => {

@@ -187,7 +187,6 @@ const onSelected = async (data) => {
       hasSelectedUser.value = data.isSelected
     } else {
       console.log('NO BOTO AMIC', data?.user, '-', authUser.value.id)
-      hasSelectedUser.value = false
     }
     groupsUser.value.forEach(grup => {
       if (grup.group.id === group.value.id ) {
