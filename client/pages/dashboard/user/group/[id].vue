@@ -174,10 +174,23 @@ const isFriendSelected = () => {
   })
   return isSelect
 }
-const onSelected = (data1, data2) => {
-  console.log({data})
-  hasSelectedUser.value = data1.isSelected
-  setGroupsUser(data2.group)
+const onSelected = async (data1) => {
+  console.log({data1})
+  DataProvider({
+    providerType: 'GROUPS',
+    type: 'GET_GROUPS_USER',
+    params: authUser.value.id
+  }).then(response => {
+    setGroupsUser(response.body)
+    console.log('response selected', response.body)
+    hasSelectedUser.value = data1.isSelected
+    groupsUser.value.forEach(grup => {
+      if (grup.group.id === storageGroup.value.id ) {
+        console.log('OK FRIEND', grup)
+        setFriend(grup)
+      }
+    })
+  })
 }
 // watchEffect(() => {
 //   if (isSelected.value) {
