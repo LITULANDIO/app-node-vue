@@ -172,8 +172,9 @@ const isFriendSelected = () => {
   })
   return isSelect
 }
-const onSelected = async (data1, data2) => {
-  console.log({data1})
+const onSelected = async (data) => {
+  console.log({data})
+  console.log()
   DataProvider({
     providerType: 'GROUPS',
     type: 'GET_GROUPS_USER',
@@ -181,11 +182,11 @@ const onSelected = async (data1, data2) => {
   }).then(response => {
     setGroupsUser(response.body)
     console.log('response selected', response.body)
-    if (data2?.user == authUser.value?.id) {
-      console.log('BOTON AMIC', data2?.user, '-', authUser.value.id)
-      hasSelectedUser.value = data1.isSelected
+    if (data?.user == authUser.value?.id) {
+      console.log('BOTON AMIC', data?.user, '-', authUser.value.id)
+      hasSelectedUser.value = data.isSelected
     } else {
-      console.log('NO BOTO AMIC', data2?.user, '-', authUser.value.id)
+      console.log('NO BOTO AMIC', data?.user, '-', authUser.value.id)
       hasSelectedUser.value = false
     }
     groupsUser.value.forEach(grup => {
