@@ -174,7 +174,7 @@ const isFriendSelected = () => {
   })
   return isSelect
 }
-const onSelected = async (data1) => {
+const onSelected = async (data1, data2) => {
   console.log({data1})
   DataProvider({
     providerType: 'GROUPS',
@@ -183,7 +183,9 @@ const onSelected = async (data1) => {
   }).then(response => {
     setGroupsUser(response.body)
     console.log('response selected', response.body)
-    hasSelectedUser.value = data1.isSelected
+    if (data2.idUser !== authUser.value.id) {
+      hasSelectedUser.value = data1.isSelected
+    }
     groupsUser.value.forEach(grup => {
       if (grup.group.id === storageGroup.value.id ) {
         console.log('OK FRIEND', grup)

@@ -61,7 +61,7 @@ import { useFriend } from '@/composables/useFriend'
 //#ref reactive const
 const { user: authUser } = useAuth()
 const { group } = useGroups()
-const { friend } = useFriend(group.value.id)
+const { friend, getFriend } = useFriend(group.value.id)
 
 const isViewFriend = ref(false)
 const isViewWishesFriend = ref(false)
@@ -73,9 +73,11 @@ const data = reactive({
 })
 //#end
 onBeforeMount(() => {
-    const getFriend = setInterval(() => {
+    console.log('getFriend', getFriend.value)
+    const _getFriend = setInterval(() => {
         if (friend.value.friend.name !== null && friend.value.friend.name !== undefined) {
-            clearInterval(getFriend);
+            console.log('setinterval', friend.value)
+            clearInterval(_getFriend);
         }
     }, 500)
 })

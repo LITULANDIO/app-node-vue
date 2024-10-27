@@ -202,11 +202,10 @@ onMounted(() => {
   socket.on('guestUpdatedCompleted', (updatedGuestData, ids) => {
     guests.value.guests.forEach(g => {
       if (g.hashGuest === updatedGuestData.idGuest) {
-        console.log({g}, 'entra al if')
         g.active = 1
          selectedGuestId.value = guest.id;
         setFriend(updatedGuestData)
-        emit('selectedGuest', { isSelected: true })
+        emit('selectedGuest', { isSelected: true, user: ids.idUser})
          if (ids.idUser !== authUser.value.id) {
           showModalInfoGuest.value = true 
         }
