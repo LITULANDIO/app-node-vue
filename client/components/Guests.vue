@@ -118,8 +118,13 @@ import { useGroups } from '@/composables/useGroups'
 import { useFriend } from '@/composables/useFriend'
 
 
-const socket = io('wss://socket-friends.quisqui.com');
+// const socket = io('wss://socket-friends.quisqui.com', {
+//   reconnection: true,
+//   reconnectionAttempts: 5,
+//   reconnectionDelay: 1000,
+// })
 // const socket = io('http://localhost:3001');
+const socket = io('https://lopsided-unequaled-garnet.glitch.me');
 
 console.log({socket})
   //# props
