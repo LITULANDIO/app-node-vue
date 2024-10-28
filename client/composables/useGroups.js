@@ -16,6 +16,7 @@ export function useGroups() {
   const group = ref(process.client ? JSON.parse(localStorage.getItem('group')) || groupDefault : groupDefault)
   const groups = ref(process.client ? JSON.parse(localStorage.getItem('groups')) || [] : [])
   const groupsUser = ref(process.client ? JSON.parse(localStorage.getItem('groups-user')) || [] : [])
+  const allGroups = ref([])
 
 
   watch(groups, async (newValue) => {
@@ -47,7 +48,7 @@ export function useGroups() {
         providerType: 'GROUPS',
         type: 'GET_GROUPS',
       })
-      groups.value = fetchGroup.body.filter(group => group.admin === id)
+      setGroups(fetchGroup.body.filter(group => group.admin === id))
     } catch (error) {
       console.error('Error fetching groups:', error)
     } finally {
@@ -55,6 +56,35 @@ export function useGroups() {
     }
   }
 
+  const getAllGroups = async () => {
+    isLoading.value = true
+    try {
+      const fetchGroup = await DataProvider({
+        providerType: 'GROUPS',
+        type: 'GET_GROUPS',
+      })
+      allGroups.value = fetchGroup.body
+    } catch (error) {
+      console.error('Error fetching groups:', error)
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  const getGroupsOfUser = async (id) => {
+    try {
+      const groupOfUser = await DataProvider({
+        providerType: 'GROUPS',
+        type: 'GET_GROUPS_USER',
+        params: id
+      })
+      setGroupsUser(groupOfUser.body)
+
+    }catch(error) {
+      console.error(error)
+    }
+  }
+ 
   const addGroup = async ({ dataGroup, idUser }) => {
     isLoading.value = true
     try {
@@ -95,7 +125,10 @@ export function useGroups() {
     groupsUser,
     getGroups,
     setGroups,
+    getGroupsOfUser,
+    getAllGroups,
     setGroupsUser,
+    allGroups,
     addGroup,
     addGuestInGroup,
     setCurrentGroup,

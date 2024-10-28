@@ -20,18 +20,27 @@
 </template>
 
 <script setup>
-import { DataProvider } from '@/data-provider/index'
 import { onMounted, ref, computed } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useGroups } from '@/composables/useGroups'
-//#end
 
+// Desestructurar propiedades del composable de autenticación y grupos
 const { user: authUser } = useAuth()
-const { groups, isLoading, groupsUser } = useGroups()
-const groupsUserList = ref([])
+const { groups, isLoading, groupsUser, getGroupsOfUser, getAllGroups, allGroups } = useGroups()
 
+// Llamar a la función para obtener los grupos al montar el componente
 onMounted(async() => {
-    await getGroups()
+    await getGroupsOfUser(authUser.value.id)
+    await getAllGroups()
+    console.log('groupsUser', groupsUser.value)
+    console.log('groups', groups.value)
+    console.log('allgroups', allGroups.value)
+})
+
+const groupsUserList = computed(() => {
+    return allGroups.value.filter(allgroup => {
+        return groupsUser.value.some(groupOfUser => allgroup.id === groupOfUser.group.id && authUser.value.id !== allgroup.admin)
+    })
 })
 
 //# emits
@@ -39,37 +48,18 @@ const emit = defineEmits(['onClicked'])
 
 const onClicked = (group) => emit("onClicked", group)
 
-const getGroups = async () => {
-    const fetchGroup = await DataProvider({
-        providerType: 'GROUPS',
-        type: 'GET_GROUPS',
-    })
-    if (groupsUser.value) {
-        fetchGroup.body.forEach(grup => {
-            groupsUser.value.forEach(grupuser => {
-                if (grup.id === grupuser.group.id && authUser.value.id !== grup.admin) {
-                    groupsUserList.value.push(grup)
-                }
-            })
-        })
-    }
-    console.log(groupsUserList.value)
-    return groupsUserList.value
-}
-
+// Verificar si existen grupos invitados
 const existGroupsInvited = computed(() => groupsUserList.value.length >= 1)
-//#
-
 </script>
 
 <style lang="scss" scoped>
-#groups{
+#groups {
     max-height: calc(100vh - 330px);
     overflow: scroll;
     margin-top: 2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    .box-group{
+    .box-group {
         min-width: 18rem;
         margin-bottom: 0.5rem;
         margin-top: 1.1rem;
@@ -83,9 +73,8 @@ const existGroupsInvited = computed(() => groupsUserList.value.length >= 1)
         color: white;
         background: #3F3E3E;
         border: 2px solid rgba(4, 192, 168, 0.7651654412);
-        box-shadow:0 0 0 0.2rem #3F3E3E;
-        //filter:sepia()
-        &:hover{
+        box-shadow: 0 0 0 0.2rem #3F3E3E;
+        &:hover {
             opacity: 0.9;
         }
     }
