@@ -194,23 +194,19 @@ const onupdatePhoto = async () => {
     photo: dataUser.photo,
     id: authUser.value.id,
   };
-  await DataProvider({
+  DataProvider({
     providerType: "USERS",
     type: "UPDATE_PHOTO",
     params: data,
+  }).then((response) => {
+    if (response.status === 200) {
+      getUser(authUser.value.id).then((resp) => {
+        authUser.value.photo = resp?.body?.photo;
+        localImage.value = resp?.body?.photo;
+        showModalSuccess.value = false;
+      });
+    }
   });
-  try {
-    const fetchUser = await getUser(authUser.value.id);
-
-    showEdit.value = true;
-    showModalSuccess.value = true;
-    setTimeout(() => {
-      authUser.value.photo = fetchUser.body[0].photo;
-      showModalSuccess.value = false;
-    }, 5000);
-  } catch (error) {
-    console.error(error);
-  }
 };
 const onCloseModalSuccess = () => {
   showModalSuccess.value = false;

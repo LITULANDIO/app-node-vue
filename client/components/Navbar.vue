@@ -8,7 +8,7 @@
       <div class="text-white flex items-center text-1xl mr-8">
         <span class="mr-3"
           >{{ $t("navMenu.welcome") }}
-          <span class="text-1xl icon mr-1">👋</span> {{ authUser.name }}</span
+          <span class="text-1xl icon mr-1">👋</span> {{ authUser?.name }}</span
         >
         <font-awesome-icon
           @click="onLogout"
