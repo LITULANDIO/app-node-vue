@@ -10,7 +10,7 @@
             </div>
         </div> 
            
-        <div v-if="existGroupsInvited && !isLoading" class="mt-5">
+        <div v-if="isGroupsInvited && !isLoading" class="mt-5">
             <h1 class="mt-5 mb-10 capitalize text-center text-white text-2xl">{{ $t('pages.groups.headerInvited') }}</h1>
             <div class="box-group" v-for="group in groupsUserList" :key="group.id">
                 <div @click="onClicked(group)">{{ group.name }}</div>
@@ -24,32 +24,29 @@ import { onMounted, ref, computed } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useGroups } from '@/composables/useGroups'
 
-// Desestructurar propiedades del composable de autenticación y grupos
 const { user: authUser } = useAuth()
 const { groups, isLoading, groupsUser, getGroupsOfUser, getAllGroups, allGroups } = useGroups()
 
-// Llamar a la función para obtener los grupos al montar el componente
+//#cycle of live
 onMounted(async() => {
     await getGroupsOfUser(authUser.value.id)
     await getAllGroups()
-    console.log('groupsUser', groupsUser.value)
-    console.log('groups', groups.value)
-    console.log('allgroups', allGroups.value)
 })
+//#end
 
+//# emits
+const emit = defineEmits(['onClicked'])
+const onClicked = (group) => emit("onClicked", group)
+//#end
+
+//#composable
 const groupsUserList = computed(() => {
     return allGroups.value.filter(allgroup => {
         return groupsUser.value.some(groupOfUser => allgroup.id === groupOfUser.group.id && authUser.value.id !== allgroup.admin)
     })
 })
-
-//# emits
-const emit = defineEmits(['onClicked'])
-
-const onClicked = (group) => emit("onClicked", group)
-
-// Verificar si existen grupos invitados
-const existGroupsInvited = computed(() => groupsUserList.value.length >= 1)
+const isGroupsInvited = computed(() => groupsUserList.value.length >= 1)
+//#end
 </script>
 
 <style lang="scss" scoped>
