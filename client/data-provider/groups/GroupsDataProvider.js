@@ -36,7 +36,6 @@ export const GroupsDataProvider = async ({ type, params, baseApiUrl }) => {
     },
   };
 
-  // Seleccionar la acción correspondiente a 'type'
   const options = actions[type];
   if (!options) {
     console.error("Unsupported Data Provider request parameters");
