@@ -1,65 +1,67 @@
 <template>
-     <div class="container-icon" @click="onViewInfo">
-        <font-awesome-icon icon="fas fa-info" /> 
-    </div>
-    <Modal header="Info" :show="showInfo" @onClose="onClose">
-        <p>
-            <font-awesome-icon icon="fa-solid fa-location-dot" class="icon text-1xl" />
-            <span class="pl-2">{{ group.location }}</span>
-        </p>
-        <p>
-            <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
-            <span class="pl-2">{{ changeFormatDate(group.date) }}</span>
-        </p>
-        <p>
-            <font-awesome-icon icon="fa-solid fa-sack-dollar" class="icon text-1xl" />
-            <span class="pl-2">{{ group.budget }}€</span>
-        </p>
-    </Modal>
+  <div class="container-icon" @click="onViewInfo">
+    <font-awesome-icon icon="fas fa-info" />
+  </div>
+  <Modal header="Info" :show="showInfo" @onClose="onClose">
+    <p>
+      <font-awesome-icon
+        icon="fa-solid fa-location-dot"
+        class="icon text-1xl"
+      />
+      <span class="pl-2">{{ group.location }}</span>
+    </p>
+    <p>
+      <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
+      <span class="pl-2">{{ changeFormatDate(group.date) }}</span>
+    </p>
+    <p>
+      <font-awesome-icon icon="fa-solid fa-sack-dollar" class="icon text-1xl" />
+      <span class="pl-2">{{ group.budget }}€</span>
+    </p>
+  </Modal>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useGroups } from '@/composables/useGroups'
-const { group } = useGroups()
+import { ref } from "vue";
+import { useGroups } from "@/composables/useGroups";
+const { group } = useGroups();
 
-const showInfo = ref(false)
+const showInfo = ref(false);
 
 const onViewInfo = () => {
-    showInfo.value = true
-}
+  showInfo.value = true;
+};
 const onClose = () => {
-    showInfo.value = false
-}
+  showInfo.value = false;
+};
 
 //#methods
 const changeFormatDate = (date) => {
-    const day = new Date(date).getDate()
-    const month = new Date(date).getMonth()
-    const year = new Date(date).getFullYear()
-    return `${day}/${month}/${year}`
-}
+  const day = new Date(date).getDate();
+  const month = new Date(date).getMonth();
+  const year = new Date(date).getFullYear();
+  return `${day}/${month}/${year}`;
+};
 //
-
 </script>
 
 <style lang="scss" scoped>
 .container-icon {
-    background-color: #3F3E3E;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    padding: 0.5rem;
-    right: 6rem;
-    bottom: -2.5rem;
-    border: 2px solid rgba(4, 192, 168, 0.7651654412);
-    box-shadow: 0 0 0 0.2rem #3F3E3E;
-    width: 25px;
-    font-size: 20px;
-    color: white;
-    height: 25px;
+  background-color: #3f3e3e;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding: 0.5rem;
+  right: 6rem;
+  bottom: -2.5rem;
+  border: 2px solid rgba(4, 192, 168, 0.7651654412);
+  box-shadow: 0 0 0 0.2rem #3f3e3e;
+  width: 25px;
+  font-size: 20px;
+  color: white;
+  height: 25px;
 }
 </style>

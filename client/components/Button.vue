@@ -1,29 +1,28 @@
 <template>
-    <div class="button" @click="onClicked">
+  <div class="button" @click="onClicked">
     <span v-if="label">{{ label }}</span>
     <slot></slot>
-    </div>
+  </div>
 </template>
 
 <script setup>
-
 //# props
 const props = defineProps({
-    label: {
-        type: String,
-        default: ''
-      }
-})
+  label: {
+    type: String,
+    default: "",
+  },
+});
 //#end
 
 //# emits
-const emit = defineEmits(['onClicked'])
-const onClicked = () => emit("onClicked")
+const emit = defineEmits(["onClicked"]);
+const onClicked = () => emit("onClicked");
 //#
 </script>
 
 <style lang="scss" scoped>
-.button{
+.button {
   cursor: pointer;
   position: realtive;
   //z-index: 999;
@@ -33,11 +32,11 @@ const onClicked = () => emit("onClicked")
   //color: rgba(4, 192, 168, 0.7651654412);
   border: 2px solid rgba(4, 192, 168, 0.7651654412);
   color: white;
-  background: #3F3E3E;
- // border: 2px solid yellow;
-  box-shadow:0 0 0 0.2rem #3F3E3E;
+  background: #3f3e3e;
+  // border: 2px solid yellow;
+  box-shadow: 0 0 0 0.2rem #3f3e3e;
   //filter:sepia()
-  &:hover{
+  &:hover {
     opacity: 0.9;
   }
 }

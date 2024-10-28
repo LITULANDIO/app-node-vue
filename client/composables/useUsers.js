@@ -1,69 +1,66 @@
-import { ref } from 'vue'
-import { DataProvider } from "@/data-provider/index"
-import axios from 'axios'
+import { ref } from "vue";
+import { DataProvider } from "@/data-provider/index";
+import axios from "axios";
 
 export function useUsers() {
-  const users = ref([])
-  const usersSearch = ref([])
-  const currentUser = ref(null)
-  const runtimeConfig = useRuntimeConfig()
+  const users = ref([]);
+  const usersSearch = ref([]);
+  const currentUser = ref(null);
+  const runtimeConfig = useRuntimeConfig();
 
   const getUsersSearch = async () => {
     try {
       const response = await DataProvider({
-        providerType: 'AUTH',
-        type: 'GET_USERS',
-      })
-      usersSearch.value = response?.data?.body
+        providerType: "AUTH",
+        type: "GET_USERS",
+      });
+      usersSearch.value = response?.data?.body;
     } catch (error) {
-      console.error('Error fetching all users:', error)
+      console.error("Error fetching all users:", error);
     }
-  }
-
+  };
 
   const getAllUsers = async () => {
     try {
       const response = await DataProvider({
-        providerType: 'USERS',
-        type: 'GET_USERS',
-      })
-      users.value = response?.body
+        providerType: "USERS",
+        type: "GET_USERS",
+      });
+      users.value = response?.body;
     } catch (error) {
-      console.error('Error fetching all users:', error)
+      console.error("Error fetching all users:", error);
     }
-  }
-
+  };
 
   const getUser = async (id) => {
     try {
-    const response = await DataProvider({
-        providerType: 'USERS',
-        type: 'GET_USER',
-        params: id
-      })
-      currentUser.value = response.body
+      const response = await DataProvider({
+        providerType: "USERS",
+        type: "GET_USER",
+        params: id,
+      });
+      currentUser.value = response.body;
     } catch (error) {
-      console.error('Error fetching user:', error)
+      console.error("Error fetching user:", error);
     }
-      
-  }
+  };
 
   const uploadImage = async (file) => {
-    if (!file) return null
+    if (!file) return null;
 
     try {
-      const formData = new FormData()
-      formData.append('upload_preset', 'curso-vue')
-      formData.append('file', file)
+      const formData = new FormData();
+      formData.append("upload_preset", "curso-vue");
+      formData.append("file", file);
 
-      const url = runtimeConfig.public.keyClodinary
-      const { data } = await axios.post(url, formData)
-      return data.secure_url
+      const url = runtimeConfig.public.keyClodinary;
+      const { data } = await axios.post(url, formData);
+      return data.secure_url;
     } catch (error) {
-      console.error('Error al cargar la imagen', error)
-      return null
+      console.error("Error al cargar la imagen", error);
+      return null;
     }
-  }
+  };
 
   return {
     users,
@@ -72,6 +69,6 @@ export function useUsers() {
     getUsersSearch,
     usersSearch,
     getUser,
-    uploadImage
-  }
+    uploadImage,
+  };
 }
