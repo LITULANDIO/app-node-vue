@@ -48,7 +48,6 @@ const onClicked = ($event, user) => emit("onClicked", $event, user);
 
 //# cycle life
 onUpdated(() => {
-  console.log("props users", props.users);
   if (props.guest.name === "") {
     props.isShow = false;
   }

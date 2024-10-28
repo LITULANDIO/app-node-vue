@@ -127,7 +127,6 @@ const onLogin = async () => {
       type: "GET_USER",
       params: result.data.body.id,
     });
-    console.log("authUser", authUser.value);
     (authUser.value.id = result.data.body.id),
       (authUser.value.name = result.data.body.user);
     authUser.value.lastname = result.data.body.lastname;
@@ -190,7 +189,6 @@ const onSubmitForgotPassword = async (email) => {
       showModalSuccess.value = false;
     }, 4000);
   } else {
-    console.log("NO EXISTEIX");
     return false;
   }
 };

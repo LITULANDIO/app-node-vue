@@ -157,7 +157,6 @@ const existingEmail = async (email) => {
 //#events
 const onSubmit = async () => {
   dataUser.id = 0;
-  console.log({ dataUser });
   try {
     await useFetch(`${runtimeConfig.public.apiKey}/users`, {
       method: "POST",

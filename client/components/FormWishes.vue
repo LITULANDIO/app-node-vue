@@ -158,7 +158,6 @@ const onCloseModalSuccess = () => (showModalSuccess.value = false);
 const onSubmitWishes = async () => {
   dataWishes.idGroup = props.data.idGroup;
   dataWishes.idUser = props.data.idUser;
-  console.log({ dataWishes });
   try {
     await DataProvider({
       providerType: "WISHES",

@@ -132,14 +132,12 @@ const onCreateFriend = () => {
 };
 const onCloseModal = () => (isOpenModal.value = false);
 const onSelectUser = (event, idUser) => {
-  console.log({ idUser });
   nextTick(async () => {
     const userSelected = await getUser(idUser);
     idGuest.value = idUser;
     dataFriend.name = event.target.textContent;
     dataFriend.to = currentUser.value.email;
     isShowDropdownUsers.value = false;
-    console.log({ userSelected });
   });
 };
 const onKeyUp = () => {
@@ -196,7 +194,6 @@ const onGoMyFriend = async () => {
   if (groupsUser.value) {
     groupsUser.value.forEach((grup) => {
       if (grup.group.id === group.value.id) {
-        console.log("go my friend -->", grup);
         setFriend(grup);
       }
     });
@@ -219,24 +216,17 @@ const isFriendSelected = () => {
   return isSelect;
 };
 const onSelected = async (data) => {
-  console.log({ data });
-  console.log();
   DataProvider({
     providerType: "GROUPS",
     type: "GET_GROUPS_USER",
     params: authUser.value.id,
   }).then((response) => {
     setGroupsUser(response.body);
-    console.log("response selected", response.body);
     if (data?.user == authUser.value?.id) {
-      console.log("BOTON AMIC", data?.user, "-", authUser.value.id);
       hasSelectedUser.value = data.isSelected;
-    } else {
-      console.log("NO BOTO AMIC", data?.user, "-", authUser.value.id);
     }
     groupsUser.value.forEach((grup) => {
       if (grup.group.id === group.value.id) {
-        console.log("OK FRIEND", grup);
         setFriend(grup);
       }
     });
@@ -245,7 +235,6 @@ const onSelected = async (data) => {
 
 //# functions
 const addUserAdmin = async () => {
-  console.log("guests", guests.value.guests);
   if (guests.value.guests.length === 0) {
     await addGuestInGroup({
       guest: {

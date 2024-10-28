@@ -184,7 +184,6 @@ import { useFriend } from "@/composables/useFriend";
 // const socket = io('https://lopsided-unequaled-garnet.glitch.me');
 const socket = io("https://socket-friend.onrender.com/");
 
-console.log({ socket });
 //# props
 const props = defineProps({
   params: {

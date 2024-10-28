@@ -87,13 +87,11 @@ const data = reactive({
 });
 //#end
 onBeforeMount(() => {
-  console.log("getFriend", getFriend.value);
   const _getFriend = setInterval(() => {
     if (
       friend.value.friend.name !== null &&
       friend.value.friend.name !== undefined
     ) {
-      console.log("setinterval", friend.value);
       clearInterval(_getFriend);
     }
   }, 500);
