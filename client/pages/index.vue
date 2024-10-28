@@ -78,7 +78,7 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { DataProvider } from "@/data-provider/index"
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
@@ -91,7 +91,7 @@ const dataUser = reactive({ email: "", password: ""})
 const showModalForgotPassw = ref(false)
 const showModalSuccess = ref(false)
 const showPassword = ref(false)
-const { getAllUsers } = useUsers()
+const { users, getAllUsers } = useUsers()
 const { user: authUser } = useAuth()
 
 const onLogin = async () => {
@@ -129,6 +129,10 @@ const schema = object({
   password: string().required().label("Your Password"),
 });
 
+onMounted(async () => {
+  await getAllUsers()
+})
+
 const onShowModalForgotPassw = () => {
   showModalForgotPassw.value = true
 }
@@ -139,9 +143,7 @@ const onCloseModalSuccess = () => {
   showModalSuccess.value = false
 }
 const onSubmitForgotPassword = async (email) => {
-
-  const getUsers = await getAllUsers()
-  const userMail = getUsers.body.find(user => user.email === email)
+  const userMail = users.value.find(user => user.email === email)
   if (userMail) {
     const uniqueId = uniqid();
     const data = {
@@ -156,7 +158,7 @@ const onSubmitForgotPassword = async (email) => {
       showModalSuccess.value = true
     })
 
-    DataProvider({
+    await DataProvider({
       providerType: 'MAIL',
       type: 'SENDMAILFORGOT',
       params: {
@@ -170,6 +172,7 @@ const onSubmitForgotPassword = async (email) => {
       showModalSuccess.value = false
     },4000)
   } else {
+    console.log('NO EXISTEIX')
     return false
   }
 }

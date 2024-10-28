@@ -27,7 +27,7 @@ export function useUsers() {
         providerType: 'USERS',
         type: 'GET_USERS',
       })
-      users.value = response?.data?.body
+      users.value = response?.body
     } catch (error) {
       console.error('Error fetching all users:', error)
     }
