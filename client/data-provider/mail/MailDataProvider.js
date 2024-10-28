@@ -1,67 +1,45 @@
 import axios from "axios";
 
-export const MailDataProvider = ({ type, params, baseApiUrl }) => {
-  let options = null;
-
-  switch (type) {
-    case "SENDMAIL":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/users/mail/sendmail`,
-          data: JSON.parse(JSON.stringify(params)),
-          headers: {
-            Accept: "application/json",
-          },
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-
-    case "SENDMAILFORGOT":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/users/mail/forgotPassword`,
-          data: JSON.parse(JSON.stringify(params)),
-          headers: {
-            Accept: "application/json",
-          },
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "SENDMAILSUCCESWISHES":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/users/mail/succesWishes`,
-          data: JSON.parse(JSON.stringify(params)),
-          headers: {
-            Accept: "application/json",
-          },
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
+export const MailDataProvider = async ({ type, params, baseApiUrl }) => {
+  if (!baseApiUrl) {
+    throw new Error("Error: baseApiUrl is required");
   }
-  if (!!options) {
-    let response = axios(options)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => {
-        console.error(
-          `Error calling the url ${options.url} using the the method ${options.method}`,
-          error
-        );
-      });
 
-    return response;
-  } else {
+  const actions = {
+    SENDMAIL: {
+      method: "POST",
+      url: `${baseApiUrl}/users/mail/sendmail`,
+      data: params,
+      headers: { Accept: "application/json" },
+    },
+    SENDMAILFORGOT: {
+      method: "POST",
+      url: `${baseApiUrl}/users/mail/forgotPassword`,
+      data: params,
+      headers: { Accept: "application/json" },
+    },
+    SENDMAILSUCCESWISHES: {
+      method: "POST",
+      url: `${baseApiUrl}/users/mail/succesWishes`,
+      data: params,
+      headers: { Accept: "application/json" },
+    },
+  };
+
+  const options = actions[type];
+  if (!options) {
     console.error("Unsupported Data Provider request parameters");
+    return;
+  }
+
+  try {
+    const response = await axios(options);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error calling the URL ${options.url} with method ${options.method}:`,
+      error
+    );
+    throw error;
   }
 };

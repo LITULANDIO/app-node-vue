@@ -2,73 +2,51 @@ import axios from "axios";
 import { useAuth } from "@/composables/useAuth";
 const { setToken } = useAuth();
 
-export const AuthDataProvider = ({ type, params, baseApiUrl }) => {
-  let options = null;
-  switch (type) {
-    case "LOGIN":
-      if (baseApiUrl) {
-        console.log({ params });
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/auth/login`,
-          data: params,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "LOGOUT":
-      if (baseApiUrl) {
-        options = {
-          method: "GET",
-          url: `${baseApiUrl}/logout`,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "GET_USERS":
-      if (baseApiUrl) {
-        options = {
-          method: "GET",
-          url: `${baseApiUrl}/auth/allUsers`,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "UPDATE_PASSWORD":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/auth/updatePassword`,
-          data: params,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
+export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
+  if (!baseApiUrl) {
+    throw new Error("Error: baseApiUrl is required");
   }
 
-  if (!!options) {
-    let response = axios(options)
-      .then((res) => {
-        if (res.data.body.token) {
-          setToken(res.data.body.token);
-          return res;
-        } else {
-          return res;
-        }
-      })
-      .catch((error) => {
-        console.error(
-          `Error calling the url ${options.url} using the the method ${options.method}`,
-          error
-        );
-      });
+  const actions = {
+    LOGIN: {
+      method: "POST",
+      url: `${baseApiUrl}/auth/login`,
+      data: params,
+    },
+    LOGOUT: {
+      method: "GET",
+      url: `${baseApiUrl}/logout`,
+    },
+    GET_USERS: {
+      method: "GET",
+      url: `${baseApiUrl}/auth/allUsers`,
+    },
+    UPDATE_PASSWORD: {
+      method: "POST",
+      url: `${baseApiUrl}/auth/updatePassword`,
+      data: params,
+    },
+  };
+
+  const options = actions[type];
+  if (!options) {
+    console.error("Unsupported Data Provider request parameters");
+    return;
+  }
+
+  try {
+    const response = await axios(options);
+
+    if (type === "LOGIN" && response.data.body?.token) {
+      setToken(response.data.body.token);
+    }
 
     return response;
-  } else {
-    console.error("Unsupported Data Provider request parameters");
+  } catch (error) {
+    console.error(
+      `Error calling URL ${options.url} with method ${options.method}:`,
+      error
+    );
+    throw error;
   }
 };

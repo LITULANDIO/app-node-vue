@@ -1,93 +1,56 @@
 import axios from "axios";
 
-export const GroupsDataProvider = ({ type, params, baseApiUrl }) => {
-  let options = null;
-
-  switch (type) {
-    case "INSERT_GROUP":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/user/group`,
-          data: JSON.parse(JSON.stringify(params)),
-          headers: {
-            Accept: "application/json",
-          },
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "DELETE_GROUP":
-      if (baseApiUrl) {
-        options = {
-          method: "PUT",
-          url: `${baseApiUrl}/user/group`,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "GET_GROUP":
-      if (baseApiUrl) {
-        options = {
-          method: "GET",
-          url: `${baseApiUrl}/user/group/${params}`,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "GET_GROUPS":
-      if (baseApiUrl) {
-        options = {
-          method: "GET",
-          url: `${baseApiUrl}/user/group`,
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "MATCH_CODE":
-      console.log({ options });
-
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/user/group/matchCode`,
-          data: JSON.parse(JSON.stringify(params)),
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
-    case "GET_GROUPS_USER":
-      if (baseApiUrl) {
-        options = {
-          method: "POST",
-          url: `${baseApiUrl}/user/group/guests/getGroupsGuest`,
-          data: { id: params },
-        };
-      } else {
-        throw new Error("Error baseApiUrl are necessary");
-      }
-      break;
+export const GroupsDataProvider = async ({ type, params, baseApiUrl }) => {
+  if (!baseApiUrl) {
+    throw new Error("Error: baseApiUrl is required");
   }
 
-  if (!!options) {
-    let response = axios(options)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => {
-        console.error(
-          `Error calling the url ${options.url} using the the method ${options.method}`,
-          error
-        );
-      });
+  const actions = {
+    INSERT_GROUP: {
+      method: "POST",
+      url: `${baseApiUrl}/user/group`,
+      data: params,
+      headers: { Accept: "application/json" },
+    },
+    DELETE_GROUP: {
+      method: "PUT",
+      url: `${baseApiUrl}/user/group`,
+    },
+    GET_GROUP: {
+      method: "GET",
+      url: `${baseApiUrl}/user/group/${params}`,
+    },
+    GET_GROUPS: {
+      method: "GET",
+      url: `${baseApiUrl}/user/group`,
+    },
+    MATCH_CODE: {
+      method: "POST",
+      url: `${baseApiUrl}/user/group/matchCode`,
+      data: params,
+    },
+    GET_GROUPS_USER: {
+      method: "POST",
+      url: `${baseApiUrl}/user/group/guests/getGroupsGuest`,
+      data: { id: params },
+    },
+  };
 
-    return response;
-  } else {
+  // Seleccionar la acción correspondiente a 'type'
+  const options = actions[type];
+  if (!options) {
     console.error("Unsupported Data Provider request parameters");
+    return;
+  }
+
+  try {
+    const response = await axios(options);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error calling URL ${options.url} with method ${options.method}:`,
+      error
+    );
+    throw error;
   }
 };

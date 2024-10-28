@@ -6,56 +6,34 @@ import { GuestsDataProvider } from "./guests/GuestsDataProvider";
 import { MailDataProvider } from "./mail/MailDataProvider";
 import { WishesDataProvider } from "./wishes/WishesDataProvider";
 
+const providersMap = {
+  AUTH: AuthDataProvider,
+  USERS: UsersDataProvider,
+  GROUPS: GroupsDataProvider,
+  GUESTS: GuestsDataProvider,
+  MAIL: MailDataProvider,
+  WISHES: WishesDataProvider,
+};
+
 export const DataProvider = ({ providerType, type, params }) => {
-  let data = null;
+  const providerFunction = providersMap[providerType];
 
-  switch (providerType) {
-    case "AUTH":
-      data = AuthDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-    case "USERS":
-      data = UsersDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-    case "GROUPS":
-      data = GroupsDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-    case "GUESTS":
-      data = GuestsDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-    case "MAIL":
-      data = MailDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-    case "WISHES":
-      data = WishesDataProvider({
-        type,
-        params,
-        baseApiUrl: getAPI(),
-      });
-      break;
-
-    default:
-      break;
+  if (!providerFunction) {
+    console.error(`Unsupported provider type: ${providerType}`);
+    return null;
   }
 
-  return data;
+  try {
+    return providerFunction({
+      type,
+      params,
+      baseApiUrl: getAPI(),
+    });
+  } catch (error) {
+    console.error(
+      `Error in DataProvider for ${providerType} with type ${type}:`,
+      error
+    );
+    return null;
+  }
 };
