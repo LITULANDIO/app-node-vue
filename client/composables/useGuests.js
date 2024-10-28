@@ -31,7 +31,6 @@ export const useGuests = (groupId) => {
         type: "GET_GUESTS",
         params: id,
       });
-      console.log("response guests", response.body, "-", id);
       setGuests(response.body);
     } catch (error) {
       console.error("Error fetching guests:", error);
