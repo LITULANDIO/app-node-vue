@@ -2,7 +2,7 @@ import { ref, computed, watch } from "vue";
 import { DataProvider } from "@/data-provider/index";
 import rs from "jsrsasign";
 
-export function useAuth() {
+export const useAuth = () => {
   const userDefault = ref({
     email: "",
     id: "",
@@ -26,26 +26,26 @@ export function useAuth() {
     { deep: true }
   );
 
-  function setToken(token) {
+  const setToken = (token) => {
     if (process.client) {
       localStorage.setItem("TOKEN_USER", token);
     }
-  }
+  };
 
-  function getToken() {
+  const getToken = () => {
     if (process.client) {
       return localStorage.getItem("TOKEN_USER");
     }
-  }
+  };
 
-  function deleteToken() {
+  const deleteToken = () => {
     if (process.client) {
       localStorage.removeItem("TOKEN_USER");
       navigateTo("/");
     }
-  }
+  };
 
-  function checkToken() {
+  const checkToken = () => {
     const token = getToken();
     if (token) {
       let tokenData = rs.b64utos(token.split(".")[1]);
@@ -57,9 +57,9 @@ export function useAuth() {
       return true;
     }
     return false;
-  }
+  };
 
-  async function login(credentials) {
+  const login = async (credentials) => {
     try {
       const response = await DataProvider({
         providerType: "AUTH",
@@ -73,20 +73,18 @@ export function useAuth() {
       console.error("Login error:", error);
       throw error;
     }
-  }
+  };
 
-  function logout() {
+  const logout = () => {
     user.value = null;
     deleteToken();
     deleteAllCookies();
     navigateTo(`/`);
-  }
+  };
 
-  function clearAuthData() {
-    deleteToken();
-  }
+  const clearAuthData = () => deleteToken();
 
-  function deleteAllCookies() {
+  const deleteAllCookies = () => {
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i];
@@ -95,7 +93,7 @@ export function useAuth() {
       document.cookie =
         name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
     }
-  }
+  };
 
   return {
     user,
@@ -107,4 +105,4 @@ export function useAuth() {
     clearAuthData,
     deleteAllCookies,
   };
-}
+};

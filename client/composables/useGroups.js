@@ -1,7 +1,7 @@
 import { ref, watch } from "vue";
 import { DataProvider } from "@/data-provider/index";
 
-export function useGroups() {
+export const useGroups = () => {
   const groupDefault = ref({
     id: "",
     admin: "",
@@ -151,4 +151,4 @@ export function useGroups() {
     setCurrentGroup,
     isLoading,
   };
-}
+};

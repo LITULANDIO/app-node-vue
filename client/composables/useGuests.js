@@ -1,7 +1,7 @@
 import { ref, watch } from "vue";
 import { DataProvider } from "@/data-provider/index";
 
-export function useGuests(groupId) {
+export const useGuests = (groupId) => {
   const guests = ref([]);
   const isLoading = ref(false);
   const isSelected = ref(false);
@@ -96,4 +96,4 @@ export function useGuests(groupId) {
     deleteGuest,
     updateGuest,
   };
-}
+};

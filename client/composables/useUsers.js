@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { DataProvider } from "@/data-provider/index";
 import axios from "axios";
 
-export function useUsers() {
+export const useUsers = () => {
   const users = ref([]);
   const usersSearch = ref([]);
   const currentUser = ref(null);
@@ -71,4 +71,4 @@ export function useUsers() {
     getUser,
     uploadImage,
   };
-}
+};

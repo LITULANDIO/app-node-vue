@@ -1,6 +1,6 @@
 import { ref, watch } from "vue";
 
-export function useFriend(groupId) {
+export const useFriend = (groupId) => {
   const friend = ref(null);
 
   const loadFriendFromLocalStorage = () => {
@@ -37,4 +37,4 @@ export function useFriend(groupId) {
     setFriend,
     getFriend,
   };
-}
+};
