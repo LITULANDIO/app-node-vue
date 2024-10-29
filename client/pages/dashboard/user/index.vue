@@ -23,7 +23,7 @@
   </section>
   <section class="flex justify-center items-center bottom-0 fixed w-full mb-3">
     <Button :label="$t('dashboard.buttonCreate')" @onClicked="onCreateGroup" />
-    <<!--<Button
+    <!--<Button
       :label="$t('dashboard.buttonJoin')"
       @onClicked="onShowModalCodeGroup"
       class="ml-3"
