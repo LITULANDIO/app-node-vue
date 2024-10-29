@@ -7,7 +7,7 @@
     <div class="flex">
       <BackButton class="mt-10" />
       <div class="flex justify-end img-preview">
-        <img :src="`${localImage}?t=${new Date().getTime()}`" />
+        <img :src="localImage" />
       </div>
     </div>
     <form>

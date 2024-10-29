@@ -7,6 +7,7 @@ export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
     throw new Error("Error: baseApiUrl is required");
   }
 
+  // Definir la configuración de cada acción en un objeto
   const actions = {
     LOGIN: {
       method: "POST",
@@ -27,7 +28,8 @@ export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
       data: params,
     },
   };
-
+  debugger;
+  // Seleccionar las opciones según el tipo
   const options = actions[type];
   if (!options) {
     console.error("Unsupported Data Provider request parameters");
@@ -37,6 +39,7 @@ export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
   try {
     const response = await axios(options);
 
+    // Manejo específico para LOGIN: guarda el token
     if (type === "LOGIN" && response.data.body?.token) {
       setToken(response.data.body.token);
     }
@@ -47,6 +50,6 @@ export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
       `Error calling URL ${options.url} with method ${options.method}:`,
       error
     );
-    throw error;
+    throw error; // Lanza el error para manejarlo en el nivel superior si es necesario
   }
 };
