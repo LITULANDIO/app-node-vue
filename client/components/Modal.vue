@@ -76,6 +76,8 @@ section {
       height: auto;
       &-bis {
         padding: 0;
+        overflow-y: scroll;
+        max-height: 225px;
       }
     }
     &-close {
