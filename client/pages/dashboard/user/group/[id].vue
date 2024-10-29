@@ -131,14 +131,12 @@ const onCreateFriend = () => {
   dataFriend.send = authUser.value.email;
 };
 const onCloseModal = () => (isOpenModal.value = false);
-const onSelectUser = (event, idUser) => {
-  nextTick(async () => {
-    const userSelected = await getUser(idUser);
-    idGuest.value = idUser;
-    dataFriend.name = event.target.textContent;
-    dataFriend.to = currentUser.value.email;
-    isShowDropdownUsers.value = false;
-  });
+const onSelectUser = async (event, idUser) => {
+  const userSelected = await getUser(idUser);
+  idGuest.value = idUser;
+  dataFriend.name = event.target.textContent;
+  dataFriend.to = currentUser.value.email;
+  isShowDropdownUsers.value = false;
 };
 const onKeyUp = () => {
   isShowDropdownUsers.value = dataFriend.name.length >= 3;

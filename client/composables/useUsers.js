@@ -39,7 +39,7 @@ export const useUsers = () => {
         type: "GET_USER",
         params: id,
       });
-      currentUser.value = response.body;
+      currentUser.value = response.body[0];
     } catch (error) {
       console.error("Error fetching user:", error);
     }
