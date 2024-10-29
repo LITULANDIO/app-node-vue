@@ -111,7 +111,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, watch } from "vue";
 import { object, string, ref as yupRef } from "yup";
 import { configure } from "vee-validate";
 import { DataProvider } from "@/data-provider/index";
@@ -120,13 +120,14 @@ import { useUsers } from "@/composables/useUsers";
 import { useI18n } from "vue-i18n";
 
 //# const ref reactive
-const { uploadImage, getUser } = useUsers();
+const { uploadImage, getUser, currentUser } = useUsers();
 const { user: authUser } = useAuth();
 const dataUser = reactive({ password: "", confirmed: "", photo: "" });
 const localImage = ref(null);
 const showEdit = ref(true);
 const showModalSuccess = ref(false);
 const showModalSuccessPassw = ref(false);
+const imageRef = ref(null);
 const i18n = useI18n();
 configure({
   validateOnBlur: true,
@@ -145,7 +146,7 @@ const schema = object({
 
 //#cycle life
 onMounted(async () => {
-  localImage.value = authUser.value.photo;
+  localImage.value = imageRef.value || authUser.value.photo;
   DataProvider({
     providerType: "USERS",
     type: "GET_USER",
@@ -155,6 +156,11 @@ onMounted(async () => {
   });
 });
 //#
+
+watch(currentUser, (newVal) => {
+  console.log({ newVal });
+  imageRef.value = newVal.photo;
+});
 
 //# functions
 const onChangePassword = async () => {
@@ -200,14 +206,11 @@ const onupdatePhoto = async () => {
     params: data,
   });
   try {
-    const fetchUser = await getUser(authUser.value.id);
-
+    await getUser(authUser.value.id);
     showEdit.value = true;
     showModalSuccess.value = true;
-    setTimeout(() => {
-      authUser.value.photo = fetchUser.body[0].photo;
-      showModalSuccess.value = false;
-    }, 5000);
+    authUser.value.photo = currentUser.value.photo;
+    showModalSuccess.value = false;
   } catch (error) {
     console.error(error);
   }
