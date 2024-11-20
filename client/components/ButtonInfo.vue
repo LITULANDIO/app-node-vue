@@ -4,15 +4,24 @@
   </div>
   <Modal header="Info" :show="showInfo" @onClose="onClose">
     <p>
+      <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
+      <span class="pl-2">{{ changeFormatDate(group.date) }}</span>
+    </p>
+    <p>
       <font-awesome-icon
         icon="fa-solid fa-location-dot"
         class="icon text-1xl"
       />
       <span class="pl-2">{{ group.location }}</span>
-    </p>
-    <p>
-      <font-awesome-icon icon="fa-solid fa-calendar" class="icon text-1xl" />
-      <span class="pl-2">{{ changeFormatDate(group.date) }}</span>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.171337772286!2d2.1847932767863587!3d41.435503771293845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bd00083afe8f%3A0x337e31d71bc71953!2sArami.bcn!5e0!3m2!1sca!2ses!4v1732112817482!5m2!1sca!2ses"
+        width="100%"
+        height="250"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </p>
     <p>
       <font-awesome-icon icon="fa-solid fa-sack-dollar" class="icon text-1xl" />
