@@ -256,7 +256,7 @@ const selectedFriends = computed(() =>
 );
 const guestsList = computed(() => {
   const list = guests.value.guests || [];
-  return list.sort((a, b) => a.localeCompare(b));
+  return list.sort((a, b) => a.user.localeCompare(b));
 });
 //#end
 
