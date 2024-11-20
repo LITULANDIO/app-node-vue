@@ -254,7 +254,10 @@ const unselectedFriends = computed(() =>
 const selectedFriends = computed(() =>
   guests.value?.guests.filter((guest) => guest.active === 1)
 );
-const guestsList = computed(() => guests.value.guests || []);
+const guestsList = computed(() => {
+  const list = guests.value.guests || [];
+  return list.sort((a, b) => a.localeCompare(b));
+});
 //#end
 
 //#cycle of life
