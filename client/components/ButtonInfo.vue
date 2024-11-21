@@ -13,15 +13,17 @@
         class="icon text-1xl"
       />
       <span class="pl-2 py-3">{{ group.location }}</span>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.171337772286!2d2.1847932767863587!3d41.435503771293845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bd00083afe8f%3A0x337e31d71bc71953!2sArami.bcn!5e0!3m2!1sca!2ses!4v1732112817482!5m2!1sca!2ses"
-        width="100%"
-        height="250"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      <template v-if="group.id === 235">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.171337772286!2d2.1847932767863587!3d41.435503771293845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bd00083afe8f%3A0x337e31d71bc71953!2sArami.bcn!5e0!3m2!1sca!2ses!4v1732112817482!5m2!1sca!2ses"
+          width="100%"
+          height="250"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </template>
     </p>
     <p>
       <font-awesome-icon icon="fa-solid fa-sack-dollar" class="icon text-1xl" />
