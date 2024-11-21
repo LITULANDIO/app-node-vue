@@ -160,6 +160,7 @@
         :value="guests.id"
         v-model="selectedItems"
         @change="onChangeSelected"
+        :disabled="selectedItems.includes(guests.id)"
       />
       <label class="ml-1 capitalize" :for="guests.id">{{ guests.user }}</label>
     </div>
@@ -244,6 +245,14 @@ const onCloseGuestList = () => (showGuestList.value = false);
 const onCloseModalWarnFriend = () => (showModalWarnFriend.value = false);
 const isMatchFriendList = (id) =>
   selectedItems.value.some((item) => item === id);
+const onChangeSelected = (event) => {
+  const value = event.target.value;
+  if (selectedItems.value.includes(value)) {
+    selectedItems.value = selectedItems.value.filter((item) => item !== value);
+  } else {
+    selectedItems.value = [value];
+  }
+};
 //#end
 
 //#computed
