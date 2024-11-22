@@ -184,7 +184,12 @@ import { useFriend } from "@/composables/useFriend";
 // })
 // const socket = io('http://localhost:3001');
 // const socket = io('https://lopsided-unequaled-garnet.glitch.me');
-const socket = io("https://socket-friend.onrender.com/");
+const socket = io("https://socket-friend.onrender.com/", {
+  reconnection: true, // Permitir reconexión automática
+  reconnectionAttempts: 5, // Intentos de reconexión
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+});
 
 //# props
 const props = defineProps({
@@ -299,9 +304,6 @@ onMounted(() => {
 
   socket.on("disconnect", (reason) => {
     console.log("Disconnected from server: ", reason);
-    setTimeout(() => {
-      socket.connect();
-    }, 5000);
   });
 
   socket.on("selectionConflict", (data) => {
@@ -322,7 +324,7 @@ onUnmounted(() => {
   socket.off("guestUpdatedCompleted");
   socket.off("selectionConflict");
   socket.off("updateError");
-  socket.disconnect();
+  socket.off("successGuest");
 });
 //#end
 
