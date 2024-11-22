@@ -154,7 +154,7 @@
   </Button>
   <Modal :show="showGuestList" @onClose="onCloseGuestList" padding>
     <div v-for="guests in guestsList" :key="guests.id">
-      <span class="mx-3">Total invisibles: {{ guestList.length }} </span>
+      <span class="mx-3">Total invisibles: {{ guestsList.length }} </span>
       <input
         type="checkbox"
         :id="guests.id"
