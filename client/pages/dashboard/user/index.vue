@@ -8,7 +8,6 @@
   <div style="margin-top: 1rem">
     <Countdown />
   </div>
-  <Countdown />
   <section id="modal">
     <ModalCreateGroup
       :isOpen="isOpenModalCreate"

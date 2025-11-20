@@ -12,7 +12,7 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
 // Duración inicial en segundos (15 minutos)
-const duration = ref(12 * 60);
+const duration = ref(7 * 60);
 const finished = ref(false);
 let timer = null;
 
