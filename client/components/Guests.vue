@@ -139,8 +139,7 @@
             class="icon text-teal-600 text-3xl mb-2"
           />
           <p class="mb-3">
-            Ha ocurrido un error al actualizar el invitado. Ponte en contacto
-            con Litus.
+            Alguien ha escogido un usuario. El que no corre vuela ❤️
           </p>
           <pre v-if="modalDebug.length">{{ modalDebug.join("\n") }}</pre>
         </div>
