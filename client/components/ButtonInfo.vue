@@ -27,8 +27,8 @@
       <template v-if="group.id === 243">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.901276621872!2d2.1599330767840175!3d41.37622957130132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a260d41e63b7%3A0x6f53079cbf345c7f!2sParlament%20Cuina%20de%20Barri!5e0!3m2!1ses!2ses!4v1763663084492!5m2!1ses!2ses"
-          width="600"
-          height="450"
+          width="100%"
+          height="220"
           style="border: 0"
           allowfullscreen=""
           loading="lazy"
