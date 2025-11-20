@@ -75,6 +75,8 @@
           </div>
         </template>
       </div>
+
+      <!-- MODALES -->
       <Modal :show="showModalWarning1" @onClose="onCloseModalWarn1" padding>
         <div class="text-center">
           <font-awesome-icon
@@ -84,6 +86,7 @@
           <p class="mb-3">{{ $t("modals.warning1.text") }}</p>
         </div>
       </Modal>
+
       <Modal :show="showModalWarning2" @onClose="onCloseModalWarn2" padding>
         <div class="text-center">
           <font-awesome-icon
@@ -93,6 +96,7 @@
           <p class="mb-3">{{ $t("modals.warning2.text") }}</p>
         </div>
       </Modal>
+
       <Modal :show="showModalSuccess" @onClose="onCloseModalSuccess" padding>
         <div class="text-center">
           <font-awesome-icon
@@ -102,6 +106,7 @@
           <p class="mb-3">{{ $t("modals.success.text") }}</p>
         </div>
       </Modal>
+
       <Modal :show="isDeleteGuest" @onClose="onCloseModalDelete" padding>
         <div class="text-center">
           <font-awesome-icon
@@ -121,6 +126,8 @@
           </div>
         </div>
       </Modal>
+
+      <!-- MODAL DE INFO ACTUALIZADO -->
       <Modal
         :show="showModalInfoGuest"
         @onClose="onCloseModalInfoGuest"
@@ -131,9 +138,14 @@
             icon="fa-solid fa-circle-info"
             class="icon text-teal-600 text-3xl mb-2"
           />
-          <p class="mb-3">{{ $t("modals.info.text") }}</p>
+          <p class="mb-3">
+            Ha ocurrido un error al actualizar el invitado. Ponte en contacto
+            con Litus.
+          </p>
+          <pre v-if="modalDebug.length">{{ modalDebug.join("\n") }}</pre>
         </div>
       </Modal>
+
       <Modal
         :show="showModalWarnFriend"
         @onClose="onCloseModalWarnFriend"
@@ -149,6 +161,7 @@
       </Modal>
     </div>
   </Transition>
+
   <Button class="custom-btn" @onClicked="onShowGuestList">
     <img src="/user-off.svg" />
   </Button>
@@ -177,16 +190,9 @@ import { useGuests } from "@/composables/useGuests";
 import { useGroups } from "@/composables/useGroups";
 import { useFriend } from "@/composables/useFriend";
 
-// const socket = io('wss://socket-friends.quisqui.com', {
-//   reconnection: true,
-//   reconnectionAttempts: 5,
-//   reconnectionDelay: 1000,
-// })
-// const socket = io('http://localhost:3001');
-// const socket = io('https://lopsided-unequaled-garnet.glitch.me');
 const socket = io("https://socket-friend.onrender.com/", {
-  reconnection: true, // Permitir reconexión automática
-  reconnectionAttempts: 5, // Intentos de reconexión
+  reconnection: true,
+  reconnectionAttempts: 5,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
 });
@@ -204,16 +210,16 @@ const props = defineProps({
 //#end
 
 //# const ref
-const { user: authUser, isAuthenticated } = useAuth();
+const { user: authUser } = useAuth();
 const { group, groupsUser, setGroupsUser } = useGroups();
-const { guests, setGuests, isLoading } = useGuests(group.value.id);
-const { setFriend } = useFriend(group.value.id);
+const { guests, isLoading } = useGuests(group.value.id);
 
 const selectedGuestId = ref(null);
 const showModalWarning1 = ref(false);
 const showModalWarning2 = ref(false);
 const showModalSuccess = ref(false);
 const showModalInfoGuest = ref(false);
+const modalDebug = ref([]);
 const route = useRoute();
 const isDeleteGuest = ref(false);
 const guestSelected = ref(null);
@@ -234,7 +240,10 @@ const deleteGuest = () => {
 const onCloseModalWarn1 = () => (showModalWarning1.value = false);
 const onCloseModalWarn2 = () => (showModalWarning2.value = false);
 const onCloseModalSuccess = () => (showModalSuccess.value = false);
-const onCloseModalInfoGuest = () => (showModalInfoGuest.value = false);
+const onCloseModalInfoGuest = () => {
+  showModalInfoGuest.value = false;
+  modalDebug.value = [];
+};
 const getIdGroup = () => {
   if (group.value.snug === route.params.id) {
     return { id: group.value.id };
@@ -283,9 +292,13 @@ onMounted(() => {
     guests.value.guests.forEach((g) => {
       if (g.hashGuest === updatedGuestData.idGuest) {
         g.active = 1;
-        selectedGuestId.value = guest.id;
+        selectedGuestId.value = g.id;
         if (ids.idUser !== authUser.value.id) {
           showModalInfoGuest.value = true;
+          modalDebug.value = [
+            `ID usuario: ${ids.idUser}`,
+            `ID invitado: ${updatedGuestData.idGuest}`,
+          ];
         }
       }
     });
@@ -308,12 +321,12 @@ onMounted(() => {
 
   socket.on("selectionConflict", (data) => {
     showModalInfoGuest.value = true;
-    alert(data.message);
+    modalDebug.value = [data.message];
   });
 
   socket.on("updateError", (data) => {
     showModalInfoGuest.value = true;
-    alert(data.message);
+    modalDebug.value = [data.message];
   });
 });
 
