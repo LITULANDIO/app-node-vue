@@ -5,6 +5,10 @@
   <section class="flex justify-center items-center flex-col">
     <Groups :key="groups.length" @onClicked="onGoGroup" />
   </section>
+  <div style="margin-top: 1rem">
+    <Countdown />
+  </div>
+  <Countdown />
   <section id="modal">
     <ModalCreateGroup
       :isOpen="isOpenModalCreate"
