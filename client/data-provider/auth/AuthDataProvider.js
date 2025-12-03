@@ -28,7 +28,6 @@ export const AuthDataProvider = async ({ type, params, baseApiUrl }) => {
       data: params,
     },
   };
-  debugger;
   // Seleccionar las opciones según el tipo
   const options = actions[type];
   if (!options) {
